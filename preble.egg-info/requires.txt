@@ -1,0 +1,5 @@
+scipy
+matplotlib
+datasets
+paramiko
+fire

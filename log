@@ -1,0 +1,43 @@
+1 0
+model /hy-tmp/ loaded.
+You pressed Ctrl+C! Shutting down all remote servers...
+lora manager ready.
+req lora_uid: tloen/alpaca-lora-7b
+9 tensor([0], device='cuda:0', dtype=torch.int32) 2
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+9 None 3
+req lora_uid: tloen/alpaca-lora-7b
+1 tensor([8], device='cuda:0', dtype=torch.int32) 2
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+1 None 3
+You pressed Ctrl+C! Shutting down all remote servers...
+Server is on port 30000 on host 0.0.0.0 on pid 43722
+You pressed Ctrl+C! Shutting down all remote servers...
+Loading runtimes at ['http://0.0.0.0:30000/generate']
+You pressed Ctrl+C! Shutting down all remote servers...
