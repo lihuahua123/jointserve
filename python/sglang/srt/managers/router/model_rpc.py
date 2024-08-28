@@ -660,6 +660,12 @@ class ModelRpcServer:
             new_batch = self.get_new_fill_batch_v2()
         else:
             new_batch = self.get_new_fill_batch()
+
+        cur_loras = []
+        for req in new_batch.reqs:
+            if req.lora_uid is not None:
+                cur_loras.append(req.lora_uid)
+        self.model_runner.lora_manager.load_loras_from_path(cur_loras)
         forward_times = []
         if new_batch is not None:
             # Run new fill batch
@@ -1462,10 +1468,13 @@ class ModelRpcServer:
         output_finished = []
         finished_indices = []
         unfinished_indices = []
+        remain_loras = set()
         for i, req in enumerate(batch.reqs):
             if req.finished:
                 finished_indices.append(i)
             else:
+                if req.lora_uid is not None:
+                    remain_loras.add(req.lora_uid)
                 unfinished_indices.append(i)
 
             if req.finished or (
@@ -1550,6 +1559,7 @@ class ModelRpcServer:
             # Update batch tensors
             if unfinished_indices:
                 batch.filter_batch(unfinished_indices)
+                self.model_runner.lora_manager.infer_adapter.offload_adapters(remain_loras)
             else:
                 batch.reqs = []
 

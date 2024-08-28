@@ -87,13 +87,13 @@ class InferAdapter:
             self.load_lora(new_adapter, new_loc[cum_loc: cum_loc + self.a_len[len_offset + i]])
 
     def offload_adapters(self, reserve_adapter_dirs):
-        if len(reserve_adapter_dirs) == len(self.adapter_dirs):
-            print(f"offload 0 adapters, {len(self.adapter_dirs)} remains")
+        if len(reserve_adapter_dirs) == len(self.adapter_uids):
+            print(f"offload 0 adapters, {len(self.adapter_uids)} remains")
             return
         if len(reserve_adapter_dirs) == 0:
-            print(f"offload {len(self.adapter_dirs)} adapters, 0 remains")
+            print(f"offload {len(self.adapter_uids)} adapters, 0 remains")
             self.mem_manager.free(self.a_loc)
-            self.adapter_dirs=[]
+            self.adapter_uids=[]
             self.a_loc=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_start=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_len=torch.empty(0, dtype=torch.long, device="cuda")
@@ -106,7 +106,7 @@ class InferAdapter:
         left_ind = []
         new_adapter_dirs = []
         self.idx_map = {}
-        for i, adapter_dir in enumerate(self.adapter_dirs):
+        for i, adapter_dir in enumerate(self.adapter_uids):
             if adapter_dir not in reserve_adapter_dirs:
                 remove_ind.append(self.a_loc[self.a_start[i]:self.a_start[i] + self.a_len[i]])
             else:
@@ -116,7 +116,7 @@ class InferAdapter:
         if len(remove_ind) == 0:
             return
         # mark_end("offload scan")
-        self.adapter_dirs = new_adapter_dirs
+        self.adapter_uids = new_adapter_dirs
         tot_size = torch.sum(self.a_len[left_ind]).item()
         print(f"offload {len(remove_ind)} adapters, {len(left_ind)} remains")
 

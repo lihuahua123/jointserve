@@ -403,8 +403,6 @@ class ModelRunner:
         logger.info(f"Rank {self.tp_rank}: load weight end.")
         
 
-    def load_loras_from_path(self, loras: List[str]):
-        self.lora_manager.load_loras_from_path(loras)
 
     def profile_max_num_token(self, total_gpu_memory):
         available_gpu_memory = get_available_gpu_memory(
