@@ -133,7 +133,7 @@ class RadixCache:
 
     def total_size(self):
         return self._total_size_helper(self.root_node)
-
+    # 正是这里和vllm有时间上的区别，vllm的链表只需要去除最旧的几个就行，这里还需要dfs 遍历+堆排序
     def evict(self, num_tokens, evict_callback, collect_evicted_node=False):
         # curr_evict = self.evictable_size()
         # start = time.perf_counter()

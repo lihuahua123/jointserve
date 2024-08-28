@@ -260,6 +260,7 @@ class ModelRpcServer:
         Note: Handle as a seperate async request to avoid blocking the existing function
         """
         start_time = time.time()
+        # FIXME: including the lora_id
         prefix_indices, last_node = self.tree_cache.match_prefix(recv_req.input_ids)
         # max_prefix_match = max(len(prefix_indices), self.waiting_queue_prefix_hit(recv_req))
         max_prefix_match = len(prefix_indices)
@@ -791,7 +792,13 @@ class ModelRpcServer:
     def check_req_hit(self, queue: List[Req], skip: bool=False):
         if not skip:
             for req in queue:
-                prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
+                if req.lora_uid is not None:
+                    token_id = req.input_ids[0]
+                    req.input_ids[0] = (req.lora_uid, token_id)
+                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
+                    req.input_ids[0] = token_id
+                else:
+                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
                 if req.return_logprob:
                     prefix_indices = prefix_indices[: req.logprob_start_len]
                 req.extend_input_len = len(req.input_ids) - len(prefix_indices)
