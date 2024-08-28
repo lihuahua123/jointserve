@@ -23,9 +23,12 @@ from fastapi.responses import JSONResponse
 from packaging import version as pkg_version
 from pydantic import BaseModel
 from starlette.middleware.base import BaseHTTPMiddleware
-
+import enum
 show_time_cost = False
 time_infos = {}
+class Device(enum.Enum):
+    GPU = enum.auto()
+    CPU = enum.auto()
 
 def replace_submodule(model: nn.Module, module_name: str,
                       new_module: nn.Module) -> nn.Module:

@@ -40,7 +40,7 @@ from sglang.srt.utils import (
     get_int_token_logit_bias,
     is_multimodal_model,
     set_random_seed,
-    get_exception_traceback,
+    get_exception_traceback
 )
 from collections import deque
 import os
