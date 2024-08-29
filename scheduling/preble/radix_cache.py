@@ -48,7 +48,7 @@ def _key_match(key0, key1):
     return i
 
 
-class RadixCache():
+class RadixCache:
     def __init__(self):
         self.reset()
         self.disable = False
@@ -83,8 +83,6 @@ class RadixCache():
         if value is None:
             value = [x for x in key]
         return self._insert_helper(self.root_node, key, value)
-
-    
 
     def pretty_print(self):
         self._print_helper(self.root_node, 0)
@@ -235,7 +233,6 @@ class RadixCache():
 
         dfs_(self.root_node)
         return ret_list
-
 
 if __name__ == "__main__":
     tree = RadixCache()

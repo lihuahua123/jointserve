@@ -38,11 +38,16 @@ class ReqToTokenPool:
 
 class TokenToKVPool:
     def __init__(self, gpu_size, dtype, head_num, head_dim, layer_num, simulate, cpu_size=0):
-        self.mem_state = torch.zeros((gpu_size+cpu_size,), dtype=torch.int16, device="cuda"),
+        self.mem_state = {
+            "cuda": torch.zeros((gpu_size,), dtype=torch.int16, device="cuda"),
+            "cpu": torch.zeros((cpu_size,), dtype=torch.int16, device="cpu"),
+        }
+        
         self.total_ref_ct = 0  # 这个暂时好像没什么用
         self.simulate = simulate
         self.gpu_size = gpu_size
         self.cpu_size = cpu_size
+        self.layer_num = layer_num
         if not self.simulate:
             # [size, key/value, head_num, head_dim] for each layer
             self.kv_data = {
@@ -67,26 +72,18 @@ class TokenToKVPool:
         return self.kv_data[device][layer_id][:, 1]
 
     def alloc(self, need_size, device = "cuda"):
-        if device == "cuda":
-            select_index = torch.nonzero(
-                self.mem_state[:self.gpu_size] == 0).squeeze(1)[:need_size]
-        else:
-            select_index = torch.nonzero(
-                self.mem_state[self.gpu_size:] == 0).squeeze(1)[:need_size]
+        select_index = torch.nonzero(
+                self.mem_state[device] == 0).squeeze(1)[:need_size]
         if select_index.shape[0] < need_size:
             return None
-
+        select_index.to(device)
         self.add_refs(select_index)
         return select_index.to(torch.int32)
-    def swap(self,src_device,dst_device):
-       pass 
-    def alloc_contiguous(self, need_size, device = "cuda"):
-        if device == "cuda":    
-            empty_index = torch.nonzero(
-                self.mem_state[:self.gpu_size] == 0).squeeze(1)[:need_size]
-        else:
-            empty_index = torch.nonzero(
-                self.mem_state[self.gpu_size:] == 0).squeeze(1)[:need_size]
+
+    def alloc_contiguous(self, need_size, device = "cuda"):   
+        empty_index = torch.nonzero(
+            self.mem_state[device] == 0).squeeze(1)[:need_size]
+
         if empty_index.shape[0] < need_size:
             return None
         empty_size = len(empty_index)
@@ -108,34 +105,24 @@ class TokenToKVPool:
         return select_index.to(torch.int32), start_loc, start_loc + need_size
 
     def used_size(self, device = "cuda"):
-        if device == "cuda":
-            return len(torch.nonzero(self.mem_state[:self.gpu_size]).squeeze(1))
-        elif device == "cpu":
-            return len(torch.nonzero(self.mem_state[self.gpu_size:]).squeeze(1))
-        elif device == "all":
-            return len(torch.nonzero(self.mem_state).squeeze(1))
+        if device == "cuda" or device == "cpu":
+            return len(torch.nonzero(self.mem_state[device]).squeeze(1))
 
     def available_size(self, device = "cuda"):
-        if device == "cuda":
-            return torch.sum(self.mem_state[:self.gpu_size] == 0).item()
-        elif device == "cpu":
-            return torch.sum(self.mem_state[self.gpu_size:] == 0).item()
-        elif device == "all":
-            return torch.sum(self.mem_state == 0).item()
-        
+        if device == "cuda" or device == "cpu":
+            return torch.sum(self.mem_state[device] == 0).item()
 
     def add_refs(self, token_index: torch.Tensor):
         self.total_ref_ct += len(token_index)
-        self.mem_state[token_index] += 1
+        self.mem_state[token_index.device][token_index] += 1
 
     def dec_refs(self, token_index: torch.Tensor):
         self.total_ref_ct -= len(token_index)
-        self.mem_state[token_index] -= 1
-
-        num_freed = torch.sum(self.mem_state[token_index] == 0)
-
+        self.mem_state[token_index.device][token_index] -= 1
+        num_freed = torch.sum(self.mem_state[token_index.device][token_index] == 0)
         return num_freed
 
-    def clear(self, device = "cuda"):
-        self.mem_state.fill_(0)
+    def clear(self):
+        self.mem_state["cpu"].fill_(0)
+        self.mem_state["cuda"].fill_(0)
         self.total_ref_ct = 0

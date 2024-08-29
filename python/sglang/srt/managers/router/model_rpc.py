@@ -31,7 +31,7 @@ from sglang.srt.managers.io_struct import (
 )
 from sglang.srt.managers.router.infer_batch import Batch, ForwardMode, Req, SchedulingBudget, FinishReason
 from sglang.srt.managers.router.model_runner import ModelRunner
-from sglang.srt.managers.router.radix_cache import RadixCache
+from sglang.srt.managers.router.radix_cache import RadixCache, RadixCacheMix
 from sglang.srt.managers.router.scheduler import Scheduler
 from sglang.srt.model_config import ModelConfig
 from sglang.srt.server_args import PortArgs, ServerArgs
@@ -140,7 +140,8 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCache(
+        self.tree_cache = RadixCacheMix(
+            max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
             disable=server_args.disable_radix_cache,
@@ -261,7 +262,7 @@ class ModelRpcServer:
         """
         start_time = time.time()
         # FIXME: including the lora_id
-        prefix_indices, last_node = self.tree_cache.match_prefix(recv_req.input_ids)
+        prefix_indices, last_node,prefix_indices_list = self.tree_cache.match_prefix(recv_req.input_ids)
         # max_prefix_match = max(len(prefix_indices), self.waiting_queue_prefix_hit(recv_req))
         max_prefix_match = len(prefix_indices)
         match_overhead = time.time() - start_time
@@ -801,12 +802,13 @@ class ModelRpcServer:
                 if req.lora_uid is not None:
                     token_id = req.input_ids[0]
                     req.input_ids[0] = (req.lora_uid, token_id)
-                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
+                    prefix_indices, last_node, prefix_indices_list = self.tree_cache.match_prefix(req.input_ids)
                     req.input_ids[0] = token_id
                 else:
-                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
+                    prefix_indices, last_node, prefix_indices_list = self.tree_cache.match_prefix(req.input_ids)
                 if req.return_logprob:
                     prefix_indices = prefix_indices[: req.logprob_start_len]
+                self.tree_cache.move_value_to_cuda(prefix_indices_list)
                 req.extend_input_len = len(req.input_ids) - len(prefix_indices)
                 req.prefix_indices = prefix_indices
                 req.last_node = last_node

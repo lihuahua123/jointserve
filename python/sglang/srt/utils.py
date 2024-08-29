@@ -24,11 +24,10 @@ from packaging import version as pkg_version
 from pydantic import BaseModel
 from starlette.middleware.base import BaseHTTPMiddleware
 import enum
+import psutil
+
 show_time_cost = False
 time_infos = {}
-class Device(enum.Enum):
-    GPU = enum.auto()
-    CPU = enum.auto()
 
 def replace_submodule(model: nn.Module, module_name: str,
                       new_module: nn.Module) -> nn.Module:
@@ -108,11 +107,21 @@ def calculate_time(show=False, min_cost_ms=0.0):
 
     return wrapper
 
+def get_available_cpu_memory(distributed=0):
+    """
+    返回byte
+    """
+    cpu_memory = psutil.virtual_memory().available
+    if distributed != 0:
+        return cpu_memory/distributed
+    else:
+        return cpu_memory
 
 def get_available_gpu_memory(gpu_id, distributed=True):
     """
     Get available memory for cuda:gpu_id device.
     When distributed is True, the available memory is the minimum available memory of all GPUs.
+    GB
     """
     num_gpus = torch.cuda.device_count()
     assert gpu_id < num_gpus

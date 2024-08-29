@@ -19,7 +19,7 @@ from vllm.model_executor.model_loader.utils import set_default_torch_dtype
 
 from sglang.srt.managers.router.infer_batch import Batch, ForwardMode
 from sglang.srt.memory_pool import ReqToTokenPool, TokenToKVPool
-from sglang.srt.utils import get_available_gpu_memory, is_multimodal_model
+from sglang.srt.utils import get_available_cpu_memory, get_available_gpu_memory, is_multimodal_model
 
 
 QUANTIZATION_CONFIG_MAPPING = {
@@ -333,12 +333,13 @@ class ModelRunner:
             #     init_method=f"tcp://127.0.0.1:{self.nccl_port}",
             # )
             initialize_model_parallel(tensor_model_parallel_size=self.tp_size,backend="nccl")
-
+            cpu_memory = get_available_cpu_memory(self.tp_size)
             total_gpu_memory = get_available_gpu_memory(
                 self.tp_rank, distributed=self.tp_size > 1
             ) * (1 << 30)
             self.load_model()
-            self.max_total_num_token = self.profile_max_num_token(total_gpu_memory)
+            self.max_total_num_token = self.profile_max_num_token(total_gpu_memory,total_gpu_memory)
+            self.max_cpu_num_token = self.profile_max_num_token(cpu_memory,cpu_memory)
         else:
             self.max_total_num_token = self.profile_simulated_num_token(gpu_config)
         self.init_memory_pool()
@@ -404,10 +405,7 @@ class ModelRunner:
         
 
 
-    def profile_max_num_token(self, total_gpu_memory):
-        available_gpu_memory = get_available_gpu_memory(
-            self.tp_rank, distributed=self.tp_size > 1
-        ) * (1 << 30)
+    def profile_max_num_token(self, total_gpu_memory, available_gpu_memory):
         head_dim = self.model_config.head_dim
         head_num = self.model_config.num_key_value_heads // self.tp_size
         cell_size = head_num * head_dim * self.model_config.num_hidden_layers * 2 * 2
@@ -444,7 +442,8 @@ class ModelRunner:
             head_num=self.model_config.num_key_value_heads // self.tp_size,
             head_dim=self.model_config.head_dim,
             layer_num=self.model_config.num_hidden_layers,
-            simulate=self.simulate
+            simulate=self.simulate,
+            cpu_size=self.max_cpu_num_token
         )
 
     @torch.inference_mode()
