@@ -360,14 +360,19 @@ class RadixCacheMix(RadixCache):
             return  
         for v in value_list:
             if v.device.type == "cpu":
-                # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用
-                self.evict(len(v),self.token_to_kv_pool.dec_refs)
+                new_index = self.token_to_kv_pool.alloc(len(v))
+                if new_index is None:
+                    # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用
+                    self.evict(len(v),self.token_to_kv_pool.dec_refs)
+                    new_index = self.token_to_kv_pool.alloc(len(v))    
                 self.token_to_kv_pool.dec_refs(v)
                 if move_kv:
                     for i in range(self.token_to_kv_pool.layer_num):
-                        self.token_to_kv_pool.kv_data["cuda"][i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
-                v=v.to("cuda")
-                self.token_to_kv_pool.add_refs(v)
+                        self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
+                # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
+                self.token_to_kv_pool.add_refs(new_index)
+                # FIXME：这块节点的value也要改变吧
+                v = new_index
                 
     #NOTE: tree node should not be deleted if partial eviction
     def _delete_leaf(self, node, num_evict_token):
@@ -437,13 +442,15 @@ class RadixCacheMix(RadixCache):
             num_gpu_evicted += free_num
             self.evictable_size_ -= len(x.value)
             logger.info(f'GPU move to cpu')
-            x.value = x.value.to("cpu")
+            new_cpu_indices = self.token_to_kv_pool.alloc(free_num,"cpu")
+            # 前面已经驱逐了need_to_evicted_cpu，按理来说应该能alloc的
+            assert new_cpu_indices is not None
             # 到这里的都是没人引用kv cache的x.lock_ref = 0，这里cuda 上的kv_data是否还有意义？token_to_kv_pool的ref>0 肯定有意义
             # 就在刚刚token_to_kv_pool.dec_refs减到0了，所以正好把他挪走
             # 走到这里来，都是free_num == len(x.value) 即x.value的ref全部为0的
             for i in range(self.token_to_kv_pool.layer_num):
-                self.token_to_kv_pool.kv_data["cpu"][i][x.value] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
-
+                self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+            x.value =  new_cpu_indices 
             self.token_to_kv_pool.add_refs(x.value)
             self.cur_cpu_tokens += len(x.value)
     
