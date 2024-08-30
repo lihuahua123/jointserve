@@ -35,7 +35,7 @@ class ReqToTokenPool:
         self.can_use_mem_size = len(self.mem_state)
 
 
-class TokenToKVPool:
+class TokenToKVPoolOrg:
     def __init__(self, size, dtype, head_num, head_dim, layer_num, simulate,cpu_size=0):
         self.mem_state = torch.zeros((size,), dtype=torch.int16, device="cuda")
         self.total_ref_ct = 0
@@ -105,7 +105,7 @@ class TokenToKVPool:
         self.mem_state.fill_(0)
         self.total_ref_ct = 0
         
-class TokenToKVPoolMix:
+class TokenToKVPool:
     def __init__(self, gpu_size, dtype, head_num, head_dim, layer_num, simulate, cpu_size=0):
         self.mem_state = {
             "cuda": torch.zeros((gpu_size,), dtype=torch.int16, device="cuda"),
@@ -145,7 +145,7 @@ class TokenToKVPoolMix:
                 self.mem_state[device] == 0).squeeze(1)[:need_size]
         if select_index.shape[0] < need_size:
             return None
-        select_index.to(device)
+        select_index = select_index.to(device)
         self.add_refs(select_index)
         return select_index.to(torch.int32)
 
@@ -182,10 +182,14 @@ class TokenToKVPoolMix:
             return torch.sum(self.mem_state[device] == 0).item()
 
     def add_refs(self, token_index: torch.Tensor):
+        if len(token_index.device.type) > 4:
+            token_index.device.type = token_index.device.type[:4]
         self.total_ref_ct += len(token_index)
         self.mem_state[token_index.device.type][token_index] += 1
 
     def dec_refs(self, token_index: torch.Tensor):
+        if len(token_index.device.type) > 4:
+            token_index.device.type = token_index.device.type[:4]
         self.total_ref_ct -= len(token_index)
         self.mem_state[token_index.device.type][token_index] -= 1
         num_freed = torch.sum(self.mem_state[token_index.device.type][token_index] == 0)

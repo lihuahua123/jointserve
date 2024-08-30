@@ -272,8 +272,8 @@ def start_server_and_load_models(model_name="/hy-tmp/", devices=[0], host="127.0
     """
     server_args = {
         'log_prefix_hit': True,
-        'mem_fraction_static': 0.85,
-        'context_length': 32768,
+        'mem_fraction_static': 0.80,
+        'context_length': 33768, #32768,
         "enable_flashinfer": True,
         'schedule_heuristic':'fcfs',#'lora',
         "chunk_prefill_budget": 0,

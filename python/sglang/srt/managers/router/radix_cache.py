@@ -22,6 +22,7 @@ class TreeNode:
         self.value = None
         self.lock_ref = 0
         self.last_access_time = time.time()
+        self.cpu_children_cnt = 0
 
     def __lt__(self, other: "TreeNode"):
         return self.last_access_time < other.last_access_time
@@ -73,22 +74,19 @@ class RadixCache:
         self.evicted_iteration = []
 
     def match_prefix(self, key):
+        """
+        返回value list而不是concat过后的 value
+        """
         if self.disable:
             return [], self.root_node
-
-        value = []
-        value_list = None
+        value_list = []
         last_node = [self.root_node]
-        self._match_prefix_helper(self.root_node, key, value, last_node)
-        if value:
-            value_list = value
-            value = torch.concat(value)
-        else:
-            value = torch.tensor([], dtype=torch.int64)
-        return value, last_node[0], value_list
+        self._match_prefix_helper(self.root_node, key, value_list, last_node)
+        
+        return value_list, last_node[0]
 
-    def match_prefix_return_str(self, key):
-        return "".join(self.match_prefix(key)[0])
+    # def match_prefix_return_str(self, key):
+    #     return "".join(self.match_prefix(key)[0])
 
     def insert(self, key, value=None):
         if self.disable:
@@ -123,11 +121,16 @@ class RadixCache:
         if del_in_memory_pool:
             self.req_to_token_pool.free(req_pool_idx)
         else:
-            cached_indices, new_last_node,cached_indices_list  = self.match_prefix(token_ids)
-            assert len(cached_indices) == len(token_ids)
+            cached_indices_list, new_last_node  = self.match_prefix(token_ids)
+            # FIXME: 要验证assert len(cached_indices) == len(token_ids)，但是因为cached_indices是空集
+            # assert len(cached_indices) == len(token_ids)
             self.dec_lock_ref(old_last_node)
             self.inc_lock_ref(new_last_node)
             self.move_value_to_cuda(cached_indices_list,move_kv=True)
+            if len(cached_indices_list)>0:
+                cached_indices = torch.concat(cached_indices_list)
+            else:
+                cached_indices = torch.tensor([], dtype=torch.int64)
 
             self.req_to_token_pool.req_to_token[
                 req_pool_idx, last_uncached_pos : len(cached_indices)
@@ -209,7 +212,7 @@ class RadixCache:
 
     def inc_lock_ref(self, node: TreeNode):
         """
-        每增加一个请求引用，则增加node的lock_ref
+        每增加一个请求引用，则增加node的lock_ref,这个node一般是GPU
         """
         delta = 0
         while node != self.root_node:
@@ -222,7 +225,7 @@ class RadixCache:
 
     def dec_lock_ref(self, node: TreeNode):
         """
-        每减少一个请求引用，则减少node的lock_ref
+        每减少一个请求引用，则减少node的lock_ref，这个node一般是GPU
         """
         delta = 0
         while node != self.root_node:
@@ -234,6 +237,9 @@ class RadixCache:
         return delta
 
     def evictable_size(self):
+        """
+        返回的是GPU的evictable_size，不包含CPU
+        """
         return self.evictable_size_
 
     ##### Internal Helper Functions #####
@@ -353,16 +359,26 @@ class RadixCacheMix(RadixCache):
         if value_list is None or len(value_list) == 0:
             return  
         for v in value_list:
-            if v.device == "cpu":
+            if v.device.type == "cpu":
                 # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用
                 self.evict(len(v),self.token_to_kv_pool.dec_refs)
                 self.token_to_kv_pool.dec_refs(v)
                 if move_kv:
                     for i in range(self.token_to_kv_pool.layer_num):
-                        self.token_to_kv_pool.kv_data[i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
-                v.to("cuda")
+                        self.token_to_kv_pool.kv_data["cuda"][i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
+                v=v.to("cuda")
                 self.token_to_kv_pool.add_refs(v)
-    
+                
+    #NOTE: tree node should not be deleted if partial eviction
+    def _delete_leaf(self, node, num_evict_token):
+        assert num_evict_token > 0, "num_evict_token should be greater than 0"
+        del node.parent.children[node.key[0]]
+        if num_evict_token < len(node.value):
+            node.value = node.value[:-num_evict_token]
+            node.key = node.key[:-num_evict_token]
+            node.parent.children[node.key[0]] = node
+        #self.evictable_size_ -= num_evict_token
+        
     def evict(self, num_tokens, evict_callback, collect_evicted_node=False):
         """
         只驱逐GPU到CPU
@@ -371,7 +387,7 @@ class RadixCacheMix(RadixCache):
         # start = time.perf_counter()
         if self.disable:
             return
-
+        
         leaves = self._collect_leaves()
         heapq.heapify(leaves)
         num_gpu_evicted = 0
@@ -382,15 +398,16 @@ class RadixCacheMix(RadixCache):
             if cpu_select_index is None:
                 # TODO: 这里可以只驱逐部分，我现在是驱逐num_tokens个cpu了
                 need_to_evicted_cpu = num_tokens
-
+        
         while num_gpu_evicted < num_tokens and len(leaves):
             x = heapq.heappop(leaves)
 
             if x == self.root_node:
                 break
             if x.lock_ref > 0: # 只有没人引用的才会被驱逐，这是可以驱逐的块
+                logger.info(f'x.lock_ref > 0')
                 continue
-            if need_to_evicted_cpu > 0 and x.value.device == "cpu":
+            if need_to_evicted_cpu > 0 and x.value.device.type == "cpu":
                 evicted_cpu_token = len(x.value)
                 self._delete_leaf(x, evicted_cpu_token)
                 need_to_evicted_cpu -= evicted_cpu_token
@@ -399,30 +416,42 @@ class RadixCacheMix(RadixCache):
                 self.cur_cpu_tokens -= evicted_cpu_token
                 if len(x.parent.children) == 0:
                     heapq.heappush(leaves, x.parent)
+                logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu}')
                 continue
             if need_to_evicted_cpu > 0:
                 # 这时候CPU还没从树上驱逐，GPU的节点也没空间挪到CPU的时候
                 # 继续驱逐CPU
+                logger.info(f'pass the evicted GPU for need_to_evicted_cpu > 0')
+                continue
+            if x.value.device.type == "cpu":
                 continue
             # 如果x.value.device == "cuda" 驱逐到CPU上,到这里cpu是完全够空间给GPU了
             # TODO：这里是将整个节点都驱逐了，是不是可以部分驱逐？
+            print(x.value.device.type)
             free_num = self.token_to_kv_pool.dec_refs(x.value)
             # 只有部分是完全每引用的，还有一部分被其他引用着，所以不能挪到CPU上
             if free_num != len(x.value):
+                logger.info(f'not total node can be evicted')
                 self.token_to_kv_pool.add_refs(x.value)
                 continue
             num_gpu_evicted += free_num
-            x.value.to("cpu")
+            self.evictable_size_ -= len(x.value)
+            logger.info(f'GPU move to cpu')
+            x.value = x.value.to("cpu")
             # 到这里的都是没人引用kv cache的x.lock_ref = 0，这里cuda 上的kv_data是否还有意义？token_to_kv_pool的ref>0 肯定有意义
             # 就在刚刚token_to_kv_pool.dec_refs减到0了，所以正好把他挪走
             # 走到这里来，都是free_num == len(x.value) 即x.value的ref全部为0的
             for i in range(self.token_to_kv_pool.layer_num):
-                self.token_to_kv_pool.kv_data["cpu"][i][x.value] = self.token_to_kv_pool.kv_data[i][x.value].to('cpu', copy=True)
+                self.token_to_kv_pool.kv_data["cpu"][i][x.value] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+
             self.token_to_kv_pool.add_refs(x.value)
             self.cur_cpu_tokens += len(x.value)
     
+            # FIXME: 这里好像到达不了，因为没有真正去删这个节点，但是我们需要入堆
             if len(x.parent.children) == 0:
                 heapq.heappush(leaves, x.parent)
+        print(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
+        logger.info(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
         for evicted_cpu_indice in evicted_cpu_indices:
             self.token_to_kv_pool.dec_refs(evicted_cpu_indice)
 
@@ -436,7 +465,7 @@ if __name__ == "__main__":
     # tree.insert("I love you!")
     tree.pretty_print()
 
-    print(tree.match_prefix_return_str("Hello T"))
+    # print(tree.match_prefix_return_str("Hello T"))
 
     # def evict_callback(x):
     #    print("evict", x)

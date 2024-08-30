@@ -173,8 +173,8 @@ class QKVParallelLinearWithLora(ColumnParallelLinearWithLoRA):
             self.infer_adapter,
             self.lora_uids,
             self.max_lora_dim,
-            self.infer_adapter.token_to_kv_pool.kv_data,
-            self.infer_adapter.token_to_kv_pool.kv_data,
+            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
+            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
             self.layer_id,
         )
         return output

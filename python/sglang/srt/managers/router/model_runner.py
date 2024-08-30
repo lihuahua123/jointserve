@@ -320,7 +320,6 @@ class ModelRunner:
             # Init torch distributed
             # logger.info(f'model {self.gpu_config.gpu_id}, Rank {self.tp_rank} setup')
             torch.cuda.set_device(self.tp_rank)
-            print(self.tp_size,self.tp_rank)
             init_distributed_environment(world_size=self.tp_size,
             rank=0,
             distributed_init_method=f"tcp://127.0.0.1:{self.nccl_port}",

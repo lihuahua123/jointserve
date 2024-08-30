@@ -140,7 +140,7 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCache(
+        self.tree_cache = RadixCacheMix(
             max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
@@ -261,8 +261,10 @@ class ModelRpcServer:
         Note: Handle as a seperate async request to avoid blocking the existing function
         """
         start_time = time.time()
-        # FIXME: including the lora_id
-        prefix_indices, last_node,prefix_indices_list = self.tree_cache.match_prefix(recv_req.input_ids)
+        # FIXME: including the lora_id, CPU,GPU 如何concat，move_kv=True很重的
+        prefix_indices_list, last_node = self.tree_cache.match_prefix(recv_req.input_ids)
+        self.move_value_to_cuda(prefix_indices_list,move_kv=True)
+        prefix_indices = torch.concat(prefix_indices_list)
         # max_prefix_match = max(len(prefix_indices), self.waiting_queue_prefix_hit(recv_req))
         max_prefix_match = len(prefix_indices)
         match_overhead = time.time() - start_time
@@ -716,7 +718,7 @@ class ModelRpcServer:
                 # check the available size
                 available_size = (
                     self.token_to_kv_pool.available_size()
-                    + self.tree_cache.evictable_size()
+                    + self.tree_cache.evictable_size() # 已经插入的值
                 )
                 if available_size != self.max_total_num_token:
                     warnings.warn(
@@ -802,13 +804,18 @@ class ModelRpcServer:
                 if req.lora_uid is not None:
                     token_id = req.input_ids[0]
                     req.input_ids[0] = (req.lora_uid, token_id)
-                    prefix_indices, last_node, prefix_indices_list = self.tree_cache.match_prefix(req.input_ids)
+                    prefix_indices_list, last_node = self.tree_cache.match_prefix(req.input_ids)
                     req.input_ids[0] = token_id
                 else:
-                    prefix_indices, last_node, prefix_indices_list = self.tree_cache.match_prefix(req.input_ids)
+                    prefix_indices_list, last_node = self.tree_cache.match_prefix(req.input_ids)
+                # FIXME：要不要搬kv cache？之所以没把kv cache也搬走，是因为这里的kv cache没意义，到后面才store kv cache
+                self.tree_cache.move_value_to_cuda(prefix_indices_list)
+                if len(prefix_indices_list)>0:
+                    prefix_indices = torch.concat(prefix_indices_list)
+                else:
+                    prefix_indices = torch.tensor([], dtype=torch.int64)
                 if req.return_logprob:
                     prefix_indices = prefix_indices[: req.logprob_start_len]
-                self.tree_cache.move_value_to_cuda(prefix_indices_list)
                 req.extend_input_len = len(req.input_ids) - len(prefix_indices)
                 req.prefix_indices = prefix_indices
                 req.last_node = last_node
@@ -1085,7 +1092,6 @@ class ModelRpcServer:
         batch.prepare_for_extend_v2(
             self.model_config.vocab_size, self.int_token_logit_bias, self.enable_iterative_eviction
         )
-
         forward_time = 0
         num_batched_tokens = batch.input_ids.shape[0]
         num_attention_tokens = batch.seq_lens.cpu().numpy().sum()

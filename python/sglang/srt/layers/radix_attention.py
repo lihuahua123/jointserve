@@ -91,7 +91,7 @@ class RadixAttention(nn.Module):
 
         o = input_metadata.prefill_wrapper.forward(
             q.contiguous().view(-1, self.tp_q_head_num, self.head_dim),
-            input_metadata.token_to_kv_pool.kv_data[self.layer_id],
+            input_metadata.token_to_kv_pool.kv_data["cuda"][self.layer_id],
         )
 
         return o.view(-1, self.tp_q_head_num * self.head_dim)
@@ -101,7 +101,7 @@ class RadixAttention(nn.Module):
 
         o = input_metadata.decode_wrapper.forward(
             q.contiguous().view(-1, self.tp_q_head_num, self.head_dim),
-            input_metadata.token_to_kv_pool.kv_data[self.layer_id],
+            input_metadata.token_to_kv_pool.kv_data["cuda"][self.layer_id],
         )
 
         return o.view(-1, self.tp_q_head_num * self.head_dim)

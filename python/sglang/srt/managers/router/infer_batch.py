@@ -6,7 +6,7 @@ import logging
 import numpy as np
 import torch
 
-from sglang.srt.managers.router.radix_cache import RadixCache
+from sglang.srt.managers.router.radix_cache import RadixCache,RadixCacheMix
 from sglang.srt.memory_pool import ReqToTokenPool, TokenToKVPool
 
 logger = logging.getLogger(__name__)
@@ -227,7 +227,7 @@ class Batch:
     reqs: List[Req]
     req_to_token_pool: ReqToTokenPool
     token_to_kv_pool: TokenToKVPool
-    tree_cache: RadixCache
+    tree_cache: RadixCacheMix
 
     # batched arguments to model runner
     input_ids: torch.Tensor = None
@@ -702,6 +702,10 @@ class Batch:
         device = "cuda"
         bs = len(self.reqs)
         reqs = self.reqs
+        req_pool_indices = self.req_to_token_pool.alloc(bs)
+        if req_pool_indices is None:
+            return False
+        
         input_ids = [r.input_ids[len(r.prefix_indices) : len(r.prefix_indices) + r.num_inflight_tokens] for r in reqs]
         prefix_indices = [r.prefix_indices for r in reqs]
 
@@ -711,7 +715,7 @@ class Batch:
         prefix_lens = []
         seq_lens = [r.get_context_len() for r in reqs]
 
-        req_pool_indices = self.req_to_token_pool.alloc(bs)
+        
         req_pool_indices_cpu = req_pool_indices.cpu().numpy()
         for i in range(bs):
             flatten_input_ids.extend(input_ids[i])
@@ -798,6 +802,7 @@ class Batch:
             device=device,
         )
         self.logit_bias = logit_bias
+        return True
             
     def sample(self, logits: torch.Tensor):
         # Post process logits
