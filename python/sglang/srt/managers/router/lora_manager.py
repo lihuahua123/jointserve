@@ -68,7 +68,6 @@ class LoRAManager:
             self.lora_id[path] = len(self.loras)
             self.loras.append(LoRAAdapter(path, self.configs[path].config, self.base_config))
             self.loras[-1].load_weights(path)
-            self.cur_loras.append(path)
 
         # load zero lora for base model only
         self.infer_adapter.add_zero_lora()

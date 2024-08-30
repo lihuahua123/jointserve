@@ -337,6 +337,21 @@ def launch_server(server_args: ServerArgs, pipe_finish_writer, gpu_config, model
                 timeout=600,
             )
             assert res.status_code == 200
+            time.sleep(1)
+            res = requests.post(
+                url + "/generate",
+                json={
+                    "text": "Say this is a warmup request.",
+                    "sampling_params": {
+                        "temperature": 0,
+                        "max_new_tokens": 16,
+                    },
+                    "lora_uid":"/root/lora_model/model1"
+                },
+                headers=headers,
+                timeout=600,
+            )
+            assert res.status_code == 200
         except Exception as e:
             if pipe_finish_writer is not None:
                 pipe_finish_writer.send(get_exception_traceback())

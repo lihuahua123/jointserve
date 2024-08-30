@@ -23,8 +23,8 @@ rule cuda_compile
 
 
 
-build /root/preble/python/build/temp.linux-x86_64-cpython-311/sglang/srt/csrc/bgmv/bgmv_all.o: cuda_compile /root/preble/python/sglang/srt/csrc/bgmv/bgmv_all.cu
-build /root/preble/python/build/temp.linux-x86_64-cpython-311/sglang/srt/csrc/lora_ops.o: compile /root/preble/python/sglang/srt/csrc/lora_ops.cc
+build /root/jointserve/python/build/temp.linux-x86_64-cpython-311/sglang/srt/csrc/bgmv/bgmv_all.o: cuda_compile /root/jointserve/python/sglang/srt/csrc/bgmv/bgmv_all.cu
+build /root/jointserve/python/build/temp.linux-x86_64-cpython-311/sglang/srt/csrc/lora_ops.o: compile /root/jointserve/python/sglang/srt/csrc/lora_ops.cc
 
 
 

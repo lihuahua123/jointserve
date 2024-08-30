@@ -662,14 +662,14 @@ class ModelRpcServer:
         else:
             new_batch = self.get_new_fill_batch()
 
-        cur_loras = []
-        for req in new_batch.reqs:
-            if req.lora_uid is not None:
-                cur_loras.append(req.lora_uid)
-        self.model_runner.lora_manager.load_loras_from_path(cur_loras)
         forward_times = []
         if new_batch is not None:
             # Run new fill batch
+            cur_loras = []
+            for req in new_batch.reqs:
+                if req.lora_uid is not None:
+                    cur_loras.append(req.lora_uid)
+            self.model_runner.lora_manager.load_loras_from_path(cur_loras)
             forward_times.append(self.forward_fill_batch(new_batch, forward_simulation))
 
             self.cache_filled_batch(new_batch)
@@ -1018,7 +1018,7 @@ class ModelRpcServer:
         ):
             return None
         schedule_waiting_start = time.time()
-        print(len(self.forward_queue))
+        print("len(self.forward_queue):", len(self.forward_queue))
         self.check_req_hit(self.forward_queue)
         # Get priority queue
         if len(self.forward_queue) > 10:
@@ -1028,14 +1028,14 @@ class ModelRpcServer:
         if new_batch is None:
             self.total_scheduling_overhead += time.time() - schedule_waiting_start
             self.schedule_waiting_overhead += time.time() - schedule_waiting_start
-            print("xxxx1",self.total_scheduling_overhead,time.time() - schedule_waiting_start)
+            print("have waiting requests but can't schedule",self.total_scheduling_overhead,time.time() - schedule_waiting_start)
             return None
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
             self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
-        print("xxxx2,scheduing req len:",len(new_batch.reqs),self.total_scheduling_overhead,time.time() - schedule_waiting_start)
+        print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),self.total_scheduling_overhead,time.time() - schedule_waiting_start)
         return new_batch
     
     def get_new_fill_batch_lora_aware(self):
@@ -1475,8 +1475,8 @@ class ModelRpcServer:
             if req.finished:
                 finished_indices.append(i)
             else:
-                if req.lora_uid is not None:
-                    remain_loras.add(req.lora_uid)
+                #if req.lora_uid is not None:
+                remain_loras.add(req.lora_uid)
                 unfinished_indices.append(i)
 
             if req.finished or (
@@ -1561,9 +1561,9 @@ class ModelRpcServer:
             # Update batch tensors
             if unfinished_indices:
                 batch.filter_batch(unfinished_indices)
-                self.model_runner.lora_manager.infer_adapter.offload_adapters(remain_loras)
             else:
-                batch.reqs = []
+                batch.reqs = []           
+            self.model_runner.lora_manager.infer_adapter.offload_adapters(remain_loras)
 
 
 class ModelRpcService(rpyc.Service):

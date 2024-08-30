@@ -13,8 +13,8 @@ logger = logging.getLogger("infer_adapter")
 
 @dataclass
 class InferAdapter:
-    adapter_uids: List[str] # list of active adapters
-    lora_idx: Dict[str, int] # adapter uid -> index in adapter_uids
+    adapter_uids: List[str] # list of active adapters 这个是随着load append
+    lora_idx: Dict[str, int] # adapter uid -> index in adapter_uids 随着load append的
     token_to_kv_pool: TokenToKVPool
     a_loc: torch.Tensor  # a_loc[i] is a list of indices occupied by adapter i
     a_start: torch.Tensor  # a_start[i] is the start location of adapter i
@@ -41,7 +41,7 @@ class InferAdapter:
         for i in range(adapter.base_config.num_hidden_layers):
             adapter.layers[i].load_to_gpu(mode="paged")
             w_combined = adapter.layers[i].w_combined
-            self.token_to_kv_pool.kv_data[i][loc] = w_combined
+            self.token_to_kv_pool.kv_data["cuda"][i][loc] = w_combined
             # 前面两句已经指向了有内存空间的w_combined，因此可以将原本的释放了
             adapter.layers[i].offload_from_gpu(mode="paged")
 
@@ -69,7 +69,7 @@ class InferAdapter:
         self.a_loc = torch.cat((self.a_loc, torch.empty(tot_size, dtype=torch.long, device="cuda"))) 
 
         cum_loc = 0
-        cum_loc_list = []
+        cum_loc_list = [] 
         for i, new_adapter in enumerate(new_adapters):
             cum_loc_list.append(cum_loc)
             self.lora_idx[new_adapter.uid] = len(self.adapter_uids)
@@ -87,13 +87,13 @@ class InferAdapter:
             self.load_lora(new_adapter, new_loc[cum_loc: cum_loc + self.a_len[len_offset + i]])
 
     def offload_adapters(self, reserve_adapter_dirs):
+        print(f"offload {len(self.adapter_uids)-len(reserve_adapter_dirs)} adapters, {len(reserve_adapter_dirs)} remains")
         if len(reserve_adapter_dirs) == len(self.adapter_uids):
-            print(f"offload 0 adapters, {len(self.adapter_uids)} remains")
             return
         if len(reserve_adapter_dirs) == 0:
-            print(f"offload {len(self.adapter_uids)} adapters, 0 remains")
-            self.mem_manager.free(self.a_loc)
+            self.token_to_kv_pool.dec_refs(self.a_loc)
             self.adapter_uids=[]
+            self.lora_idx={}
             self.a_loc=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_start=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_len=torch.empty(0, dtype=torch.long, device="cuda")
@@ -105,18 +105,19 @@ class InferAdapter:
         remove_ind = []
         left_ind = []
         new_adapter_dirs = []
-        self.idx_map = {}
+        new_lora_idx = {}
         for i, adapter_dir in enumerate(self.adapter_uids):
             if adapter_dir not in reserve_adapter_dirs:
                 remove_ind.append(self.a_loc[self.a_start[i]:self.a_start[i] + self.a_len[i]])
             else:
                 left_ind.append(i)
-                self.idx_map[adapter_dir] = len(new_adapter_dirs)
+                new_lora_idx[adapter_dir] = len(new_adapter_dirs)
                 new_adapter_dirs.append(adapter_dir)
         if len(remove_ind) == 0:
             return
         # mark_end("offload scan")
         self.adapter_uids = new_adapter_dirs
+        self.lora_idx = new_lora_idx
         tot_size = torch.sum(self.a_len[left_ind]).item()
         print(f"offload {len(remove_ind)} adapters, {len(left_ind)} remains")
 

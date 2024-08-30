@@ -37,7 +37,7 @@ def _key_match(key0, key1):
 
 
 class RadixCache:
-    def __init__(self, req_to_token_pool, token_to_kv_pool, disable: bool = False, enable_partial_eviction=False):
+    def __init__(self, max_cpu_tokens, req_to_token_pool, token_to_kv_pool, disable: bool = False, enable_partial_eviction=False):
         self.req_to_token_pool = req_to_token_pool
         self.token_to_kv_pool = token_to_kv_pool
         self.disable = disable
@@ -340,7 +340,7 @@ class RadixCacheMix(RadixCache):
     def __init__(self,max_cpu_tokens,req_to_token_pool, token_to_kv_pool, disable: bool = False, enable_partial_eviction=False):
         self.max_cpu_tokens = max_cpu_tokens
         self.cur_cpu_tokens = 0
-        super().__init__(req_to_token_pool, token_to_kv_pool, disable, enable_partial_eviction)
+        super().__init__(max_cpu_tokens, req_to_token_pool, token_to_kv_pool, disable, enable_partial_eviction)
 
     def reset(self):
         self.cur_cpu_tokens = 0
@@ -350,6 +350,8 @@ class RadixCacheMix(RadixCache):
         """
         有的时候可能还没有存储kv cache，因此不需要挪kv cache到cuda上，只是挪引用到cuda上
         """
+        if value_list is None or len(value_list) == 0:
+            return  
         for v in value_list:
             if v.device == "cpu":
                 # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用

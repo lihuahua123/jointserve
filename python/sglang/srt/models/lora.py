@@ -121,12 +121,8 @@ def _apply_lora_qkv(
     else:
         seq_lens = input_metadata.seq_lens
 
-    assert req_bins.shape[0] == seq_lens.shape[0]
-    # batch_req_bins = torch.repeat_interleave(req_bins, seq_lens)
+    assert req_bins.shape[0] == seq_lens.shape[0], f"req_bins.shape[0] == seq_lens.shape[0] fail, req_bins.shape[0]:{req_bins.shape[0]},seq_lens.shape[0]:{seq_lens.shape[0]}"
     batch_req_bins = torch.repeat_interleave(req_bins, seq_lens)
-    # if batch_req_bins.size(0) != x.size(0):
-    #     print(x.size(0),seq_lens)
-    #     batch_req_bins = torch.repeat_interleave(req_bins, seq_lens)
 
     # do not initiate a delta for each layer
     delta = []
@@ -176,8 +172,8 @@ class QKVParallelLinearWithLora(ColumnParallelLinearWithLoRA):
             self.infer_adapter,
             self.lora_uids,
             self.max_lora_dim,
-            self.infer_adapter.token_to_kv_pool.kv_data,
-            self.infer_adapter.token_to_kv_pool.kv_data,
+            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
+            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
             self.layer_id,
         )
         return output

@@ -72,3 +72,4 @@ preble/benchmarks/toolqa/fewshots.py
 preble/benchmarks/toolqa/prompts.py
 preble/server/__init__.py
 preble/server/server.py
+test/test_lora.py
