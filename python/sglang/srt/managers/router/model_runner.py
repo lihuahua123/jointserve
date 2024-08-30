@@ -346,7 +346,7 @@ class ModelRunner:
             self.max_total_num_token = self.profile_max_num_token(total_gpu_memory,available_gpu_memory)
             # TODO: 要根据CPU来制定profile
             self.max_cpu_num_token = self.profile_max_num_token(total_cpu_memory,available_cpu_memory)
-            print("self.max_total_num_token,self.max_cpu_num_token",self.max_total_num_token,self.max_cpu_num_token)
+            logger.info(f"self.max_total_num_token,self.max_cpu_num_token {self.max_total_num_token},{self.max_cpu_num_token}")
         else:
             self.max_total_num_token = self.profile_simulated_num_token(gpu_config)
         self.init_memory_pool()
@@ -466,7 +466,6 @@ class ModelRunner:
             out_cache_loc=batch.out_cache_loc,
             top_logprobs_nums=batch.top_logprobs_nums,
             return_logprob=batch.return_logprob,
-            lora_uids=None,
         )
         if self.lora_paths:
             self.lora_manager.set_lora_input_metadata(input_metadata, lora_uids)

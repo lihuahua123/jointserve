@@ -41,7 +41,7 @@ class InferAdapter:
         for i in range(adapter.base_config.num_hidden_layers):
             adapter.layers[i].load_to_gpu(mode="paged")
             w_combined = adapter.layers[i].w_combined
-            self.token_to_kv_pool.kv_data["cuda"][i][loc] = w_combined
+            self.token_to_kv_pool.kv_data[i][loc] = w_combined
             # 前面两句已经指向了有内存空间的w_combined，因此可以将原本的释放了
             adapter.layers[i].offload_from_gpu(mode="paged")
 
@@ -91,6 +91,7 @@ class InferAdapter:
         if len(reserve_adapter_dirs) == len(self.adapter_uids):
             return
         if len(reserve_adapter_dirs) == 0:
+            return
             self.token_to_kv_pool.dec_refs(self.a_loc)
             self.adapter_uids=[]
             self.lora_idx={}
@@ -98,7 +99,6 @@ class InferAdapter:
             self.a_start=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_len=torch.empty(0, dtype=torch.long, device="cuda")
             self.a_scaling=torch.empty(0, dtype=torch.float16, device="cuda")
-            self.idx_map={}
             return
 
         # mark_start("offload scan")

@@ -23,7 +23,8 @@ from sglang.srt.weight_utils import hf_model_weights_iterator
 from sglang.srt.managers.router.infer_batch import ForwardMode
 from sglang.srt.managers.router.model_runner import InputMetadata
 from sglang._kernels import dispatch_bgmv
-
+import logging
+logger = logging.getLogger("lora")
 
 class BaseLayerWithLoRA(nn.Module):
     def __init__(self, base_layer):
@@ -172,8 +173,8 @@ class QKVParallelLinearWithLora(ColumnParallelLinearWithLoRA):
             self.infer_adapter,
             self.lora_uids,
             self.max_lora_dim,
-            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
-            self.infer_adapter.token_to_kv_pool.kv_data["cuda"],
+            self.infer_adapter.token_to_kv_pool.kv_data,
+            self.infer_adapter.token_to_kv_pool.kv_data,
             self.layer_id,
         )
         return output

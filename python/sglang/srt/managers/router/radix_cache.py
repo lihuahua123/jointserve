@@ -359,7 +359,7 @@ class RadixCacheMix(RadixCache):
                 self.token_to_kv_pool.dec_refs(v)
                 if move_kv:
                     for i in range(self.token_to_kv_pool.layer_num):
-                        self.token_to_kv_pool.kv_data["cuda"][i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
+                        self.token_to_kv_pool.kv_data[i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
                 v.to("cuda")
                 self.token_to_kv_pool.add_refs(v)
     
@@ -417,7 +417,7 @@ class RadixCacheMix(RadixCache):
             # 就在刚刚token_to_kv_pool.dec_refs减到0了，所以正好把他挪走
             # 走到这里来，都是free_num == len(x.value) 即x.value的ref全部为0的
             for i in range(self.token_to_kv_pool.layer_num):
-                self.token_to_kv_pool.kv_data["cpu"][i][x.value] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+                self.token_to_kv_pool.kv_data["cpu"][i][x.value] = self.token_to_kv_pool.kv_data[i][x.value].to('cpu', copy=True)
             self.token_to_kv_pool.add_refs(x.value)
             self.cur_cpu_tokens += len(x.value)
     

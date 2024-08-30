@@ -316,7 +316,6 @@ def launch_server(server_args: ServerArgs, pipe_finish_writer, gpu_config, model
                         "temperature": 0,
                         "max_new_tokens": 16,
                     },
-                    "lora_uid":"/root/lora_model/model1"
                 },
                 headers=headers,
                 timeout=600,
