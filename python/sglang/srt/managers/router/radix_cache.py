@@ -112,13 +112,15 @@ class RadixCache:
         indices = self.req_to_token_pool.req_to_token[req_pool_idx, : len(token_ids)]
         if lora_uid is not None:
             token_ids[0] = (lora_uid,token_ids[0])
+        # new_prefix_len 是匹配原有的前缀的token数目
         new_prefix_len = self.insert(token_ids, indices.clone())
 
         # Radix Cache takes one ref in memory pool，就是说在radixcache保存了的，就不需要在token_to_kv_pool保存了？
         # 那对应的kv cache怎么办？
-        print("dec_refs",indices[last_uncached_pos:new_prefix_len])
+        # 请求第一次的时候是不会dec_refs，此时的last_uncached_pos和new_prefix_len都为0，之后kv cache就保存在这里了，即kv cache1
+        # 当有重复前缀的请求到来的时候，last_uncached_pos:new_prefix_len是跟第一次请求没有重复前缀的，
+        # prefill 阶段只多生成一个token，这时候dec_refs掉这个token。总之没有覆盖掉之前的，即last_uncached_pos之前的没有被覆盖掉
         self.token_to_kv_pool.dec_refs(indices[last_uncached_pos:new_prefix_len])
-
         # finish 请求的时候del_in_memory_pool为True
         if del_in_memory_pool:
             self.req_to_token_pool.free(req_pool_idx)
@@ -129,8 +131,9 @@ class RadixCache:
             # assert len(cached_indices) == len(token_ids)
             self.dec_lock_ref(old_last_node)
             self.inc_lock_ref(new_last_node)
-            if len(cached_indices_list) >0:
-                cached_indices = torch.concat(cached_indices_list)
+            value_len = self.move_value_to_cuda(cached_indices_list)
+            if value_len >0:
+                cached_indices = torch.concat(cached_indices_list[:value_len])
             else:
                 cached_indices = torch.tensor([], dtype=torch.int64)
 
@@ -409,7 +412,17 @@ class RadixCacheMix(RadixCache):
             if cpu_select_index is None:
                 # TODO: 这里可以只驱逐部分，我现在是驱逐num_tokens个cpu了
                 need_to_evicted_cpu = num_tokens
-        while num_gpu_evicted < num_tokens and len(leaves):
+        
+        left_cpu_nodes = []
+        while num_gpu_evicted < num_tokens:
+            if len(leaves) == 0 and len(left_cpu_nodes) > 0:
+                for cpu_node in left_cpu_nodes:
+                    heapq.heappush(leaves, cpu_node)
+                    need_to_evicted_cpu += len(cpu_node.value)
+                left_cpu_nodes = []
+            elif len(leaves) == 0:
+                break
+            
             x = heapq.heappop(leaves)
             if x == self.root_node:
                 break
@@ -432,10 +445,11 @@ class RadixCacheMix(RadixCache):
                 logger.info(f'pass the evicted GPU for need_to_evicted_cpu > 0')
                 continue
             if x.value.device.type == "cpu":
+                logger.info(f'pass the evicted cpu for need_to_evicted_cpu == 0')
+                left_cpu_nodes.append(x)
                 continue
             # 如果x.value.device == "cuda" 驱逐到CPU上,到这里cpu是完全够空间给GPU了
             # TODO：这里是将整个节点都驱逐了，是不是可以部分驱逐？
-            print(x.value.device.type)
             free_num = self.token_to_kv_pool.dec_refs(x.value)
             # 只有部分是完全每引用的，还有一部分被其他引用着，所以不能挪到CPU上
             if free_num != len(x.value):
@@ -458,9 +472,8 @@ class RadixCacheMix(RadixCache):
             self.cur_cpu_tokens += len(x.value)
     
             # FIXME: 这里好像到达不了，因为没有真正去删这个节点，但是我们需要入堆
-            if len(x.parent.children) == 0:
-                heapq.heappush(leaves, x.parent)
-        print(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
+            # if len(x.parent.children) == 0:
+            #     heapq.heappush(leaves, x.parent)
         logger.info(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
         for evicted_cpu_indice in evicted_cpu_indices:
             self.token_to_kv_pool.dec_refs(evicted_cpu_indice)

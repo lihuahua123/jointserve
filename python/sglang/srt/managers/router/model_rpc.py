@@ -140,7 +140,7 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCache(
+        self.tree_cache = RadixCacheMix(
             max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
@@ -673,7 +673,6 @@ class ModelRpcServer:
                     cur_loras.append(req.lora_uid)
             self.model_runner.lora_manager.load_loras_from_path(cur_loras)
             forward_times.append(self.forward_fill_batch(new_batch, forward_simulation))
-
             self.cache_filled_batch(new_batch)
 
             if not new_batch.is_empty():

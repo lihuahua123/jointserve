@@ -11,452 +11,630 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,342844
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,321820
 INFO:infer_adapter:load 2 adapters, 2 in total
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12478, max_total_num_token=12606
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=12478, max_total_num_token=12606
 KV cache pool leak detected!
   warnings.warn(
-INFO:infer_adapter:load 1 adapters, 2 in total
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12542, max_total_num_token=12606
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=12542, max_total_num_token=12606
 KV cache pool leak detected!
   warnings.warn(
-INFO:model_rpc:#running-req: 1, #token: 83, token usage: 0.01, gen throughput (token/s): 7.13, #queue-req: 0
-INFO:     Started server process [4284]
+INFO:     Started server process [6135]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3113 -> 0.3613
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:540,num_tokens:22
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:64,num_tokens:22
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:148,num_tokens:22
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:236,num_tokens:21
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:238,num_tokens:20
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 15, left 1211
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted GPU for need_to_evicted_cpu > 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 525, left 686
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 64, left 622
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 148, left 474
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted GPU for need_to_evicted_cpu > 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 236, left 238
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 238, left 0
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:20
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3190 -> 0.3690
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:199,num_tokens:18
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:266,num_tokens:18
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 8, left 457
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 191, left 266
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 266, left 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:302,num_tokens:18
 model /hy-tmp/ loaded.
 lora manager ready.
 len(self.forward_queue): 1
 12478
-have waiting requests can schedule,scheduing req len: 1 0.0006151199340820312 0.0006172657012939453
+have waiting requests can schedule,scheduing req len: 1 0.0004744529724121094 0.0004763603210449219
 offload 2 adapters, 0 remains
 offload 1 adapters, 1 remains
 len(self.forward_queue): 1
 12542
-have waiting requests can schedule,scheduing req len: 1 0.019337892532348633 0.000812530517578125
-offload 2 adapters, 0 remains
-offload 1 adapters, 1 remains
-len(self.forward_queue): 1
-12542
-have waiting requests can schedule,scheduing req len: 1 0.037529706954956055 0.00027942657470703125
+have waiting requests can schedule,scheduing req len: 1 0.018500328063964844 0.0006468296051025391
 offload 1 adapters, 0 remains
 len(self.forward_queue): 1
 12542
-have waiting requests can schedule,scheduing req len: 1 0.055127620697021484 0.0018839836120605469
-offload 1 adapters, 0 remains
+have waiting requests can schedule,scheduing req len: 1 0.5937416553497314 0.0007967948913574219
 len(self.forward_queue): 1
-12542
-have waiting requests can schedule,scheduing req len: 1 0.6900777816772461 0.0012121200561523438
+12214.349999999997
+have waiting requests can schedule,scheduing req len: 1 0.5942378044128418 0.0004968643188476562
+len(self.forward_queue): 3
+11943.294399999993
+have waiting requests can schedule,scheduing req len: 3 0.5990927219390869 0.0003170967102050781
+len(self.forward_queue): 2
+11117.347199999986
+have waiting requests can schedule,scheduing req len: 2 0.5993187427520752 0.0002262592315673828
 len(self.forward_queue): 1
-12215.924999999997
-have waiting requests can schedule,scheduing req len: 1 0.6907608509063721 0.0006837844848632812
-len(self.forward_queue): 4
-11944.587199999993
-have waiting requests can schedule,scheduing req len: 4 0.6985111236572266 0.00046634674072265625
-len(self.forward_queue): 2
-10860.39199999998
-have waiting requests can schedule,scheduing req len: 2 0.6989521980285645 0.00044155120849609375
-len(self.forward_queue): 2
-10558.333599999976
-have waiting requests can schedule,scheduing req len: 2 0.7114903926849365 0.0007736682891845703
+10744.70399999998
+have waiting requests can schedule,scheduing req len: 1 0.5995168685913086 0.0001983642578125
 len(self.forward_queue): 1
-10037.63999999997
-have waiting requests can schedule,scheduing req len: 1 0.7117528915405273 0.00026297569274902344
+10549.341599999978
+have waiting requests can schedule,scheduing req len: 1 0.6100001335144043 0.0002627372741699219
+len(self.forward_queue): 1
+10370.279199999977
+have waiting requests can schedule,scheduing req len: 1 0.6101970672607422 0.0001971721649169922
+len(self.forward_queue): 1
+10025.540799999972
+have waiting requests can schedule,scheduing req len: 1 0.6104340553283691 0.00023746490478515625
 len(self.forward_queue): 3
-8971.508799999965
-have waiting requests can schedule,scheduing req len: 3 0.7124507427215576 0.0006988048553466797
-len(self.forward_queue): 6
-5575.464799999949
-have waiting requests can schedule,scheduing req len: 5 0.7138364315032959 0.0013866424560546875
+8956.907199999967
+have waiting requests can schedule,scheduing req len: 3 0.6113321781158447 0.0008988380432128906
+len(self.forward_queue): 5
+5552.975199999952
+have waiting requests can schedule,scheduing req len: 5 0.6118669509887695 0.0005352497100830078
 len(self.forward_queue): 2
-2681.6255999999357
-have waiting requests can schedule,scheduing req len: 2 0.714350700378418 0.0005147457122802734
+2652.6175999999396
+have waiting requests can schedule,scheduing req len: 2 0.6121587753295898 0.00029206275939941406
 len(self.forward_queue): 3
-1213.8863999999248
-have waiting requests can schedule,scheduing req len: 1 0.7147865295410156 0.0004360675811767578
+1179.5599999999295
+have waiting requests can schedule,scheduing req len: 1 0.6125013828277588 0.0003428459167480469
 len(self.forward_queue): 2
-884.2423999999182
-have waiting requests can schedule,scheduing req len: 1 0.7151050567626953 0.0003190040588378906
-len(self.forward_queue): 3
-698.7535999999145
-have waiting requests can schedule,scheduing req len: 1 0.715531587600708 0.0004267692565917969
-len(self.forward_queue): 3
-556.3063999999122
-have waiting requests but can't schedule 0.7163100242614746 0.0008847713470458984
+846.8279999999231
+have waiting requests can schedule,scheduing req len: 1 0.6127688884735107 0.00026798248291015625
+len(self.forward_queue): 2
+659.6015999999199
+have waiting requests can schedule,scheduing req len: 1 0.613351583480835 0.0005831718444824219
+len(self.forward_queue): 2
+515.819999999917
+have waiting requests but can't schedule 0.613605260848999 0.0002665519714355469
+len(self.forward_queue): 5
+400.6479999999174
+have waiting requests but can't schedule 0.6279304027557373 0.0003895759582519531
 len(self.forward_queue): 6
-440.516799999913
-have waiting requests but can't schedule 0.733100414276123 0.0006084442138671875
+285.1687999999176
+have waiting requests but can't schedule 0.6426346302032471 0.000438690185546875
 len(self.forward_queue): 6
-324.41999999991276
-have waiting requests but can't schedule 0.7480061054229736 0.0004918575286865234
+169.38239999991856
+have waiting requests but can't schedule 0.6568808555603027 0.0004971027374267578
 len(self.forward_queue): 6
-208.01599999991413
-have waiting requests but can't schedule 0.7631406784057617 0.000492095947265625
+53.28879999991841
+have waiting requests but can't schedule 0.67144775390625 0.0005309581756591797
 len(self.forward_queue): 6
-91.3047999999144
-have waiting requests but can't schedule 0.7779734134674072 0.0005741119384765625
+-63.112000000082844
+have waiting requests but can't schedule 0.6858072280883789 0.0004923343658447266
 len(self.forward_queue): 6
--25.713600000086444
-have waiting requests but can't schedule 0.7929928302764893 0.00047016143798828125
-len(self.forward_queue): 6
--143.03920000008566
-have waiting requests but can't schedule 0.807772159576416 0.0005748271942138672
+-179.82000000008156
+have waiting requests but can't schedule 0.7000339031219482 0.00043582916259765625
 offload 0 adapters, 1 remains
 len(self.forward_queue): 6
--196.6720000000846
-have waiting requests but can't schedule 0.8225293159484863 0.0005540847778320312
+-232.8352000000814
+have waiting requests but can't schedule 0.7141628265380859 0.0004265308380126953
 len(self.forward_queue): 6
--309.293600000085
-have waiting requests but can't schedule 0.8372271060943604 0.0005068778991699219
+-344.86480000008123
+have waiting requests but can't schedule 0.7291178703308105 0.0004246234893798828
 len(self.forward_queue): 6
--422.20960000008563
-have waiting requests but can't schedule 0.851776123046875 0.00048542022705078125
+-457.18880000008176
+have waiting requests but can't schedule 0.7434697151184082 0.0004684925079345703
 len(self.forward_queue): 6
--535.4200000000851
-have waiting requests but can't schedule 0.8664684295654297 0.0004432201385498047
+-569.8072000000816
+have waiting requests but can't schedule 0.7576870918273926 0.0004322528839111328
 len(self.forward_queue): 6
--648.9248000000835
-have waiting requests but can't schedule 0.8824679851531982 0.0007138252258300781
+-682.7200000000807
+have waiting requests but can't schedule 0.7724058628082275 0.0010404586791992188
 len(self.forward_queue): 6
--762.7240000000838
-have waiting requests but can't schedule 0.8979549407958984 0.0004239082336425781
+-795.9272000000801
+have waiting requests but can't schedule 0.7885117530822754 0.00043272972106933594
 len(self.forward_queue): 6
--876.8176000000844
-have waiting requests but can't schedule 0.9136087894439697 0.0008876323699951172
+-909.4288000000802
+have waiting requests but can't schedule 0.8026225566864014 0.00042510032653808594
 len(self.forward_queue): 6
--991.205600000083
-have waiting requests but can't schedule 0.9295473098754883 0.0004444122314453125
+-1023.2248000000786
+have waiting requests but can't schedule 0.8165652751922607 0.00045680999755859375
 len(self.forward_queue): 6
--1105.8880000000822
-have waiting requests but can't schedule 0.9444160461425781 0.00046181678771972656
+-1137.3152000000782
+have waiting requests but can't schedule 0.8304507732391357 0.0004298686981201172
 len(self.forward_queue): 6
--1220.864800000083
-have waiting requests but can't schedule 0.9596419334411621 0.0003955364227294922
+-1251.7000000000785
+have waiting requests but can't schedule 0.8443288803100586 0.000423431396484375
 len(self.forward_queue): 6
--1336.1360000000823
-have waiting requests but can't schedule 0.9749960899353027 0.0009629726409912109
+-1366.3792000000785
+have waiting requests but can't schedule 0.858757734298706 0.0007584095001220703
 len(self.forward_queue): 6
--1451.7016000000813
-have waiting requests but can't schedule 0.9926497936248779 0.0007894039154052734
+-1481.3528000000788
+have waiting requests but can't schedule 0.8737080097198486 0.0004248619079589844
 offload 0 adapters, 1 remains
 len(self.forward_queue): 6
--1170.5948000000812
-have waiting requests but can't schedule 1.0006184577941895 0.0005667209625244141
+-1199.950000000078
+have waiting requests but can't schedule 0.880824089050293 0.0004067420959472656
 len(self.forward_queue): 6
--1225.867200000081
-have waiting requests but can't schedule 1.0081911087036133 0.0004150867462158203
+-1254.9392000000776
+have waiting requests but can't schedule 0.8881349563598633 0.0005693435668945312
 len(self.forward_queue): 6
--1336.6232000000796
-have waiting requests but can't schedule 1.024479866027832 0.0008077621459960938
+-1365.1288000000764
+have waiting requests but can't schedule 0.902707576751709 0.00048160552978515625
 len(self.forward_queue): 6
--1447.6608000000797
-have waiting requests but can't schedule 1.0410311222076416 0.0011043548583984375
+-1475.6000000000768
+have waiting requests but can't schedule 0.9167745113372803 0.000682830810546875
 len(self.forward_queue): 6
--1558.9800000000791
-have waiting requests but can't schedule 1.0595159530639648 0.0006771087646484375
+-1586.3528000000756
+have waiting requests but can't schedule 0.9313039779663086 0.00042438507080078125
 len(self.forward_queue): 6
--1670.5808000000784
-have waiting requests but can't schedule 1.0746440887451172 0.0006227493286132812
+-1697.3872000000742
+have waiting requests but can't schedule 0.9459271430969238 0.0004968643188476562
 len(self.forward_queue): 6
--1782.463200000077
-have waiting requests but can't schedule 1.0916590690612793 0.0006084442138671875
+-1808.7032000000745
+have waiting requests but can't schedule 0.9611797332763672 0.0005075931549072266
 len(self.forward_queue): 6
--1894.6272000000772
-have waiting requests but can't schedule 1.1089956760406494 0.0006346702575683594
+-1920.300800000074
+have waiting requests but can't schedule 0.976696252822876 0.0005064010620117188
 len(self.forward_queue): 6
--2007.0728000000763
-have waiting requests but can't schedule 1.126673698425293 0.0005967617034912109
+-2032.180000000073
+have waiting requests but can't schedule 1.272115707397461 0.0005345344543457031
 len(self.forward_queue): 6
--2119.8000000000757
-have waiting requests but can't schedule 1.1419682502746582 0.0006508827209472656
+-2144.3408000000722
+have waiting requests but can't schedule 1.2878458499908447 0.0005235671997070312
 len(self.forward_queue): 6
--2232.8088000000744
-have waiting requests but can't schedule 1.1586613655090332 0.0007655620574951172
+-2256.7832000000717
+have waiting requests but can't schedule 1.3034017086029053 0.0006098747253417969
 offload 0 adapters, 1 remains
 len(self.forward_queue): 6
--2053.418800000074
-have waiting requests but can't schedule 1.1678729057312012 0.0005457401275634766
+-2077.110000000071
+have waiting requests but can't schedule 1.4642870426177979 0.0005786418914794922
 len(self.forward_queue): 6
--2107.3728000000738
-have waiting requests but can't schedule 1.1773185729980469 0.0006024837493896484
+-2130.793600000071
+have waiting requests but can't schedule 1.4721248149871826 0.0008041858673095703
 offload 0 adapters, 1 remains
 len(self.forward_queue): 6
--1853.429800000073
-have waiting requests but can't schedule 1.1915557384490967 0.0006539821624755859
+-1876.4450000000697
+have waiting requests but can't schedule 1.596874475479126 0.0007348060607910156
 len(self.forward_queue): 6
--1879.1176000000728
-have waiting requests but can't schedule 1.1974022388458252 0.0005171298980712891
+-1902.0040000000704
+have waiting requests but can't schedule 1.600996494293213 0.0005278587341308594
 len(self.forward_queue): 6
--1982.0288000000724
-have waiting requests but can't schedule 1.2128510475158691 0.0005867481231689453
+-2004.4000000000692
+have waiting requests but can't schedule 1.6994707584381104 0.0005297660827636719
 len(self.forward_queue): 6
--2085.1960000000718
-have waiting requests but can't schedule 1.2284905910491943 0.0008094310760498047
-len(self.forward_queue): 6
--2188.6192000000706
-have waiting requests but can't schedule 1.2452902793884277 0.00046062469482421875
-offload 0 adapters, 1 remains
-len(self.forward_queue): 6
--1646.51500000007
-have waiting requests but can't schedule 1.2497081756591797 0.0008313655853271484
-len(self.forward_queue): 6
--1720.1848000000696
-have waiting requests but can't schedule 1.2625460624694824 0.0006272792816162109
-len(self.forward_queue): 6
--1818.6240000000694
-have waiting requests but can't schedule 1.2772400379180908 0.0005118846893310547
-len(self.forward_queue): 6
--1917.3064000000682
-have waiting requests but can't schedule 1.2921655178070068 0.0008041858673095703
-len(self.forward_queue): 6
--2016.2320000000673
-have waiting requests but can't schedule 1.3075504302978516 0.0007636547088623047
+-2107.052000000069
+have waiting requests but can't schedule 1.7144238948822021 0.0010764598846435547
 len(self.forward_queue): 7
--2109.199800000065
-have waiting requests but can't schedule 1.3252372741699219 0.0011110305786132812
+-2266.5820000000663
+have waiting requests but can't schedule 1.735929012298584 0.0012252330780029297
 offload 0 adapters, 1 remains
 len(self.forward_queue): 7
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3558 -> 0.4058
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4036 -> 0.4536
--1519.1120000000642
-have waiting requests but can't schedule 1.3406705856323242 0.0012934207916259766
+-1721.112200000066
+have waiting requests but can't schedule 1.7413394451141357 0.0006275177001953125
 len(self.forward_queue): 7
--1529.3315000000644
-have waiting requests but can't schedule 1.3452441692352295 0.0009052753448486328
+-1785.0002000000654
+have waiting requests but can't schedule 1.7514760494232178 0.0005886554718017578
 len(self.forward_queue): 7
--1611.2099000000635
-have waiting requests but can't schedule 1.3609378337860107 0.0007278919219970703
+-1870.385800000065
+have waiting requests but can't schedule 1.8869929313659668 0.0004982948303222656
 len(self.forward_queue): 7
--1693.3059000000621
-have waiting requests but can't schedule 1.3767926692962646 0.0004241466522216797
+-1956.0018000000641
+have waiting requests but can't schedule 1.9478881359100342 0.0004971027374267578
 len(self.forward_queue): 7
--1775.619500000062
-have waiting requests but can't schedule 1.3909361362457275 0.0004470348358154297
+-2041.8482000000636
+have waiting requests but can't schedule 1.9611268043518066 0.0005071163177490234
 len(self.forward_queue): 7
--1858.1507000000615
-have waiting requests but can't schedule 1.406048059463501 0.0007183551788330078
+-2127.925000000063
+have waiting requests but can't schedule 2.0266168117523193 0.0006513595581054688
+offload 0 adapters, 1 remains
 len(self.forward_queue): 7
--1940.89950000006
-have waiting requests but can't schedule 1.4208838939666748 0.0005190372467041016
+-1537.4312000000618
+have waiting requests but can't schedule 2.0382118225097656 INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:311,num_tokens:17
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:97,num_tokens:17
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 302, left 408
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 311, left 97
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted GPU for need_to_evicted_cpu > 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 97, left 0
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:97
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:328,num_tokens:17
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 328, left 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:27,num_tokens:17
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 27, left 0
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:27
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:17
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3589 -> 0.4089
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:16
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4068 -> 0.4568
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:384,num_tokens:13
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:412,num_tokens:13
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:464,num_tokens:12
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 384, left 876
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted GPU for need_to_evicted_cpu > 0
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 412, left 464
+INFO:sglang.srt.managers.router.radix_cache:evicted_cpu_token: 464, left 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:14,num_tokens:12
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:702,num_tokens:14
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:525,num_tokens:11
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:609,num_tokens:10
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:635,num_tokens:12
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:686,num_tokens:12
+0.0005862712860107422
+len(self.forward_queue): 7
+-1547.5959000000616
+have waiting requests but can't schedule 2.040315628051758 0.0004906654357910156
+len(self.forward_queue): 7
+-1629.0359000000612
+have waiting requests but can't schedule 2.1421616077423096 0.000978231430053711
+len(self.forward_queue): 7
+-1710.6935000000608
+have waiting requests but can't schedule 2.1567211151123047 0.00047278404235839844
+len(self.forward_queue): 7
+-1792.5687000000598
+have waiting requests but can't schedule 2.1920909881591797 0.003148317337036133
+len(self.forward_queue): 7
+-1874.6615000000588
+have waiting requests but can't schedule 2.303579092025757 0.0004849433898925781
+len(self.forward_queue): 7
+-1956.9719000000582
+have waiting requests but can't schedule 2.3161590099334717 0.0005245208740234375
+len(self.forward_queue): 7
+-2039.499900000057
+have waiting requests but can't schedule 2.343587636947632 0.0021474361419677734
 len(self.forward_queue): 8
--1874.523200000057
-have waiting requests but can't schedule 1.4363913536071777 0.0007700920104980469
+-1961.116000000054
+have waiting requests but can't schedule 2.358640193939209 0.000621795654296875
 len(self.forward_queue): 8
--1946.2800000000557
-have waiting requests but can't schedule 1.4516232013702393 0.0007686614990234375
+-2032.6648000000537
+have waiting requests but can't schedule 2.3715102672576904 0.0005562305450439453
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-491.97500000004356
+have waiting requests but can't schedule 2.3869998455047607 0.0005757808685302734
+len(self.forward_queue): 9
+-549.5142000000426
+have waiting requests but can't schedule 2.4006869792938232 0.0011296272277832031
+len(self.forward_queue): 9
+-607.2326000000421
+have waiting requests but can't schedule 2.414095163345337 0.0006372928619384766
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-210.15900000004171
+have waiting requests but can't schedule 2.4207332134246826 0.0006067752838134766
+len(self.forward_queue): 9
+-236.9474000000414
+have waiting requests but can't schedule 2.4272639751434326 0.0005519390106201172
+len(self.forward_queue): 9
+-290.64900000004036
+have waiting requests but can't schedule 2.542726993560791 0.0010380744934082031
+len(self.forward_queue): 9
+-344.51700000003984
+have waiting requests but can't schedule 2.557164430618286 0.0006520748138427734
+len(self.forward_queue): 9
+-398.55140000003894
+have waiting requests but can't schedule 2.570648670196533 0.0006051063537597656
+len(self.forward_queue): 9
+-452.75220000003833
+have waiting requests but can't schedule 2.7719173431396484 0.001155853271484375
+len(self.forward_queue): 9
+-507.11940000003733
+have waiting requests but can't schedule 2.7854840755462646 0.0007224082946777344
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-97.6530000000364
+have waiting requests but can't schedule 2.797844886779785 0.000728607177734375
+len(self.forward_queue): 9
+-147.94260000003578
+have waiting requests but can't schedule 2.810340404510498 0.0009639263153076172
+len(self.forward_queue): 9
+-198.3858000000348
+have waiting requests but can't schedule 2.823899030685425 0.0006389617919921875
+len(self.forward_queue): 9
+-248.98260000003415
+have waiting requests but can't schedule 3.0027472972869873 0.0009975433349609375
+len(self.forward_queue): 9
+-299.73300000003314
+have waiting requests but can't schedule 3.0169665813446045 0.0008285045623779297
+len(self.forward_queue): 9
+-350.63700000003223
+have waiting requests but can't schedule 3.0294666290283203 0.0005526542663574219
+len(self.forward_queue): 9
+-401.6946000000314
+have waiting requests but can't schedule 3.041613817214966 0.0006492137908935547
+len(self.forward_queue): 9
+-466.9058000000307
+have waiting requests but can't schedule 3.2627921104431152 0.19692301750183105
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+37.68199999996932
+have waiting requests but can't schedule 3.265624761581421 0.001233816146850586
+len(self.forward_queue): 9
+-17.37230000002978
+have waiting requests but can't schedule 3.2783515453338623 0.0022115707397460938
+len(self.forward_queue): 9
+-78.42350000002898
+have waiting requests but can't schedule 3.292903184890747 0.0010576248168945312
+len(self.forward_queue): 9
+-139.61550000002808
+have waiting requests but can't schedule 3.3052873611450195 0.0011394023895263672
+len(self.forward_queue): 9
+-200.9483000000273
+have waiting requests but can't schedule 3.3171114921569824 0.0009737014770507812
+len(self.forward_queue): 9
+-262.4219000000264
+have waiting requests but can't schedule 3.329047679901123 0.0009772777557373047
+len(self.forward_queue): 9
+-324.03630000002556
+have waiting requests but can't schedule 3.3419582843780518 0.002024412155151367
+len(self.forward_queue): 9
+-385.7915000000246
+have waiting requests but can't schedule 3.566462755203247 0.000978231430053711
+len(self.forward_queue): 9
+-447.68750000002365
+have waiting requests but can't schedule 3.579296588897705 0.001203298568725586
+len(self.forward_queue): 9
+-509.7243000000227
+have waiting requests but can't schedule 3.591636896133423 0.0010330677032470703
+len(self.forward_queue): 9
+-571.9019000000219
+have waiting requests but can't schedule 3.6039066314697266 0.001043081283569336
+len(self.forward_queue): 9
+-634.2203000000209
+have waiting requests but can't schedule 3.6160688400268555 0.0010328292846679688
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+289.7299999999792
+have waiting requests but can't schedule 3.6185824871063232 0.001041412353515625
+len(self.forward_queue): 9
+237.28039999997998
+have waiting requests but can't schedule 3.805325508117676 0.000997304916381836
+len(self.forward_queue): 9
+179.21799999998086
+have waiting requests but can't schedule 3.8176238536834717 0.0009646415710449219
+len(self.forward_queue): 9
+121.02759999998182
+have waiting requests but can't schedule 3.8293356895446777 0.0009722709655761719
+len(self.forward_queue): 9
+62.70919999998284
+have waiting requests but can't schedule 3.842223882675171 0.0020711421966552734
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+1342.056799999983
+have waiting requests can schedule,scheduing req len: 1 3.8486745357513428 0.0011210441589355469
 len(self.forward_queue): 8
--2018.2416000000553
-have waiting requests but can't schedule 1.465461254119873 0.0004525184631347656
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
--480.56100000004517
-have waiting requests but can't schedule 1.4811244010925293 0.0004918575286865234
-len(self.forward_queue): 9
--538.4618000000441
-have waiting requests but can't schedule 1.4974184036254883 0.001224517822265625
-len(self.forward_queue): 9
--596.5418000000436
-have waiting requests but can't schedule 1.5132839679718018 0.0004825592041015625
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
--199.64900000004286
-have waiting requests but can't schedule 1.5225045680999756 0.0012886524200439453
-len(self.forward_queue): 9
--226.60540000004266
-have waiting requests but can't schedule 1.531259298324585 0.0005967617034912109
-len(self.forward_queue): 9
--280.64300000004187
-have waiting requests but can't schedule 1.5442008972167969 0.0005910396575927734
-len(self.forward_queue): 9
--334.84700000004113
-have waiting requests but can't schedule 1.55706787109375 0.0007054805755615234
-len(self.forward_queue): 9
--389.21740000004047
-have waiting requests but can't schedule 1.5705795288085938 0.00080108642578125
-len(self.forward_queue): 9
--443.7542000000392
-have waiting requests but can't schedule 1.5845859050750732 0.0008859634399414062
-len(self.forward_queue): 9
--498.4574000000382
-have waiting requests but can't schedule 1.5986158847808838 0.0006792545318603516
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
--89.32700000003751
-have waiting requests but can't schedule 1.6119709014892578 0.0004680156707763672
-len(self.forward_queue): 9
--139.92700000003674
-have waiting requests but can't schedule 1.6242787837982178 0.0005803108215332031
-len(self.forward_queue): 9
--190.68060000003584
-have waiting requests but can't schedule 1.6370172500610352 0.000476837158203125
-len(self.forward_queue): 9
--241.5878000000348
-have waiting requests but can't schedule 1.6494193077087402 0.0005865097045898438
-len(self.forward_queue): 9
--292.6486000000343
-have waiting requests but can't schedule 1.6628761291503906 0.0008368492126464844
-len(self.forward_queue): 9
--343.8630000000335
-have waiting requests but can't schedule 1.677687644958496 0.0008535385131835938
-len(self.forward_queue): 9
--395.2310000000325
-have waiting requests but can't schedule 1.6938960552215576 0.001291513442993164
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
-84.69599999996831
-have waiting requests but can't schedule 1.7070627212524414 0.0006830692291259766
-len(self.forward_queue): 9
-78.80669999996871
-have waiting requests but can't schedule 1.7099707126617432 0.0012660026550292969
-len(self.forward_queue): 9
-31.613099999969336
-have waiting requests but can't schedule 1.7253129482269287 0.0007340908050537109
-len(self.forward_queue): 9
--15.721300000029714
-have waiting requests but can't schedule 1.7391672134399414 0.0007579326629638672
-len(self.forward_queue): 9
--63.19650000002889
-have waiting requests but can't schedule 1.7543036937713623 0.0005402565002441406
-len(self.forward_queue): 9
--110.81250000002808
-have waiting requests but can't schedule 1.7673630714416504 0.0009248256683349609
-len(self.forward_queue): 9
--158.56930000002706
-have waiting requests but can't schedule 1.7811639308929443 0.0007042884826660156
-len(self.forward_queue): 9
--206.46690000002627
-have waiting requests but can't schedule 1.7942743301391602 0.0008885860443115234
-len(self.forward_queue): 9
--254.50530000002527
-have waiting requests but can't schedule 1.807882308959961 0.0005812644958496094
-len(self.forward_queue): 9
--302.6845000000243
-have waiting requests but can't schedule 1.8208985328674316 0.0004820823669433594
-len(self.forward_queue): 9
--351.0045000000233
-have waiting requests but can't schedule 1.8342275619506836 0.0006165504455566406
-len(self.forward_queue): 9
--399.46530000002235
-have waiting requests but can't schedule 1.8474442958831787 0.0011131763458251953
-len(self.forward_queue): 9
--448.0669000000214
-have waiting requests but can't schedule 1.8614249229431152 0.0004761219024658203
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
-489.8479999999786
-have waiting requests but can't schedule 1.8634910583496094 0.0004627704620361328
-len(self.forward_queue): 9
-451.17299999997954
-have waiting requests but can't schedule 1.874131679534912 0.0004742145538330078
-len(self.forward_queue): 9
-406.8529999999805
-have waiting requests but can't schedule 1.8867974281311035 0.0006861686706542969
-len(self.forward_queue): 9
-362.4049999999813
-have waiting requests but can't schedule 1.899604082107544 0.0007216930389404297
-len(self.forward_queue): 9
-317.8289999999822
-have waiting requests but can't schedule 1.9135444164276123 0.0006992816925048828
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
-1611.0799999999826
-have waiting requests can schedule,scheduing req len: 2 1.918764591217041 0.0007369518280029297
+710.3587999999745
+have waiting requests can schedule,scheduing req len: 1 3.849586009979248 0.0009119510650634766
 len(self.forward_queue): 7
-746.5775999999662
-have waiting requests can schedule,scheduing req len: 1 1.9194002151489258 0.0006358623504638672
+445.5991999999669
+have waiting requests can schedule,scheduing req len: 1 3.850451707839966 0.000865936279296875
 len(self.forward_queue): 6
-578.6339999999618
-have waiting requests can schedule,scheduing req len: 1 1.9200286865234375 0.0006291866302490234
+262.6027999999626
+have waiting requests but can't schedule 3.8513412475585938 0.0008904933929443359
+len(self.forward_queue): 6
+215.90229999996336
+have waiting requests but can't schedule 3.860527515411377 0.0016102790832519531
+len(self.forward_queue): 6
+149.45669999996426
+have waiting requests but can't schedule 3.8747098445892334 0.0015873908996582031
+len(self.forward_queue): 6
+82.85749999996528
+have waiting requests but can't schedule 4.188595533370972 0.0012998580932617188
+len(self.forward_queue): 6
+16.104699999966215
+have waiting requests but can't schedule 4.201569318771362 0.001270294189453125
+len(self.forward_queue): 6
+-50.8017000000325
+have waiting requests but can't schedule 4.214873313903809 0.0014214515686035156
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+581.4176999999682
+have waiting requests can schedule,scheduing req len: 1 4.225139617919922 0.001138448715209961
 len(self.forward_queue): 5
-376.99479999995583
-have waiting requests but can't schedule 1.920576810836792 0.00054931640625
+366.2602999999624
+have waiting requests but can't schedule 4.225505113601685 0.00036644935607910156
 len(self.forward_queue): 5
-341.45979999995643
-have waiting requests but can't schedule 1.9294652938842773 0.0005340576171875
+353.06849999996257
+have waiting requests but can't schedule 4.228948354721069 0.0005297660827636719
 len(self.forward_queue): 5
-284.4685999999574
-have waiting requests but can't schedule 1.9437801837921143 0.0012543201446533203
+300.2052999999637
+have waiting requests but can't schedule 4.241659879684448 0.0005137920379638672
 len(self.forward_queue): 5
-227.31099999995877
-have waiting requests but can't schedule 1.9606432914733887 0.0005168914794921875
-len(self.forward_queue): 5
-169.98699999996006
-have waiting requests but can't schedule 1.9743807315826416 0.0005202293395996094
-len(self.forward_queue): 5
-112.49659999996106
-have waiting requests but can't schedule 1.9875853061676025 0.0005297660827636719
+247.18849999996473
+have waiting requests but can't schedule 4.568918704986572 0.0006198883056640625
 offload 0 adapters, 1 remains
 len(self.forward_queue): 5
-755.2695999999619
-have waiting requests can schedule,scheduing req len: 1 1.998915672302246 0.0003764629364013672
+949.5505999999648
+have waiting requests can schedule,scheduing req len: 1 4.571125507354736 0.0007266998291015625
 len(self.forward_queue): 4
-534.8564999999578
-have waiting requests but can't schedule 1.999220609664917 0.0003058910369873047
+728.7591999999609
+have waiting requests but can't schedule 4.571443796157837 0.0003192424774169922
 len(self.forward_queue): 4
-520.4848999999581
-have waiting requests but can't schedule 2.0027108192443848 0.0003314018249511719
+682.430399999962
+have waiting requests but can't schedule 4.581557273864746 0.00033092498779296875
 len(self.forward_queue): 4
-462.8944999999594
-have waiting requests but can't schedule 2.017300605773926 0.0006024837493896484
-offload 0 adapters, 1 remains
-len(self.forward_queue): 4
-1121.3663999999605
-have waiting requests can schedule,scheduing req len: 1 2.0289087295532227 0.00033092498779296875
-len(self.forward_queue): 3
-732.7583999999476
-have waiting requests can schedule,scheduing req len: 1 2.029226779937744 0.00031876564025878906
-len(self.forward_queue): 2
-556.6175999999418
-have waiting requests can schedule,scheduing req len: 1 2.0295541286468506 0.00032782554626464844
-len(self.forward_queue): 1
-327.2543999999343
-have waiting requests but can't schedule You pressed Ctrl+C! Shutting down all remote servers...
+629.3391999999628
+have waiting requests but can't schedule INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:709,num_tokens:14
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:733,num_tokens:11
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:249,num_tokens:9
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:782,num_tokens:9
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:783,num_tokens:7
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:pass the evicted cpu for need_to_evicted_cpu == 0
+INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
+INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:799,num_tokens:5
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=12136, max_total_num_token=12606
+KV cache pool leak detected!
+  warnings.warn(
+You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Shutting down
-2.0300803184509277 0.0005271434783935547
+4.593528747558594 0.0005495548248291016
+len(self.forward_queue): 4
+576.094399999964
+have waiting requests but can't schedule 4.606482267379761 0.0007522106170654297
+len(self.forward_queue): 4
+522.6959999999651
+have waiting requests but can't schedule 4.619963645935059 0.00032639503479003906
+offload 0 adapters, 1 remains
+len(self.forward_queue): 4
+1222.2439999999658
+have waiting requests can schedule,scheduing req len: 1 4.627331018447876 0.0003941059112548828
+len(self.forward_queue): 3
+834.1879999999528
+have waiting requests can schedule,scheduing req len: 1 4.6276867389678955 0.0003561973571777344
+len(self.forward_queue): 2
+658.297399999947
+have waiting requests can schedule,scheduing req len: 1 4.627951622009277 0.0002651214599609375
 len(self.forward_queue): 1
-319.0582999999342
-have waiting requests but can't schedule 2.0324056148529053 0.000537872314453125
+429.2599999999393
+have waiting requests but can't schedule 4.6281898021698 0.00023889541625976562
 len(self.forward_queue): 1
-253.38149999993516
-have waiting requests but can't schedule 2.047126293182373 0.0002148151397705078
+406.2529999999397
+have waiting requests but can't schedule 4.632991313934326 0.0002105236053466797
 len(self.forward_queue): 1
-187.51269999993679
-have waiting requests but can't schedule 2.0612378120422363 0.0005450248718261719
+344.77779999994095
+have waiting requests but can't schedule 4.893171072006226 0.00021910667419433594
 len(self.forward_queue): 1
-121.45189999993818
-have waiting requests but can't schedule 2.076615571975708 0.0005197525024414062
+283.1233999999422
+have waiting requests but can't schedule 4.905292510986328 0.00028443336486816406
 len(self.forward_queue): 1
-55.19909999993979
-have waiting requests but can't schedule 2.09016489982605 0.0002663135528564453
+221.2897999999434
+have waiting requests but can't schedule 4.917325258255005 0.00020837783813476562
+len(self.forward_queue): 1
+159.2769999999448
+have waiting requests but can't schedule 4.929504156112671 0.0002951622009277344
 offload 0 adapters, 1 remains
 len(self.forward_queue): 1
-746.6935999999403
-have waiting requests but can't schedule 2.0990967750549316 0.00020003318786621094
+886.6497999999456
+have waiting requests but can't schedule 4.94007134437561 0.00036787986755371094
 len(self.forward_queue): 1
-723.4993999999408
-have waiting requests but can't schedule 2.10455322265625 0.0004990100860595703
-len(self.forward_queue): 1
-661.5249999999421
-have waiting requests but can't schedule 2.1180410385131836 0.0002655982971191406
-len(self.forward_queue): 1
-599.3713999999434
-have waiting requests but can't schedule 2.1314775943756104 0.0002181529998779297
-len(self.forward_queue): 1
-537.0385999999448
-have waiting requests but can't schedule 2.1451845169067383 0.0003521442413330078
-len(self.forward_queue): 1
-474.52659999994603
-have waiting requests but can't schedule 2.160223960876465 0.0004639625549316406
+872.2499999999461
+have waiting requests but can't schedule 4.943501234054565 0.00048422813415527344
 offload 0 adapters, 1 remains
 len(self.forward_queue): 1
-1201.5249999999469
-have waiting requests can schedule,scheduing req len: 1 2.1719119548797607 0.00029015541076660156
-offload 0 adapters, 1 remains
+2530.988199999947
+have waiting requests can schedule,scheduing req len: 1 4.95431923866272 0.0002872943878173828
 offload 0 adapters, 1 remains
 offload 0 adapters, 1 remains
 offload 0 adapters, 1 remains
@@ -473,10 +651,11 @@ offload 1 adapters, 0 remains
 You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [4284]
-Server is on port 30000 on host 0.0.0.0 on pid 4441
+INFO:     Finished server process [6135]
+Server is on port 30000 on host 0.0.0.0 on pid 6319
 You pressed Ctrl+C! Shutting down all remote servers...
 You pressed Ctrl+C! Shutting down all remote servers...
 Loading runtimes at ['http://0.0.0.0:30000/generate']
+You pressed Ctrl+C! Shutting down all remote servers...
 You pressed Ctrl+C! Shutting down all remote servers...
 You pressed Ctrl+C! Shutting down all remote servers...

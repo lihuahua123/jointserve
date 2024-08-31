@@ -5,7 +5,8 @@ from sglang.srt.layers.context_flashattention_nopad import context_attention_fwd
 from sglang.srt.layers.extend_attention import extend_attention_fwd
 from sglang.srt.layers.token_attention import token_attention_fwd
 from sglang.srt.managers.router.model_runner import ForwardMode, InputMetadata
-
+import logging
+logger = logging.getLogger(__name__)
 
 class RadixAttention(nn.Module):
     def __init__(self, num_heads, head_dim, scaling, num_kv_heads, layer_id):
@@ -88,7 +89,6 @@ class RadixAttention(nn.Module):
 
     def prefill_forward_flashinfer(self, q, k, v, input_metadata: InputMetadata):
         self.store_kv_cache(k, v, input_metadata)
-
         o = input_metadata.prefill_wrapper.forward(
             q.contiguous().view(-1, self.tp_q_head_num, self.head_dim),
             input_metadata.token_to_kv_pool.kv_data["cuda"][self.layer_id],
@@ -98,7 +98,6 @@ class RadixAttention(nn.Module):
 
     def decode_forward_flashinfer(self, q, k, v, input_metadata: InputMetadata):
         self.store_kv_cache(k, v, input_metadata)
-
         o = input_metadata.decode_wrapper.forward(
             q.contiguous().view(-1, self.tp_q_head_num, self.head_dim),
             input_metadata.token_to_kv_pool.kv_data["cuda"][self.layer_id],
