@@ -275,7 +275,7 @@ def start_server_and_load_models(model_name="/hy-tmp/", devices=[0], host="127.0
         'mem_fraction_static': 0.80,
         'context_length': 33768, #32768,
         "enable_flashinfer": True,
-        'schedule_heuristic':'fcfs',#'lora',
+        'schedule_heuristic':'fcfs-s',#'lora',
         "chunk_prefill_budget": 0,
         'report_hit_ratio': True ,
         'enable_iterative_eviction': True,

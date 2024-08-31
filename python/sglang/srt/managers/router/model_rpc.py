@@ -717,8 +717,8 @@ class ModelRpcServer:
             else:
                 # check the available size
                 available_size = (
-                    self.token_to_kv_pool.available_size()
-                    + self.tree_cache.evictable_size() # 已经插入的值
+                    self.token_to_kv_pool.available_size() # 未来可以插入的值，GPU的
+                    + self.tree_cache.evictable_size() # 已经插入的值，GPU的
                 )
                 if available_size != self.max_total_num_token:
                     warnings.warn(
@@ -809,9 +809,9 @@ class ModelRpcServer:
                 else:
                     prefix_indices_list, last_node = self.tree_cache.match_prefix(req.input_ids)
                 # FIXME：要不要搬kv cache？之所以没把kv cache也搬走，是因为这里的kv cache没意义，到后面才store kv cache
-                self.tree_cache.move_value_to_cuda(prefix_indices_list)
-                if len(prefix_indices_list)>0:
-                    prefix_indices = torch.concat(prefix_indices_list)
+                value_index = self.tree_cache.move_value_to_cuda(prefix_indices_list)
+                if value_index>0:
+                    prefix_indices = torch.concat(prefix_indices_list[:value_index])
                 else:
                     prefix_indices = torch.tensor([], dtype=torch.int64)
                 if req.return_logprob:
