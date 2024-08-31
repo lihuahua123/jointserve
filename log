@@ -11,7 +11,7 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,221549
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,342844
 INFO:infer_adapter:load 2 adapters, 2 in total
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
@@ -22,1831 +22,460 @@ INFO:infer_adapter:load 1 adapters, 2 in total
 /root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12542, max_total_num_token=12606
 KV cache pool leak detected!
   warnings.warn(
-INFO:model_rpc:#running-req: 1, #token: 83, token usage: 0.01, gen throughput (token/s): 6.58, #queue-req: 0
-INFO:     Started server process [8032]
+INFO:model_rpc:#running-req: 1, #token: 83, token usage: 0.01, gen throughput (token/s): 7.13, #queue-req: 0
+INFO:     Started server process [4284]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:540,num_tokens:22
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:64,num_tokens:22
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:148,num_tokens:22
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:236,num_tokens:20
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:238,num_tokens:20
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:20
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3158 -> 0.3658
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:266,num_tokens:18
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:18
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3630 -> 0.4130
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:17
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4115 -> 0.4615
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:311,num_tokens:15
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:15
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4575 -> 0.5075
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3113 -> 0.3613
 model /hy-tmp/ loaded.
 lora manager ready.
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.0004744529724121094 0.00047659873962402344
+12478
+have waiting requests can schedule,scheduing req len: 1 0.0006151199340820312 0.0006172657012939453
 offload 2 adapters, 0 remains
 offload 1 adapters, 1 remains
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.02229022979736328 0.00041031837463378906
+12542
+have waiting requests can schedule,scheduing req len: 1 0.019337892532348633 0.000812530517578125
 offload 2 adapters, 0 remains
 offload 1 adapters, 1 remains
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.04317617416381836 0.00024271011352539062
+12542
+have waiting requests can schedule,scheduing req len: 1 0.037529706954956055 0.00027942657470703125
 offload 1 adapters, 0 remains
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.06415534019470215 0.0003814697265625
+12542
+have waiting requests can schedule,scheduing req len: 1 0.055127620697021484 0.0018839836120605469
 offload 1 adapters, 0 remains
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.8431482315063477 0.00035119056701660156
+12542
+have waiting requests can schedule,scheduing req len: 1 0.6900777816772461 0.0012121200561523438
 len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.8434526920318604 0.00030493736267089844
-len(self.forward_queue): 5
-have waiting requests can schedule,scheduing req len: 5 0.8530979156494141 0.0006272792816162109
-len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.8534407615661621 0.00034356117248535156
-len(self.forward_queue): 1
-have waiting requests can schedule,scheduing req len: 1 0.8537297248840332 0.0002894401550292969
+12215.924999999997
+have waiting requests can schedule,scheduing req len: 1 0.6907608509063721 0.0006837844848632812
+len(self.forward_queue): 4
+11944.587199999993
+have waiting requests can schedule,scheduing req len: 4 0.6985111236572266 0.00046634674072265625
 len(self.forward_queue): 2
-have waiting requests can schedule,scheduing req len: 2 0.8685522079467773 0.0005240440368652344
+10860.39199999998
+have waiting requests can schedule,scheduing req len: 2 0.6989521980285645 0.00044155120849609375
+len(self.forward_queue): 2
+10558.333599999976
+have waiting requests can schedule,scheduing req len: 2 0.7114903926849365 0.0007736682891845703
+len(self.forward_queue): 1
+10037.63999999997
+have waiting requests can schedule,scheduing req len: 1 0.7117528915405273 0.00026297569274902344
 len(self.forward_queue): 3
-have waiting requests can schedule,scheduing req len: 3 0.8690371513366699 0.00048542022705078125
+8971.508799999965
+have waiting requests can schedule,scheduing req len: 3 0.7124507427215576 0.0006988048553466797
 len(self.forward_queue): 6
-have waiting requests can schedule,scheduing req len: 5 0.8697690963745117 0.000732421875
+5575.464799999949
+have waiting requests can schedule,scheduing req len: 5 0.7138364315032959 0.0013866424560546875
+len(self.forward_queue): 2
+2681.6255999999357
+have waiting requests can schedule,scheduing req len: 2 0.714350700378418 0.0005147457122802734
 len(self.forward_queue): 3
-have waiting requests can schedule,scheduing req len: 2 0.8702740669250488 0.0005056858062744141
+1213.8863999999248
+have waiting requests can schedule,scheduing req len: 1 0.7147865295410156 0.0004360675811767578
+len(self.forward_queue): 2
+884.2423999999182
+have waiting requests can schedule,scheduing req len: 1 0.7151050567626953 0.0003190040588378906
 len(self.forward_queue): 3
-have waiting requests can schedule,scheduing req len: 1 0.8706963062286377 0.0004227161407470703
+698.7535999999145
+have waiting requests can schedule,scheduing req len: 1 0.715531587600708 0.0004267692565917969
+len(self.forward_queue): 3
+556.3063999999122
+have waiting requests but can't schedule 0.7163100242614746 0.0008847713470458984
+len(self.forward_queue): 6
+440.516799999913
+have waiting requests but can't schedule 0.733100414276123 0.0006084442138671875
+len(self.forward_queue): 6
+324.41999999991276
+have waiting requests but can't schedule 0.7480061054229736 0.0004918575286865234
+len(self.forward_queue): 6
+208.01599999991413
+have waiting requests but can't schedule 0.7631406784057617 0.000492095947265625
+len(self.forward_queue): 6
+91.3047999999144
+have waiting requests but can't schedule 0.7779734134674072 0.0005741119384765625
+len(self.forward_queue): 6
+-25.713600000086444
+have waiting requests but can't schedule 0.7929928302764893 0.00047016143798828125
+len(self.forward_queue): 6
+-143.03920000008566
+have waiting requests but can't schedule 0.807772159576416 0.0005748271942138672
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+-196.6720000000846
+have waiting requests but can't schedule 0.8225293159484863 0.0005540847778320312
+len(self.forward_queue): 6
+-309.293600000085
+have waiting requests but can't schedule 0.8372271060943604 0.0005068778991699219
+len(self.forward_queue): 6
+-422.20960000008563
+have waiting requests but can't schedule 0.851776123046875 0.00048542022705078125
+len(self.forward_queue): 6
+-535.4200000000851
+have waiting requests but can't schedule 0.8664684295654297 0.0004432201385498047
+len(self.forward_queue): 6
+-648.9248000000835
+have waiting requests but can't schedule 0.8824679851531982 0.0007138252258300781
+len(self.forward_queue): 6
+-762.7240000000838
+have waiting requests but can't schedule 0.8979549407958984 0.0004239082336425781
+len(self.forward_queue): 6
+-876.8176000000844
+have waiting requests but can't schedule 0.9136087894439697 0.0008876323699951172
+len(self.forward_queue): 6
+-991.205600000083
+have waiting requests but can't schedule 0.9295473098754883 0.0004444122314453125
+len(self.forward_queue): 6
+-1105.8880000000822
+have waiting requests but can't schedule 0.9444160461425781 0.00046181678771972656
+len(self.forward_queue): 6
+-1220.864800000083
+have waiting requests but can't schedule 0.9596419334411621 0.0003955364227294922
+len(self.forward_queue): 6
+-1336.1360000000823
+have waiting requests but can't schedule 0.9749960899353027 0.0009629726409912109
+len(self.forward_queue): 6
+-1451.7016000000813
+have waiting requests but can't schedule 0.9926497936248779 0.0007894039154052734
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+-1170.5948000000812
+have waiting requests but can't schedule 1.0006184577941895 0.0005667209625244141
+len(self.forward_queue): 6
+-1225.867200000081
+have waiting requests but can't schedule 1.0081911087036133 0.0004150867462158203
+len(self.forward_queue): 6
+-1336.6232000000796
+have waiting requests but can't schedule 1.024479866027832 0.0008077621459960938
+len(self.forward_queue): 6
+-1447.6608000000797
+have waiting requests but can't schedule 1.0410311222076416 0.0011043548583984375
+len(self.forward_queue): 6
+-1558.9800000000791
+have waiting requests but can't schedule 1.0595159530639648 0.0006771087646484375
+len(self.forward_queue): 6
+-1670.5808000000784
+have waiting requests but can't schedule 1.0746440887451172 0.0006227493286132812
+len(self.forward_queue): 6
+-1782.463200000077
+have waiting requests but can't schedule 1.0916590690612793 0.0006084442138671875
+len(self.forward_queue): 6
+-1894.6272000000772
+have waiting requests but can't schedule 1.1089956760406494 0.0006346702575683594
+len(self.forward_queue): 6
+-2007.0728000000763
+have waiting requests but can't schedule 1.126673698425293 0.0005967617034912109
+len(self.forward_queue): 6
+-2119.8000000000757
+have waiting requests but can't schedule 1.1419682502746582 0.0006508827209472656
+len(self.forward_queue): 6
+-2232.8088000000744
+have waiting requests but can't schedule 1.1586613655090332 0.0007655620574951172
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+-2053.418800000074
+have waiting requests but can't schedule 1.1678729057312012 0.0005457401275634766
+len(self.forward_queue): 6
+-2107.3728000000738
+have waiting requests but can't schedule 1.1773185729980469 0.0006024837493896484
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+-1853.429800000073
+have waiting requests but can't schedule 1.1915557384490967 0.0006539821624755859
+len(self.forward_queue): 6
+-1879.1176000000728
+have waiting requests but can't schedule 1.1974022388458252 0.0005171298980712891
+len(self.forward_queue): 6
+-1982.0288000000724
+have waiting requests but can't schedule 1.2128510475158691 0.0005867481231689453
+len(self.forward_queue): 6
+-2085.1960000000718
+have waiting requests but can't schedule 1.2284905910491943 0.0008094310760498047
+len(self.forward_queue): 6
+-2188.6192000000706
+have waiting requests but can't schedule 1.2452902793884277 0.00046062469482421875
+offload 0 adapters, 1 remains
+len(self.forward_queue): 6
+-1646.51500000007
+have waiting requests but can't schedule 1.2497081756591797 0.0008313655853271484
+len(self.forward_queue): 6
+-1720.1848000000696
+have waiting requests but can't schedule 1.2625460624694824 0.0006272792816162109
+len(self.forward_queue): 6
+-1818.6240000000694
+have waiting requests but can't schedule 1.2772400379180908 0.0005118846893310547
+len(self.forward_queue): 6
+-1917.3064000000682
+have waiting requests but can't schedule 1.2921655178070068 0.0008041858673095703
+len(self.forward_queue): 6
+-2016.2320000000673
+have waiting requests but can't schedule 1.3075504302978516 0.0007636547088623047
+len(self.forward_queue): 7
+-2109.199800000065
+have waiting requests but can't schedule 1.3252372741699219 0.0011110305786132812
+offload 0 adapters, 1 remains
+len(self.forward_queue): 7
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3558 -> 0.4058
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4036 -> 0.4536
+-1519.1120000000642
+have waiting requests but can't schedule 1.3406705856323242 0.0012934207916259766
+len(self.forward_queue): 7
+-1529.3315000000644
+have waiting requests but can't schedule 1.3452441692352295 0.0009052753448486328
+len(self.forward_queue): 7
+-1611.2099000000635
+have waiting requests but can't schedule 1.3609378337860107 0.0007278919219970703
+len(self.forward_queue): 7
+-1693.3059000000621
+have waiting requests but can't schedule 1.3767926692962646 0.0004241466522216797
+len(self.forward_queue): 7
+-1775.619500000062
+have waiting requests but can't schedule 1.3909361362457275 0.0004470348358154297
+len(self.forward_queue): 7
+-1858.1507000000615
+have waiting requests but can't schedule 1.406048059463501 0.0007183551788330078
+len(self.forward_queue): 7
+-1940.89950000006
+have waiting requests but can't schedule 1.4208838939666748 0.0005190372467041016
+len(self.forward_queue): 8
+-1874.523200000057
+have waiting requests but can't schedule 1.4363913536071777 0.0007700920104980469
+len(self.forward_queue): 8
+-1946.2800000000557
+have waiting requests but can't schedule 1.4516232013702393 0.0007686614990234375
+len(self.forward_queue): 8
+-2018.2416000000553
+have waiting requests but can't schedule 1.465461254119873 0.0004525184631347656
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-480.56100000004517
+have waiting requests but can't schedule 1.4811244010925293 0.0004918575286865234
+len(self.forward_queue): 9
+-538.4618000000441
+have waiting requests but can't schedule 1.4974184036254883 0.001224517822265625
+len(self.forward_queue): 9
+-596.5418000000436
+have waiting requests but can't schedule 1.5132839679718018 0.0004825592041015625
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-199.64900000004286
+have waiting requests but can't schedule 1.5225045680999756 0.0012886524200439453
+len(self.forward_queue): 9
+-226.60540000004266
+have waiting requests but can't schedule 1.531259298324585 0.0005967617034912109
+len(self.forward_queue): 9
+-280.64300000004187
+have waiting requests but can't schedule 1.5442008972167969 0.0005910396575927734
+len(self.forward_queue): 9
+-334.84700000004113
+have waiting requests but can't schedule 1.55706787109375 0.0007054805755615234
+len(self.forward_queue): 9
+-389.21740000004047
+have waiting requests but can't schedule 1.5705795288085938 0.00080108642578125
+len(self.forward_queue): 9
+-443.7542000000392
+have waiting requests but can't schedule 1.5845859050750732 0.0008859634399414062
+len(self.forward_queue): 9
+-498.4574000000382
+have waiting requests but can't schedule 1.5986158847808838 0.0006792545318603516
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+-89.32700000003751
+have waiting requests but can't schedule 1.6119709014892578 0.0004680156707763672
+len(self.forward_queue): 9
+-139.92700000003674
+have waiting requests but can't schedule 1.6242787837982178 0.0005803108215332031
+len(self.forward_queue): 9
+-190.68060000003584
+have waiting requests but can't schedule 1.6370172500610352 0.000476837158203125
+len(self.forward_queue): 9
+-241.5878000000348
+have waiting requests but can't schedule 1.6494193077087402 0.0005865097045898438
+len(self.forward_queue): 9
+-292.6486000000343
+have waiting requests but can't schedule 1.6628761291503906 0.0008368492126464844
+len(self.forward_queue): 9
+-343.8630000000335
+have waiting requests but can't schedule 1.677687644958496 0.0008535385131835938
+len(self.forward_queue): 9
+-395.2310000000325
+have waiting requests but can't schedule 1.6938960552215576 0.001291513442993164
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+84.69599999996831
+have waiting requests but can't schedule 1.7070627212524414 0.0006830692291259766
+len(self.forward_queue): 9
+78.80669999996871
+have waiting requests but can't schedule 1.7099707126617432 0.0012660026550292969
+len(self.forward_queue): 9
+31.613099999969336
+have waiting requests but can't schedule 1.7253129482269287 0.0007340908050537109
+len(self.forward_queue): 9
+-15.721300000029714
+have waiting requests but can't schedule 1.7391672134399414 0.0007579326629638672
+len(self.forward_queue): 9
+-63.19650000002889
+have waiting requests but can't schedule 1.7543036937713623 0.0005402565002441406
+len(self.forward_queue): 9
+-110.81250000002808
+have waiting requests but can't schedule 1.7673630714416504 0.0009248256683349609
+len(self.forward_queue): 9
+-158.56930000002706
+have waiting requests but can't schedule 1.7811639308929443 0.0007042884826660156
+len(self.forward_queue): 9
+-206.46690000002627
+have waiting requests but can't schedule 1.7942743301391602 0.0008885860443115234
+len(self.forward_queue): 9
+-254.50530000002527
+have waiting requests but can't schedule 1.807882308959961 0.0005812644958496094
+len(self.forward_queue): 9
+-302.6845000000243
+have waiting requests but can't schedule 1.8208985328674316 0.0004820823669433594
+len(self.forward_queue): 9
+-351.0045000000233
+have waiting requests but can't schedule 1.8342275619506836 0.0006165504455566406
+len(self.forward_queue): 9
+-399.46530000002235
+have waiting requests but can't schedule 1.8474442958831787 0.0011131763458251953
+len(self.forward_queue): 9
+-448.0669000000214
+have waiting requests but can't schedule 1.8614249229431152 0.0004761219024658203
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+489.8479999999786
+have waiting requests but can't schedule 1.8634910583496094 0.0004627704620361328
+len(self.forward_queue): 9
+451.17299999997954
+have waiting requests but can't schedule 1.874131679534912 0.0004742145538330078
+len(self.forward_queue): 9
+406.8529999999805
+have waiting requests but can't schedule 1.8867974281311035 0.0006861686706542969
+len(self.forward_queue): 9
+362.4049999999813
+have waiting requests but can't schedule 1.899604082107544 0.0007216930389404297
+len(self.forward_queue): 9
+317.8289999999822
+have waiting requests but can't schedule 1.9135444164276123 0.0006992816925048828
+offload 0 adapters, 1 remains
+len(self.forward_queue): 9
+1611.0799999999826
+have waiting requests can schedule,scheduing req len: 2 1.918764591217041 0.0007369518280029297
+len(self.forward_queue): 7
+746.5775999999662
+have waiting requests can schedule,scheduing req len: 1 1.9194002151489258 0.0006358623504638672
+len(self.forward_queue): 6
+578.6339999999618
+have waiting requests can schedule,scheduing req len: 1 1.9200286865234375 0.0006291866302490234
+len(self.forward_queue): 5
+376.99479999995583
+have waiting requests but can't schedule 1.920576810836792 0.00054931640625
+len(self.forward_queue): 5
+341.45979999995643
+have waiting requests but can't schedule 1.9294652938842773 0.0005340576171875
+len(self.forward_queue): 5
+284.4685999999574
+have waiting requests but can't schedule 1.9437801837921143 0.0012543201446533203
+len(self.forward_queue): 5
+227.31099999995877
+have waiting requests but can't schedule 1.9606432914733887 0.0005168914794921875
+len(self.forward_queue): 5
+169.98699999996006
+have waiting requests but can't schedule 1.9743807315826416 0.0005202293395996094
+len(self.forward_queue): 5
+112.49659999996106
+have waiting requests but can't schedule 1.9875853061676025 0.0005297660827636719
+offload 0 adapters, 1 remains
+len(self.forward_queue): 5
+755.2695999999619
+have waiting requests can schedule,scheduing req len: 1 1.998915672302246 0.0003764629364013672
 len(self.forward_queue): 4
-have waiting requests can schedule,scheduing req len: 1 0.8712351322174072 0.0005395412445068359
-len(self.forward_queue): 3
-have waiting requests can schedule,scheduing req len: 1 0.8717021942138672 0.00046753883361816406
+534.8564999999578
+have waiting requests but can't schedule 1.999220609664917 0.0003058910369873047
 len(self.forward_queue): 4
-have waiting requests but can't schedule 0.8721959590911865 0.0004973411560058594
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.8930301666259766 0.0006186962127685547
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.9135992527008057 0.0006096363067626953
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.934598445892334 0.0006425380706787109
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.9552907943725586 0.0006537437438964844
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.9762561321258545 0.0007240772247314453
-len(self.forward_queue): 6
-have waiting requests but can't schedule 0.9969279766082764 0.0006754398345947266
+520.4848999999581
+have waiting requests but can't schedule 2.0027108192443848 0.0003314018249511719
+len(self.forward_queue): 4
+462.8944999999594
+have waiting requests but can't schedule 2.017300605773926 0.0006024837493896484
 offload 0 adapters, 1 remains
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.0176823139190674 0.0006237030029296875
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.037963628768921 0.0006308555603027344
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.0584263801574707 0.0006394386291503906
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.0786924362182617 0.0006198883056640625
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.099041223526001 0.0006012916564941406
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.1194024085998535 0.0006525516510009766
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.1398768424987793 0.0006494522094726562
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.160226821899414 0.0006203651428222656
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.1803689002990723 0.0006222724914550781
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.2009198665618896 0.0006847381591796875
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.2217895984649658 0.0006315708160400391
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.2418720722198486 0.0006325244903564453
-offload 0 adapters, 1 remains
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.2523186206817627 0.0005857944488525391
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.2625913619995117 0.0006906986236572266
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.282780647277832 0.0006451606750488281
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.302750587463379 0.0006167888641357422
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.3230695724487305 0.0006349086761474609
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.343048334121704 0.0006909370422363281
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.363293170928955 0.0006449222564697266
-cuda
-cuda
-num_gpu_evicted:540,num_tokens:22
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.698875904083252 0.0007016658782958984
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.7189910411834717 0.0007927417755126953
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.739109754562378 0.0006194114685058594
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.7592041492462158 0.0008039474487304688
-cuda
-num_gpu_evicted:64,num_tokens:22
-cuda
-num_gpu_evicted:148,num_tokens:22
-offload 0 adapters, 1 remains
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.8397223949432373 0.0006227493286132812
-offload 0 adapters, 1 remains
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.8450958728790283 0.0005741119384765625
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.8503639698028564 0.0006635189056396484
-cuda
-num_gpu_evicted:236,num_tokens:20
-len(self.forward_queue): 6
-have waiting requests but can't schedule 1.9905452728271484 0.00063323974609375
-cuda
-num_gpu_evicted:238,num_tokens:20
-len(self.forward_queue): 6
-have waiting requests but can't schedule 2.1046864986419678 0.0007061958312988281
-len(self.forward_queue): 6
-have waiting requests but can't schedule 2.124552011489868 0.0006194114685058594
-num_gpu_evicted:0,num_tokens:20
-len(self.forward_queue): 7
-have waiting requests but can't schedule 2.1466903686523438 0.0007777214050292969
-offload 0 adapters, 1 remains
-len(self.forward_queue): 7
-have waiting requests but can't schedule 2.152167320251465 0.0007915496826171875
-len(self.forward_queue): 7
-have waiting requests but can't schedule 2.1666815280914307 0.0006825923919677734
-cuda
-num_gpu_evicted:266,num_tokens:18
-len(self.forward_queue): 7
-have waiting requests but can't schedule 2.3953909873962402 0.0006799697875976562
-num_gpu_evicted:0,num_tokens:18
-len(self.forward_queue): 8
-have waiting requests but can't schedule 2.417099952697754 0.0007538795471191406
-len(self.forward_queue): 8
-have waiting requests but can't schedule 2.435957193374634 0.0008060932159423828
-num_gpu_evicted:0,num_tokens:17
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.457275867462158 0.0008141994476318359
-offload 0 adapters, 1 remains
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.4733614921569824 0.0007596015930175781
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.476191282272339 0.0007939338684082031
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.494042158126831 0.0007760524749755859
-cuda
-num_gpu_evicted:311,num_tokens:15
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.684926748275757 0.0008382797241210938
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.7027366161346436 0.0008533000946044922
-len(self.forward_queue): 9
-have waiting requests but can't schedule 2.7203786373138428 0.0007908344268798828
-num_gpu_evicted:0,num_tokens:15
-len(self.forward_queue): 10
-have waiting requests but can't schedule INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:14
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5051 -> 0.5551
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:384,num_tokens:15
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:412,num_tokens:16
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:900,num_tokens:16
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:464,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:15
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5445 -> 0.5945
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:14
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5941 -> 0.6441
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:13
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6436 -> 0.6936
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:12
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6929 -> 0.7429
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:11
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7419 -> 0.7919
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:9
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7849 -> 0.8349
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:675,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:609,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:8
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8314 -> 0.8814
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:7
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8814 -> 0.9314
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:904,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:686,num_tokens:900
-2.740689277648926 0.0008633136749267578
-len(self.forward_queue): 10
-have waiting requests but can't schedule 2.758235454559326 0.0008749961853027344
-len(self.forward_queue): 10
-have waiting requests but can't schedule 2.7760229110717773 0.0008778572082519531
-num_gpu_evicted:0,num_tokens:14
-len(self.forward_queue): 11
-have waiting requests but can't schedule 2.795935869216919 0.0011322498321533203
-offload 0 adapters, 1 remains
-len(self.forward_queue): 11
-have waiting requests can schedule,scheduing req len: 2 2.8135488033294678 0.0010917186737060547
-len(self.forward_queue): 9
-have waiting requests can schedule,scheduing req len: 1 2.814500093460083 0.0009515285491943359
-len(self.forward_queue): 8
-have waiting requests but can't schedule 2.81547212600708 0.0009734630584716797
-len(self.forward_queue): 8
-have waiting requests but can't schedule 2.8331682682037354 0.0008893013000488281
-cuda
-num_gpu_evicted:384,num_tokens:15
-len(self.forward_queue): 8
-have waiting requests but can't schedule 3.0192267894744873 0.0008602142333984375
-offload 0 adapters, 1 remains
-len(self.forward_queue): 8
-have waiting requests can schedule,scheduing req len: 1 3.0287117958068848 0.0008940696716308594
-len(self.forward_queue): 7
-have waiting requests can schedule,scheduing req len: 1 3.0296497344970703 0.00093841552734375
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.0303611755371094 0.0007123947143554688
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.039793014526367 0.0007269382476806641
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.0578830242156982 0.0008094310760498047
-cuda
-num_gpu_evicted:412,num_tokens:16
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.268587112426758 0.0008108615875244141
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.2872555255889893 0.0009467601776123047
-len(self.forward_queue): 6
-have waiting requests but can't schedule 3.3053016662597656 0.000728607177734375
-cuda
-num_gpu_evicted:900,num_tokens:16
-len(self.forward_queue): 6
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 3.7178730964660645 0.0021953582763671875
-offload 0 adapters, 1 remains
-len(self.forward_queue): 6
-cuda
-num_gpu_evicted:464,num_tokens:900
-have waiting requests but can't schedule 3.895982265472412 0.16090703010559082
-len(self.forward_queue): 6
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 3.9151124954223633 0.002162933349609375
-len(self.forward_queue): 6
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 3.9339635372161865 0.002078533172607422
-num_gpu_evicted:0,num_tokens:15
-len(self.forward_queue): 7
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 3.955763578414917 0.0024442672729492188
-num_gpu_evicted:0,num_tokens:14
-num_gpu_evicted:0,num_tokens:13
-len(self.forward_queue): 9
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 3.9794654846191406 0.0023496150970458984
-num_gpu_evicted:0,num_tokens:12
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.001530170440674 0.0026547908782958984
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.019567966461182 0.002386808395385742
-num_gpu_evicted:0,num_tokens:11
-offload 0 adapters, 1 remains
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.037792444229126 0.002422809600830078
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.0424723625183105 0.002781391143798828
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.0598626136779785 0.002480745315551758
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.077122449874878 0.002473592758178711
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.094465494155884 0.002586841583251953
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.111887216567993 0.0025589466094970703
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.129614353179932 0.002791881561279297
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.146883010864258 0.0024271011352539062
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.164179086685181 0.0024497509002685547
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-have waiting requests but can't schedule 4.181415557861328 0.0024633407592773438
-num_gpu_evicted:0,num_tokens:9
-len(self.forward_queue): 12
-cuda
-num_gpu_evicted:675,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-have waiting requests but can't schedule 4.509188890457153 0.31105875968933105
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-have waiting requests but can't schedule 4.527673721313477 0.003894329071044922
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-have waiting requests but can't schedule 4.545942306518555 0.0036203861236572266
-offload 0 adapters, 1 remains
-len(self.forward_queue): 12
-cuda
-num_gpu_evicted:609,num_tokens:900
-have waiting requests can schedule,scheduing req len: 1 4.7846715450286865 0.2367243766784668
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-have waiting requests but can't schedule 4.788247108459473 0.003576993942260742
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-have waiting requests but can't schedule 4.80834174156189 0.0074176788330078125
-num_gpu_evicted:0,num_tokens:8
-num_gpu_evicted:0,num_tokens:7
-len(self.forward_queue): 13
-cuda
-num_gpu_evicted:904,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests can schedule,scheduing req len: 2 5.2160375118255615 0.3886396884918213
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests can schedule,scheduing req len: 1 5.220956087112427 0.004919290542602539
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.225613832473755 0.004659175872802734
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.253390073776245 0.013073444366455078
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.272876977920532 0.0047206878662109375
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.29262900352478 0.005013465881347656
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.311922550201416 0.004645347595214844
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.3313987255096436 0.00482940673828125
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.350943565368652 0.004690885543823242
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.3705971240997314 0.004770755767822266
-offload 0 adapters, 1 remains
-len(self.forward_queue): 10
-cuda
-num_gpu_evicted:686,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:8
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9243 -> 0.9743
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:709,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:6
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9728 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:6
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9987 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:733,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:4
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9965 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:3
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9985 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:795,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:900
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:782,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:6
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9979 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:5
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9998 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:4
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9997 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:GPU move to cpu
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:799,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:3
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9954 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:2
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9970 -> 1.0000
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:904
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:795
-INFO:sglang.srt.managers.router.radix_cache:num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.702019691467285 0.3202342987060547
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.7173545360565186 0.011512994766235352
-num_gpu_evicted:0,num_tokens:8
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 5.738914251327515 0.0049169063568115234
-offload 0 adapters, 1 remains
-len(self.forward_queue): 11
-cuda
-num_gpu_evicted:709,num_tokens:900
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.065998792648315 0.31487393379211426
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.072245359420776 0.004553556442260742
-num_gpu_evicted:0,num_tokens:6
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests can schedule,scheduing req len: 1 6.09215521812439 0.00438237190246582
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.096407175064087 0.004253387451171875
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.114137172698975 0.004355192184448242
-num_gpu_evicted:0,num_tokens:6
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.134169340133667 0.0042018890380859375
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.1514365673065186 0.004199504852294922
-offload 0 adapters, 1 remains
-len(self.forward_queue): 12
-cuda
-num_gpu_evicted:733,num_tokens:900
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.42799186706543 0.26853108406066895
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.437439203262329 0.004535198211669922
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.454877614974976 0.004312992095947266
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.471956253051758 0.004251241683959961
-num_gpu_evicted:0,num_tokens:4
-len(self.forward_queue): 13
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.490467309951782 0.004628181457519531
-len(self.forward_queue): 13
-num_gpu_evicted:0,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-have waiting requests but can't schedule 6.507372617721558 0.004491090774536133
-num_gpu_evicted:0,num_tokens:3
-len(self.forward_queue): 14
-cuda
-num_gpu_evicted:795,num_tokens:900
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests can schedule,scheduing req len: 3 6.790685415267944 0.2695794105529785
-num_gpu_evicted:0,num_tokens:900
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 6.795290231704712 0.004606008529663086
-offload 0 adapters, 1 remains
-len(self.forward_queue): 11
-cuda
-num_gpu_evicted:782,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests can schedule,scheduing req len: 2 7.289377450942993 0.48399829864501953
-len(self.forward_queue): 9
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.301130294799805 0.011754274368286133
-len(self.forward_queue): 9
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.309800624847412 0.004985332489013672
-num_gpu_evicted:0,num_tokens:6
-len(self.forward_queue): 10
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.331478834152222 0.005146980285644531
-num_gpu_evicted:0,num_tokens:5
-num_gpu_evicted:0,num_tokens:4
-offload 0 adapters, 1 remains
-len(self.forward_queue): 12
-cuda
-num_gpu_evicted:799,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests can schedule,scheduing req len: 1 7.691689491271973 0.34417152404785156
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.699635028839111 0.00794672966003418
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.721364974975586 0.020064592361450195
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.738936185836792 0.004962921142578125
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.756486654281616 0.004826545715332031
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.773905038833618 0.004952669143676758
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.791546583175659 0.0048885345458984375
-len(self.forward_queue): 11
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.809180498123169 0.005105018615722656
-num_gpu_evicted:0,num_tokens:3
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.828450679779053 0.004756927490234375
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.845223426818848 0.004869222640991211
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.862101793289185 0.004927873611450195
-len(self.forward_queue): 12
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests but can't schedule 7.878109693527222 0.00482487678527832
-num_gpu_evicted:0,num_tokens:2
-len(self.forward_queue): 13
-num_gpu_evicted:0,num_tokens:675
-num_gpu_evicted:0,num_tokens:904
-num_gpu_evicted:0,num_tokens:795
-have waiting requests can schedule,scheduing req len: 1 7.897185325622559 0.004998922348022461
-num_gpu_evicted:0,num_tokens:675
-Prefill out of memory. This should nerver happen.
- 1 (1,) r=2
-   8 (14891, 445, 338, 263, 14294, 786, 2009, 29889) r=0
-     15 (13, 29902, 29915, 29885, 3063, 363, 263, 1781, 29892, 23279) r=0
-   24 (1, 29961, 25580, 29962, 3532, 14816, 29903, 6778, 13, 3492) r=2
-     121 (233, 145, 164, 30406, 232, 135, 173, 31847, 31928, 30690) r=0
-       525 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 29966) r=0
-       799 (29871, 30866, 31581, 31773, 30968, 31243, 30210, 30968, 31131, 31274) r=0
-         782 (13, 13, 233, 145, 164, 30406, 232, 135, 173, 31847) r=0
-     21 (234, 177, 131, 30698, 31633, 234, 190, 144, 30557, 1014) r=0
-       855 (3323, 1429, 29871, 30392, 30287, 30502, 30505, 31532, 30606, 31037) r=0
-         799 (13, 13, 29966, 829, 14816, 29903, 29958, 13, 13, 29966) r=0
-       709 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 234) r=0
-     64 (283, 2204, 347, 966, 1899, 267, 25170, 3794, 29892, 5291) r=0
-       795 (1174, 11172, 439, 29915, 735, 10700, 427, 14321, 15833, 292) r=0
-       64 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 283) r=0
-     34 (8139, 287, 304, 6230, 385, 11817, 706, 23110, 1788, 363) r=0
-       904 (1763, 731, 701, 385, 11817, 706, 23110, 1788, 363, 596) r=0
-       464 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 8139) r=0
-     335 (6113, 385, 2560, 9335, 623, 411, 3017, 29892, 607, 25016) r=0
-       702 (13866, 338, 263, 2560, 1342, 310, 263, 24492, 623, 4257) r=0
-         384 (13, 13, 15945, 29908, 13, 13, 5215, 2897, 13, 5215) r=0
-       609 (13, 13, 15945, 29908, 13, 13, 5215, 2897, 13, 5215) r=0
-     27 (6028, 366, 3867, 777, 1410, 10652, 1475, 373, 920, 304) r=1
-       675 (897, 12818, 411, 11314, 936, 15833, 414, 29892, 884, 2998) r=1
-       686 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 29902) r=0
-     27 (29908, 9544, 506, 420, 712, 831, 1185, 28854, 2291, 378) r=0
-       328 (12127, 28854, 2291, 378, 1121, 2255, 12386, 6141, 18027, 4991) r=0
-         311 (13, 13, 2277, 17866, 6196, 13, 13, 29930, 9954, 928) r=0
-       236 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 29908) r=0
-     14 (31043, 30364, 30449, 30371, 30389, 30499, 30326, 31414, 30465, 30412) r=0
-       302 (29871, 31043, 30364, 30449, 30330, 30641, 30332, 232, 178, 193) r=0
-         266 (29871, 31043, 30364, 30449, 30330, 30641, 30332, 232, 178, 193) r=0
-       412 (13, 13, 29966, 829, 14816, 29903, 6778, 13, 13, 31043) r=0
-     97 (12148, 5649, 1757, 10582, 362, 408, 11546, 897, 29903, 424) r=0
-       191 (313, 6565, 344, 29871, 29896, 29897, 13, 7030, 29901, 376) r=0
-         148 (13, 20834, 372, 29915, 29879, 263, 1804, 310, 4575, 23881) r=0
-       238 (13, 13, 29961, 29914, 25580, 29962, 13, 13, 29966, 829) r=0
-     92 (19819, 355, 1029, 27766, 338, 263, 1601, 1989, 515, 278) r=1
-       900 (18527, 29901, 450, 399, 5989, 310, 7740, 27766, 13, 13) r=1
-       733 (13, 13, 29961, 29914, 25580, 29962, 13, 13, 29961, 25580) r=0
-#tokens: 14697
-You pressed Ctrl+C! Shutting down all remote servers...
+len(self.forward_queue): 4
+1121.3663999999605
+have waiting requests can schedule,scheduing req len: 1 2.0289087295532227 0.00033092498779296875
+len(self.forward_queue): 3
+732.7583999999476
+have waiting requests can schedule,scheduing req len: 1 2.029226779937744 0.00031876564025878906
+len(self.forward_queue): 2
+556.6175999999418
+have waiting requests can schedule,scheduing req len: 1 2.0295541286468506 0.00032782554626464844
+len(self.forward_queue): 1
+327.2543999999343
+have waiting requests but can't schedule You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Shutting down
+2.0300803184509277 0.0005271434783935547
+len(self.forward_queue): 1
+319.0582999999342
+have waiting requests but can't schedule 2.0324056148529053 0.000537872314453125
+len(self.forward_queue): 1
+253.38149999993516
+have waiting requests but can't schedule 2.047126293182373 0.0002148151397705078
+len(self.forward_queue): 1
+187.51269999993679
+have waiting requests but can't schedule 2.0612378120422363 0.0005450248718261719
+len(self.forward_queue): 1
+121.45189999993818
+have waiting requests but can't schedule 2.076615571975708 0.0005197525024414062
+len(self.forward_queue): 1
+55.19909999993979
+have waiting requests but can't schedule 2.09016489982605 0.0002663135528564453
+offload 0 adapters, 1 remains
+len(self.forward_queue): 1
+746.6935999999403
+have waiting requests but can't schedule 2.0990967750549316 0.00020003318786621094
+len(self.forward_queue): 1
+723.4993999999408
+have waiting requests but can't schedule 2.10455322265625 0.0004990100860595703
+len(self.forward_queue): 1
+661.5249999999421
+have waiting requests but can't schedule 2.1180410385131836 0.0002655982971191406
+len(self.forward_queue): 1
+599.3713999999434
+have waiting requests but can't schedule 2.1314775943756104 0.0002181529998779297
+len(self.forward_queue): 1
+537.0385999999448
+have waiting requests but can't schedule 2.1451845169067383 0.0003521442413330078
+len(self.forward_queue): 1
+474.52659999994603
+have waiting requests but can't schedule 2.160223960876465 0.0004639625549316406
+offload 0 adapters, 1 remains
+len(self.forward_queue): 1
+1201.5249999999469
+have waiting requests can schedule,scheduing req len: 1 2.1719119548797607 0.00029015541076660156
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 0 adapters, 1 remains
+offload 1 adapters, 0 remains
+You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [8032]
-ERROR:    Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 741, in lifespan
-    await receive()
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/lifespan/on.py", line 137, in receive
-    return await self.receive_queue.get()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/queues.py", line 158, in get
-    await getter
-asyncio.exceptions.CancelledError
-
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "uvloop/loop.pyx", line 1511, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1504, in uvloop.loop.Loop.run_until_complete
-  File "uvloop/loop.pyx", line 1377, in uvloop.loop.Loop.run_forever
-  File "uvloop/loop.pyx", line 555, in uvloop.loop.Loop._run
-  File "uvloop/loop.pyx", line 474, in uvloop.loop.Loop._on_idle
-  File "uvloop/cbhandles.pyx", line 83, in uvloop.loop.Handle._run
-  File "uvloop/cbhandles.pyx", line 63, in uvloop.loop.Handle._run
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-    result = await app(  # type: ignore[func-returns-value]
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-    return await self.app(scope, receive, send)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-    await super().__call__(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-    await self.app(scope, receive, _send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-    await self.middleware_stack(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-    await route.handle(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-    await self.app(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-    await app(scope, receive, sender)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-    await response(scope, receive, send)
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError
-Server is on port 30000 on host 0.0.0.0 on pid 8192
+INFO:     Finished server process [4284]
+Server is on port 30000 on host 0.0.0.0 on pid 4441
+You pressed Ctrl+C! Shutting down all remote servers...
 You pressed Ctrl+C! Shutting down all remote servers...
 Loading runtimes at ['http://0.0.0.0:30000/generate']
 You pressed Ctrl+C! Shutting down all remote servers...

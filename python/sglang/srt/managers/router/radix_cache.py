@@ -96,7 +96,7 @@ class RadixCache:
         return self._insert_helper(self.root_node, key, value)
 
     def move_value_to_cuda(self,value,move_kv=False):
-        pass
+        return len(value)
 
     def cache_req(
         self,
@@ -116,20 +116,21 @@ class RadixCache:
 
         # Radix Cache takes one ref in memory pool，就是说在radixcache保存了的，就不需要在token_to_kv_pool保存了？
         # 那对应的kv cache怎么办？
+        print("dec_refs",indices[last_uncached_pos:new_prefix_len])
         self.token_to_kv_pool.dec_refs(indices[last_uncached_pos:new_prefix_len])
 
         # finish 请求的时候del_in_memory_pool为True
         if del_in_memory_pool:
             self.req_to_token_pool.free(req_pool_idx)
         else:
+            # 因为之前插入了，这时候拿到的就是已经在GPU上的indices了
             cached_indices_list, new_last_node  = self.match_prefix(token_ids)
             # FIXME: 要验证assert len(cached_indices) == len(token_ids)，但是因为cached_indices是空集
             # assert len(cached_indices) == len(token_ids)
             self.dec_lock_ref(old_last_node)
             self.inc_lock_ref(new_last_node)
-            value_index = self.move_value_to_cuda(cached_indices_list,move_kv=True)
-            if value_index >0:
-                cached_indices = torch.concat(cached_indices_list[:value_index])
+            if len(cached_indices_list) >0:
+                cached_indices = torch.concat(cached_indices_list)
             else:
                 cached_indices = torch.tensor([], dtype=torch.int64)
 
