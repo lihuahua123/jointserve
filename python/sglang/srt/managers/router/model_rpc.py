@@ -891,6 +891,7 @@ class ModelRpcServer:
                 and req.extend_input_len + new_batch_input_tokens
                 < self.max_prefill_num_token
             ):
+                # delta 是个复数，表示可以驱逐的减少量
                 delta = self.tree_cache.inc_lock_ref(req.last_node)
                 available_size += delta
 
