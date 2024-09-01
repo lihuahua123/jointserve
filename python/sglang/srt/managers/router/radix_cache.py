@@ -364,6 +364,7 @@ class RadixCacheMix(RadixCache):
         """
         if value_list is None or len(value_list) == 0:
             return 0
+        begin = time.time()
         for index, v in enumerate(value_list):
             if v.device.type == "cpu":
                 new_index = self.token_to_kv_pool.alloc(len(v))
@@ -373,6 +374,8 @@ class RadixCacheMix(RadixCache):
                     new_index = self.token_to_kv_pool.alloc(len(v))  
                     if new_index is None:
                         # 没有位置给你放GPU了，那你只能适配这前面的部分了
+                        end = time.time()
+                        logger.info(f"move_value_to_cuda time {end-begin}")
                         return index
                 self.token_to_kv_pool.dec_refs(v)
                 if move_kv:
@@ -382,7 +385,10 @@ class RadixCacheMix(RadixCache):
                 self.token_to_kv_pool.add_refs(new_index)
                 # FIXME：这块节点的value也要改变吧
                 value_list[index] = new_index
-        return len(value_list)        
+        end = time.time()
+        # logger.info(f"move_value_to_cuda time {end-begin}")
+        return len(value_list)
+            
     #NOTE: tree node should not be deleted if partial eviction
     def _delete_leaf(self, node, num_evict_token):
         assert num_evict_token > 0, "num_evict_token should be greater than 0"
@@ -392,6 +398,21 @@ class RadixCacheMix(RadixCache):
             node.key = node.key[:-num_evict_token]
             node.parent.children[node.key[0]] = node
         #self.evictable_size_ -= num_evict_token
+    
+    def evict_cpu(self,x,evicted_cpu_indices,leaves):
+        """
+        x为要驱逐的cpu节点
+        evicted_cpu_indices,leaves 都是在这个函数里append的
+        """
+        evicted_cpu_token = len(x.value)
+        self._delete_leaf(x, evicted_cpu_token)
+        need_to_evicted_cpu -= evicted_cpu_token
+        self.token_to_kv_pool.dec_refs(x.value)
+        evicted_cpu_indices.append(x.value)
+        self.cur_cpu_tokens -= evicted_cpu_token
+        if len(x.parent.children) == 0:
+            heapq.heappush(leaves, x.parent)
+        # logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu}')
         
     def evict(self, num_tokens, evict_callback, collect_evicted_node=False):
         """
@@ -401,7 +422,7 @@ class RadixCacheMix(RadixCache):
         # start = time.perf_counter()
         if self.disable:
             return
-        
+        begin = time.time()
         leaves = self._collect_leaves()
         heapq.heapify(leaves)
         num_gpu_evicted = 0
@@ -422,7 +443,6 @@ class RadixCacheMix(RadixCache):
                 left_cpu_nodes = []
             elif len(leaves) == 0:
                 break
-            
             x = heapq.heappop(leaves)
             if x == self.root_node:
                 break
@@ -437,15 +457,17 @@ class RadixCacheMix(RadixCache):
                 self.cur_cpu_tokens -= evicted_cpu_token
                 if len(x.parent.children) == 0:
                     heapq.heappush(leaves, x.parent)
-                logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu}')
+                # logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu}')
                 continue
             if need_to_evicted_cpu > 0:
+                # x.value.device.type == "gpu"
                 # 这时候CPU还没从树上驱逐，GPU的节点也没空间挪到CPU的时候
                 # 继续驱逐CPU
-                logger.info(f'pass the evicted GPU for need_to_evicted_cpu > 0')
+                # 这个分支感觉不太会进来，因为access time最后面的都是CPU节点
+                # logger.info(f'pass the evicted GPU for need_to_evicted_cpu > 0')
                 continue
             if x.value.device.type == "cpu":
-                logger.info(f'pass the evicted cpu for need_to_evicted_cpu == 0')
+                # logger.info(f'pass the evicted cpu for need_to_evicted_cpu == 0')
                 left_cpu_nodes.append(x)
                 continue
             # 如果x.value.device == "cuda" 驱逐到CPU上,到这里cpu是完全够空间给GPU了
@@ -458,7 +480,7 @@ class RadixCacheMix(RadixCache):
                 continue
             num_gpu_evicted += free_num
             self.evictable_size_ -= len(x.value)
-            logger.info(f'GPU move to cpu')
+            # logger.info(f'GPU move to cpu')
             new_cpu_indices = self.token_to_kv_pool.alloc(free_num,"cpu")
             # 前面已经驱逐了need_to_evicted_cpu，按理来说应该能alloc的
             assert new_cpu_indices is not None
@@ -474,10 +496,9 @@ class RadixCacheMix(RadixCache):
             # FIXME: 这里好像到达不了，因为没有真正去删这个节点，但是我们需要入堆
             # if len(x.parent.children) == 0:
             #     heapq.heappush(leaves, x.parent)
-        logger.info(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
-        for evicted_cpu_indice in evicted_cpu_indices:
-            self.token_to_kv_pool.dec_refs(evicted_cpu_indice)
-
+        # logger.info(f'num_gpu_evicted:{num_gpu_evicted},num_tokens:{num_tokens}')
+        end = time.time()
+        logger.info(f"evict time {end-begin}")
 if __name__ == "__main__":
     tree = RadixCache(None, None, False)
 

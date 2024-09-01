@@ -860,7 +860,6 @@ class ModelRpcServer:
                 ]
             )
             available_size -= reservation
-        print(available_size)
         req: Req
         for req in target_waiting_queue:
             if budget and budget.get_remaining_token_budget() <= 0:
@@ -1014,7 +1013,6 @@ class ModelRpcServer:
             self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
-        print(self.total_scheduling_overhead)
         return new_batch
         
 
@@ -1026,7 +1024,6 @@ class ModelRpcServer:
         ):
             return None
         schedule_waiting_start = time.time()
-        print("len(self.forward_queue):", len(self.forward_queue))
         self.check_req_hit(self.forward_queue)
         # Get priority queue
         if len(self.forward_queue) > 10:
@@ -1036,14 +1033,14 @@ class ModelRpcServer:
         if new_batch is None:
             self.total_scheduling_overhead += time.time() - schedule_waiting_start
             self.schedule_waiting_overhead += time.time() - schedule_waiting_start
-            print("have waiting requests but can't schedule",self.total_scheduling_overhead,time.time() - schedule_waiting_start)
+            #print("have waiting requests but can't schedule",time.time() - schedule_waiting_start)
             return None
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
             self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
-        print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),self.total_scheduling_overhead,time.time() - schedule_waiting_start)
+        #print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),time.time() - schedule_waiting_start)
         return new_batch
     
     def get_new_fill_batch_lora_aware(self):
@@ -1054,7 +1051,6 @@ class ModelRpcServer:
         ):
             return None
         schedule_waiting_start = time.time()
-        print(len(self.forward_queue))
         self.check_req_hit(self.forward_queue)
         # Get priority queue
         self.forward_queue = self.scheduler.get_priority_queue(self.forward_queue)

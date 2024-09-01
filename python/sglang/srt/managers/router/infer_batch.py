@@ -227,7 +227,7 @@ class Batch:
     reqs: List[Req]
     req_to_token_pool: ReqToTokenPool
     token_to_kv_pool: TokenToKVPool
-    tree_cache: RadixCacheMix
+    tree_cache: RadixCache
 
     # batched arguments to model runner
     input_ids: torch.Tensor = None
