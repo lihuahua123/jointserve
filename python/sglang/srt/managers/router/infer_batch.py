@@ -92,6 +92,8 @@ class Req:
         # For chunk-prefill
         self.num_cached_tokens = 0
         self.num_inflight_tokens = 0
+        
+        self.need_cache = False
 
     def max_new_tokens(self):
         return self.sampling_params.max_new_tokens
@@ -458,15 +460,16 @@ class Batch:
                     if req_pool_indices_cpu is None:
                         req_pool_indices_cpu = self.req_pool_indices.tolist()
 
-                    # insert the old request into tree_cache
-                    self.tree_cache.cache_req(
-                        token_ids=tuple(req.input_ids + req.output_ids)[:-1],
-                        last_uncached_pos=len(req.prefix_indices),
-                        req_pool_idx=req_pool_indices_cpu[i],
-                    )
+                    if req.need_cache:
+                        # insert the old request into tree_cache
+                        self.tree_cache.cache_req(
+                            token_ids=tuple(req.input_ids + req.output_ids)[:-1],
+                            last_uncached_pos=len(req.prefix_indices),
+                            req_pool_idx=req_pool_indices_cpu[i],
+                        )
 
-                    # unlock the last node
-                    self.tree_cache.dec_lock_ref(req.last_node)
+                        # unlock the last node
+                        self.tree_cache.dec_lock_ref(req.last_node)
 
                     # jump-forward
                     req.jump_forward_and_retokenize(jump_forward_str, next_state)

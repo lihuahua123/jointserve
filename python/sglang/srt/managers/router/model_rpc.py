@@ -140,7 +140,7 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCacheMix(
+        self.tree_cache = RadixCache(
             max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
@@ -1312,14 +1312,15 @@ class ModelRpcServer:
     def cache_filled_batch(self, batch: Batch):
         req_pool_indices_cpu = batch.req_pool_indices.cpu().tolist()
         for i, req in enumerate(batch.reqs):
-            new_prefix_indices, new_last_node = self.tree_cache.cache_req(
-                token_ids=tuple(req.input_ids + req.output_ids)[:-1],
-                last_uncached_pos=len(req.prefix_indices),
-                req_pool_idx=req_pool_indices_cpu[i],
-                del_in_memory_pool=False,
-                old_last_node=req.last_node,
-            )
-            req.prefix_indices, req.last_node = new_prefix_indices, new_last_node
+            if req.need_cache:
+                new_prefix_indices, new_last_node = self.tree_cache.cache_req(
+                    token_ids=tuple(req.input_ids + req.output_ids)[:-1],
+                    last_uncached_pos=len(req.prefix_indices),
+                    req_pool_idx=req_pool_indices_cpu[i],
+                    del_in_memory_pool=False,
+                    old_last_node=req.last_node,
+                )
+                req.prefix_indices, req.last_node = new_prefix_indices, new_last_node
 
     def forward_decode_batch(self, batch: Batch, forward_simulation=None):
         start_decoding_schedule = time.time()
@@ -1553,13 +1554,14 @@ class ModelRpcServer:
             req_pool_indices_cpu = batch.req_pool_indices.tolist()
             for i in finished_indices:
                 req = batch.reqs[i]
-                self.tree_cache.cache_req(
-                    token_ids=tuple(req.input_ids + req.output_ids)[:-1],
-                    last_uncached_pos=len(req.prefix_indices),
-                    req_pool_idx=req_pool_indices_cpu[i],
-                )
+                if req.need_cache:
+                    self.tree_cache.cache_req(
+                        token_ids=tuple(req.input_ids + req.output_ids)[:-1],
+                        last_uncached_pos=len(req.prefix_indices),
+                        req_pool_idx=req_pool_indices_cpu[i],
+                    )
 
-                self.tree_cache.dec_lock_ref(req.last_node)
+                    self.tree_cache.dec_lock_ref(req.last_node)
 
             # Update batch tensors
             if unfinished_indices:
