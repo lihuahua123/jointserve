@@ -316,6 +316,7 @@ def launch_server(server_args: ServerArgs, pipe_finish_writer, gpu_config, model
                         "temperature": 0,
                         "max_new_tokens": 16,
                     },
+                    "need_cache":True
                 },
                 headers=headers,
                 timeout=600,

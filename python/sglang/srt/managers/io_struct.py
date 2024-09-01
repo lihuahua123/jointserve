@@ -29,6 +29,7 @@ class GenerateReqInput:
     # Whether to stream output
     stream: bool = False
     lora_uid: str = None
+    need_cache: bool = False
     # TODO: make all parameters a Union[List[T], T] to allow for batched requests
 
     def post_init(self):
@@ -107,6 +108,7 @@ class TokenizedGenerateReqInput:
     arrival_time: float
     append_to_queue_time: float = 0.0
     lora_uid: str = None
+    need_cache: bool = False
 
 @dataclass
 class SchedulingMetricsReqInput:

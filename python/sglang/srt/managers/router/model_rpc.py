@@ -368,8 +368,8 @@ class ModelRpcServer:
                 else:
                     evict_idx = current_running_idx.pop()
                     evict_req = batch.reqs[evict_idx]
-                    
-                batch.tree_cache.dec_lock_ref(evict_req.last_node)
+                if evict_req.need_cache:
+                    batch.tree_cache.dec_lock_ref(evict_req.last_node)
                 token_indices = batch.req_to_token_pool.req_to_token[
                     req_pool_indices_cpu[evict_idx]
                 ][: evict_req.num_cached_tokens]
@@ -747,7 +747,7 @@ class ModelRpcServer:
     ):
         # recv_req.lora_uid = "tloen/alpaca-lora-7b"
         req = Req(recv_req.rid, recv_req.input_text, recv_req.input_ids, 
-                  recv_req.arrival_time, recv_req.append_to_queue_time, lora_uid=recv_req.lora_uid)
+                  recv_req.arrival_time, recv_req.append_to_queue_time, lora_uid=recv_req.lora_uid,need_cache=recv_req.need_cache)
         req.pixel_values = recv_req.pixel_values
         if req.pixel_values is not None:
             req.pad_value = [
@@ -891,16 +891,18 @@ class ModelRpcServer:
                 < self.max_prefill_num_token
             ):
                 # delta 是个复数，表示可以驱逐的减少量
-                delta = self.tree_cache.inc_lock_ref(req.last_node)
-                available_size += delta
+                if req.need_cache:
+                    delta = self.tree_cache.inc_lock_ref(req.last_node)
+                    available_size += delta
 
                 if not (
                     req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens
                     < available_size
                 ):
                     # Undo locking
-                    delta = self.tree_cache.dec_lock_ref(req.last_node)
-                    available_size += delta
+                    if req.need_cache:
+                        delta = self.tree_cache.dec_lock_ref(req.last_node)
+                        available_size += delta
                     break
                 else:
                     req.num_inflight_tokens = num_new_tokens
@@ -1033,14 +1035,14 @@ class ModelRpcServer:
         if new_batch is None:
             self.total_scheduling_overhead += time.time() - schedule_waiting_start
             self.schedule_waiting_overhead += time.time() - schedule_waiting_start
-            #print("have waiting requests but can't schedule",time.time() - schedule_waiting_start)
+            print("have waiting requests but can't schedule",time.time() - schedule_waiting_start)
             return None
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
             self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
-        #print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),time.time() - schedule_waiting_start)
+        print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),time.time() - schedule_waiting_start)
         return new_batch
     
     def get_new_fill_batch_lora_aware(self):
@@ -1554,15 +1556,18 @@ class ModelRpcServer:
             req_pool_indices_cpu = batch.req_pool_indices.tolist()
             for i in finished_indices:
                 req = batch.reqs[i]
+                token_ids = tuple(req.input_ids + req.output_ids)[:-1]
                 if req.need_cache:
                     self.tree_cache.cache_req(
-                        token_ids=tuple(req.input_ids + req.output_ids)[:-1],
+                        token_ids=token_ids,
                         last_uncached_pos=len(req.prefix_indices),
                         req_pool_idx=req_pool_indices_cpu[i],
                     )
-
                     self.tree_cache.dec_lock_ref(req.last_node)
-
+                else:
+                    indices = self.req_to_token_pool.req_to_token[req_pool_indices_cpu[i], : len(token_ids)]
+                    self.token_to_kv_pool.dec_refs(indices)
+                    self.req_to_token_pool.free(req_pool_indices_cpu[i])
             # Update batch tensors
             if unfinished_indices:
                 batch.filter_batch(unfinished_indices)

@@ -36,7 +36,7 @@ class FinishReason(IntEnum):
 
 
 class Req:
-    def __init__(self, rid, input_text, input_ids, arrival_time, append_to_queue_time,lora_uid=None):
+    def __init__(self, rid, input_text, input_ids, arrival_time, append_to_queue_time,lora_uid=None,need_cache=False):
         self.rid = rid
         self.input_text = input_text
         self.input_ids = input_ids
@@ -93,7 +93,7 @@ class Req:
         self.num_cached_tokens = 0
         self.num_inflight_tokens = 0
         
-        self.need_cache = False
+        self.need_cache = need_cache
 
     def max_new_tokens(self):
         return self.sampling_params.max_new_tokens
@@ -434,8 +434,8 @@ class Batch:
                 req_pool_indices_cpu[idx]
             ][last_uncached_pos : seq_lens_cpu[idx]]
             self.token_to_kv_pool.dec_refs(token_indices)
-
-            self.tree_cache.dec_lock_ref(req.last_node)
+            if req.need_cache:
+                self.tree_cache.dec_lock_ref(req.last_node)
             req.reset_state()
 
         self.filter_batch(sorted_indices)

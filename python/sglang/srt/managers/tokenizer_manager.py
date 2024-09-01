@@ -231,7 +231,8 @@ class TokenizerManager:
             return_logprob=obj.return_logprob,
             logprob_start_len=obj.logprob_start_len,
             stream=obj.stream,
-            lora_uid=obj.lora_uid
+            lora_uid=obj.lora_uid,
+            need_cache=obj.need_cache
         )
         await self.send_to_router.send_pyobj(tokenized_obj)
     
@@ -301,6 +302,7 @@ class TokenizerManager:
                 stream=obj.stream,
                 arrival_time=arrival_time,
                 lora_uid=obj.lora_uid,
+                need_cache=obj.need_cache
             )
             self.send_to_router.send_pyobj(tokenized_obj)
 
