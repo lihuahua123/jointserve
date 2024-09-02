@@ -67,7 +67,7 @@ async def async_request_openai_chat_completions(
         payload = {
             "model": request_func_input.model,
             "messages": request_func_input.prompt,
-            "temperature": 0.0,
+            "temperature": 0,
             "max_tokens": request_func_input.output_len,
             "stream": True,
             "need_cache": request_func_input.need_cache,
@@ -137,10 +137,12 @@ async def client(message_hostory_data):
     request_func_input.output_len = 100
     request_func_input.prompt = []
     for index, message in enumerate(message_hostory_data):
-        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 2000:
+        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 1900:
             break
         if index < 5:
             request_func_input.need_cache = True
+        elif index == 5:
+            request_func_input.need_cache = False
         else:
             request_func_input.need_cache = True
         request_func_input.prompt.append({
@@ -169,8 +171,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for message_hostory_data in message_hostory_dataset[:20]:
-        print("dispatch")
+    for message_hostory_data in message_hostory_dataset[:50]:
         client_tasks.append(asyncio.create_task(client(message_hostory_data)))
     for task in client_tasks:
         await task
