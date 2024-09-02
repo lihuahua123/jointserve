@@ -11,28 +11,929 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,383233
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,391277
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-INFO:     Started server process [8557]
+INFO:model_rpc:req.need_cache: True
+INFO:     Started server process [8537]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12607, max_total_num_token=12606
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+model /hy-tmp/ loaded.
+have waiting requests can schedule,scheduing req len: 1 0.0008141994476318359
+have waiting requests can schedule,scheduing req len: 2 0.0010018348693847656
+have waiting requests can schedule,scheduing req len: 1 0.0008668899536132812
+have waiting requests can schedule,scheduing req len: 1 0.0009350776672363281
+have waiting requests can schedule,scheduing req len: 1 0.0009865760803222656
+have waiting requests can schedule,scheduing req len: 1 0.0009334087371826172
+have waiting requests can schedule,scheduing req len: 1 0.0008280277252197266
+have waiting requests can schedule,scheduing req len: 1 0.0012319087982177734
+have waiting requests can schedule,scheduing req len: 1 0.001277923583984375
+have waiting requests can schedule,scheduing req len: 1 0.0013952255249023438
+have waiting requests can schedule,scheduing req len: 1 0.0015239715576171875
+have waiting requests can schedule,scheduing req len: 1 0.0006196498870849609
+have waiting requests can schedule,scheduing req len: 1 0.0005953311920166016
+have waiting requests can schedule,scheduing req len: 1 0.000621795654296875
+have waiting requests can schedule,scheduing req len: 1 0.0006597042083740234
+have waiting requests can schedule,scheduing req len: 1 0.0008873939514160156
+have waiting requests can schedule,scheduing req len: 1 0.0011169910430908203
+have waiting requests can schedule,scheduing req len: 1 0.0005724430084228516
+have waiting requests can schedule,scheduing req len: 1 0.0012485980987548828
+have waiting requests can schedule,scheduing req len: 1 0.0013217926025390625
+have waiting requests can schedule,scheduing req len: 1 0.0013773441314697266
+have waiting requests can schedule,scheduing req len: 1 0.0012853145599365234
+have waiting requests can schedule,scheduing req len: 1 0.0010745525360107422
+have waiting requests can schedule,scheduing req len: 1 0.0005812644958496094
+have waiting requests can schedule,scheduing req len: 2 0.001356363296508789
+have waiting requests can schedule,scheduing req len: 1 0.0008742809295654297
+have waiting requests can schedule,scheduing req len: 1 0.0010142326354980469
+have waiting requests can schedule,scheduing req len: 1 0.0010294914245605469
+have waiting requests can schedule,scheduing req len: 1 0.0011477470397949219
+have waiting requests can schedule,scheduing req len: 1 0.0011782646179199219
+have waiting requests can schedule,scheduing req len: 1 0.0010609626770019531
+have waiting requests can schedule,scheduing req len: 1 0.0027074813842773438
+have waiting requests can schedule,scheduing req len: 1 0.0015659332275390625
+have waiting requests can schedule,scheduing req len: 1 0.0011892318725585938
+have waiting requests can schedule,scheduing req len: 1 0.0013561248779296875
+have waiting requests can schedule,scheduing req len: 1 0.001680135726928711
+have waiting requests can schedule,scheduing req len: 1 0.000827789306640625
+have waiting requests can schedule,scheduing req len: 1 0.0008208751678466797
+have waiting requests can schedule,scheduing req len: 1 0.0007603168487548828
+have waiting requests can schedule,scheduing req len: 1 0.00087738037109375
+have waiting requests can schedule,scheduing req len: 1 0.000982046127319336
+have waiting requests can schedule,scheduing req len: 1 0.0010993480682373047
+have waiting requests can schedule,scheduing req len: 1 0.002099752426147461
+have waiting requests can schedule,scheduing req len: 1 0.0013871192932128906
+have waiting requests can schedule,scheduing req len: 1 0.0036363601684570312
+have waiting requests can schedule,scheduing req len: 1 0.0015139579772949219
+have waiting requests can schedule,scheduing req len: 1 0.0014634132385253906
+have waiting requests can schedule,scheduing req len: 1 0.001527547836303711
+have waiting requests can schedule,scheduing req len: 1 0.0015878677368164062
+have waiting requests can schedule,scheduing req len: 2 0.0007717609405517578
+have waiting requests can schedule,scheduing req len: 1 0.0007309913635253906
+have waiting requests can schedule,scheduing req len: 1 0.0007386207580566406
+have waiting requests can schedule,scheduing req len: 1 0.0006816387176513672
+have waiting requests can schedule,scheduing req len: 1 0.0007672309875488281
+have waiting requests can schedule,scheduing req len: 1 0.0007674694061279297
+have waiting requests can schedule,scheduing req len: 1 0.0007288455963134766
+have waiting requests can schedule,scheduing req len: 1 0.0007526874542236328
+have waiting requests can schedule,scheduing req len: 1 0.0007650852203369141
+have waiting requests can schedule,scheduing req len: 1 0.0007805824279785156
+have waiting requests can schedule,scheduing req len: 1 0.0006241798400878906
+have waiting requests can schedule,scheduing req len: 1 0.000789642333984375
+have waiting requests can schedule,scheduing req len: 1 0.0005407333374023438
+have waiting requests can schedule,scheduing req len: 1 0.0006618499755859375
+have waiting requests can schedule,scheduing req len: 1 0.0006105899810791016
+have waiting requests can schedule,scheduing req len: 1 0.0008373260498046875
+have waiting requests can schedule,scheduing req len: 1 0.0008285045623779297
+have waiting requests can schedule,scheduing req len: 1 0.0004286766052246094
+have waiting requests can schedule,scheduing req len: 1 0.0009441375732421875
+have waiting requests can schedule,scheduing req len: 1 0.0009024143218994141
+have waiting requests can schedule,scheduing req len: 1 0.0011582374572753906
+have waiting requests can schedule,scheduing req len: 1 0.0010673999786376953
+have waiting requests can schedule,scheduing req len: 1 0.0013229846954345703
+have waiting requests can schedule,scheduing req len: 1 0.0012602806091308594
+have waiting requests can schedule,scheduing req len: 1 0.0012638568878173828
+have waiting requests can schedule,scheduing req len: 3 0.0007939338684082031
+have waiting requests can schedule,scheduing req len: 7 0.0013766288757324219
+have waiting requests can schedule,scheduing req len: 1 0.0006196498870849609
+have waiting requests can schedule,scheduing req len: 5 0.001461029052734375
+have waiting requests can schedule,scheduing req len: 3 0.001280069351196289
+have waiting requests can schedule,scheduing req len: 1 0.0006864070892333984
+have waiting requests can schedule,scheduing req len: 2 0.001378774642944336
+have waiting requests can schedule,scheduing req len: 1 0.0011630058288574219
+have waiting requests can schedule,scheduing req len: 1 0.0010693073272705078
+have waiting requests can schedule,scheduing req len: 1 0.001089334487915039
+have waiting requests can schedule,scheduing req len: 1 0.001168966293334961
+have waiting requests can schedule,scheduing req len: 1 0.00042700767517089844
+have waiting requests can schedule,scheduing req len: 9 0.0007338523864746094
+have waiting requests can schedule,scheduing req len: 4 0.0005764961242675781
+have waiting requests can schedule,scheduing req len: 2 0.0009124279022216797
+have waiting requests can schedule,scheduing req len: 2 0.0010688304901123047
+have waiting requests can schedule,scheduing req len: 2 0.001001596450805664
+have waiting requests can schedule,scheduing req len: 2 0.0010504722595214844
+have waiting requests can schedule,scheduing req len: 1 0.0011260509490966797
+have waiting requests can schedule,scheduing req len: 1 0.0010197162628173828
+have waiting requests can schedule,scheduing req len: 1 0.0012784004211425781
+have waiting requests can schedule,scheduing req len: 1 0.0011334419250488281
+have waiting requests can schedule,scheduing req len: 1 0.0006129741668701172
+have waiting requests can schedule,scheduing req len: 9 0.0014476776123046875
+have waiting requests can schedule,scheduing req len: 2 0.0007219314575195312
+have waiting requests can schedule,scheduing req len: 4 0.0013630390167236328
+have waiting requests can schedule,scheduing req len: 4 0.0012638568878173828
+have waiting requests can schedule,scheduing req len: 2 0.0012557506561279297
+have waiting requests can schedule,scheduing req len: 1 0.00103759765625
+have waiting requests can schedule,scheduing req len: 1 0.0010080337524414062
+have waiting requests can schedule,scheduing req len: 1 0.0010752677917480469
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+Token indices sequence length is longer than the specified maximum sequence length for this model (2857 > 2048). Running this sequence through the model will result in indexing errors
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
+    await self.message_event.wait()
+  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 14ecc7ad3d10
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/usr/local/lib/python3.11/dist-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 250, in stream_response
+    |     async for chunk in self.body_iterator:
+    |   File "/root/jointserve/python/sglang/srt/openai_api_adapter.py", line 270, in generate_stream_resp
+    |     async for content in tokenizer_manager.generate_request(adapted_request):
+    |   File "/root/jointserve/python/sglang/srt/managers/tokenizer_manager.py", line 271, in generate_request
+    |     raise ValueError(
+    | ValueError: The input (2857 tokens) is longer than the model's context length (2048 tokens)
+    +------------------------------------
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
+    await wrap(partial(self.listen_for_disconnect, receive))
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
+    await func()
+  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
+    message = await receive()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
+    await self.message_event.wait()
+  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
+    await fut
+asyncio.exceptions.CancelledError: Cancelled by cancel scope 14ecc7ac6950
+
+During handling of the above exception, another exception occurred:
+
+  + Exception Group Traceback (most recent call last):
+  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+  |     result = await app(  # type: ignore[func-returns-value]
+  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+  |     return await self.app(scope, receive, send)
+  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |   File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
+  |     await super().__call__(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 186, in __call__
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
+  |     await self.app(scope, receive, _send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
+  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
+  |     await self.middleware_stack(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
+  |     await route.handle(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
+  |     await self.app(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
+  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+  |     raise exc
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+  |     await app(scope, receive, sender)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
+  |     await response(scope, receive, send)
+  |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 258, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "/usr/local/lib/python3.11/dist-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
+    |     await func()
+    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 250, in stream_response
+    |     async for chunk in self.body_iterator:
+    |   File "/root/jointserve/python/sglang/srt/openai_api_adapter.py", line 270, in generate_stream_resp
+    |     async for content in tokenizer_manager.generate_request(adapted_request):
+    |   File "/root/jointserve/python/sglang/srt/managers/tokenizer_manager.py", line 271, in generate_request
+    |     raise ValueError(
+    | ValueError: The input (4621 tokens) is longer than the model's context length (2048 tokens)
+    +------------------------------------
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12962, max_total_num_token=12606
 KV cache pool leak detected!
   warnings.warn(
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: False
+INFO:model_rpc:req.need_cache: False
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12871, max_total_num_token=12606
+KV cache pool leak detected!
+  warnings.warn(
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+INFO:model_rpc:req.need_cache: True
+have waiting requests can schedule,scheduing req len: 1 0.0014827251434326172
+have waiting requests can schedule,scheduing req len: 1 0.0008909702301025391
+have waiting requests can schedule,scheduing req len: 9 0.0011050701141357422
+have waiting requests can schedule,scheduing req len: 3 0.0010814666748046875
+have waiting requests can schedule,scheduing req len: 3 0.0011305809020996094
+have waiting requests can schedule,scheduing req len: 2 0.0014526844024658203
+have waiting requests can schedule,scheduing req len: 2 0.0012576580047607422
+have waiting requests can schedule,scheduing req len: 2 0.0010933876037597656
+have waiting requests can schedule,scheduing req len: 1 0.0011157989501953125
+have waiting requests can schedule,scheduing req len: 1 0.0011866092681884766
+have waiting requests can schedule,scheduing req len: 1 0.001031637191772461
+have waiting requests can schedule,scheduing req len: 1 0.0011141300201416016
+have waiting requests can schedule,scheduing req len: 4 0.0009212493896484375
+have waiting requests can schedule,scheduing req len: 6 0.0011811256408691406
+have waiting requests can schedule,scheduing req len: 4 0.0009424686431884766
+have waiting requests can schedule,scheduing req len: 2 0.000392913818359375
+have waiting requests can schedule,scheduing req len: 4 0.0017635822296142578
+have waiting requests can schedule,scheduing req len: 2 0.0011408329010009766
+have waiting requests can schedule,scheduing req len: 1 0.0008904933929443359
+have waiting requests can schedule,scheduing req len: 1 0.0009918212890625
+have waiting requests can schedule,scheduing req len: 1 0.0010738372802734375
+have waiting requests can schedule,scheduing req len: 1 0.0011339187622070312
+have waiting requests can schedule,scheduing req len: 1 0.0006906986236572266
+have waiting requests can schedule,scheduing req len: 9 0.0014731884002685547
+have waiting requests can schedule,scheduing req len: 6 0.0007941722869873047
+have waiting requests can schedule,scheduing req len: 3 0.0014495849609375
+have waiting requests can schedule,scheduing req len: 1 0.0008695125579833984
+have waiting requests can schedule,scheduing req len: 2 0.0013344287872314453
+have waiting requests can schedule,scheduing req len: 1 0.0013153553009033203
+have waiting requests can schedule,scheduing req len: 1 0.0010418891906738281
+have waiting requests can schedule,scheduing req len: 1 0.0004849433898925781
+have waiting requests can schedule,scheduing req len: 1 0.0011675357818603516
+have waiting requests can schedule,scheduing req len: 2 0.0007658004760742188
+have waiting requests can schedule,scheduing req len: 16 0.001984834671020508
+have waiting requests can schedule,scheduing req len: 1 0.0009548664093017578
+have waiting requests can schedule,scheduing req len: 16 0.00222015380859375
+have waiting requests can schedule,scheduing req len: 2 0.0006585121154785156
+have waiting requests can schedule,scheduing req len: 8 0.0019712448120117188
+have waiting requests can schedule,scheduing req len: 2 0.0009496212005615234
+have waiting requests can schedule,scheduing req len: 3 0.001008749008178711
+have waiting requests can schedule,scheduing req len: 5 0.001981019973754883
+have waiting requests can schedule,scheduing req len: 1 0.0008711814880371094
+have waiting requests can schedule,scheduing req len: 1 0.0016891956329345703
+have waiting requests can schedule,scheduing req len: 1 0.001493692398071289
+have waiting requests can schedule,scheduing req len: 1 0.0005426406860351562
+have waiting requests can schedule,scheduing req len: 16 0.0019252300262451172
+have waiting requests can schedule,scheduing req len: 1 0.000457763671875
+have waiting requests can schedule,scheduing req len: 9 0.002026796340942383
+have waiting requests can schedule,scheduing req len: 1 0.0007784366607666016
+have waiting requests can schedule,scheduing req len: 4 0.001378774642944336
+have waiting requests can schedule,scheduing req len: 5 0.001996755599975586
+have waiting requests can schedule,scheduing req len: 1 0.0009181499481201172
+have waiting requests can schedule,scheduing req len: 1 0.0009961128234863281
+have waiting requests can schedule,scheduing req len: 1 0.0010504722595214844
+have waiting requests can schedule,scheduing req len: 2 0.0006573200225830078
+have waiting requests can schedule,scheduing req len: 15 0.0014164447784423828
+have waiting requests can schedule,scheduing req len: 2 0.0008077621459960938
+have waiting requests can schedule,scheduing req len: 8 0.0016582012176513672
+have waiting requests can schedule,scheduing req len: 2 0.0009741783142089844
+have waiting requests can schedule,scheduing req len: 3 0.0013668537139892578
+have waiting requests can schedule,scheduing req len: 3 0.0014197826385498047
+have waiting requests can schedule,scheduing req len: 2 0.0013439655303955078
+have waiting requests can schedule,scheduing req len: 1 0.0011327266693115234
+have waiting requests can schedule,scheduing req len: 1 0.0010504722595214844
+have waiting requests can schedule,scheduing req len: 1 0.0008795261383056641
+have waiting requests can schedule,scheduing req len: 1 0.0008726119995117188
+have waiting requests can schedule,scheduing req len: 16 0.002630472183227539
+have waiting requests can schedule,scheduing req len: 2 0.0011217594146728516
+have waiting requests can schedule,scheduing req len: 8 0.0021309852600097656
+have waiting requests can schedule,scheduing req len: 1 0.0009102821350097656
+have waiting requests can schedule,scheduing req len: 4 0.00083160400390625
+have waiting requests can schedule,scheduing req len: 5 0.0016613006591796875
+have waiting requests can schedule,scheduing req len: 1 0.0012271404266357422
+have waiting requests can schedule,scheduing req len: 1 0.0006716251373291016
+have waiting requests can schedule,scheduing req len: 1 0.0011529922485351562
+have waiting requests can schedule,scheduing req len: 1 0.0005390644073486328
+have waiting requests can schedule,scheduing req len: 16 0.002557516098022461
+have waiting requests can schedule,scheduing req len: 1 0.0003829002380371094
+have waiting requests can schedule,scheduing req len: 9 0.0023365020751953125
+have waiting requests can schedule,scheduing req len: 4 0.001077890396118164
+have waiting requests can schedule,scheduing req len: 1 0.0007877349853515625
+have waiting requests can schedule,scheduing req len: 1 0.0009233951568603516
+have waiting requests can schedule,scheduing req len: 4 0.0018689632415771484
+have waiting requests can schedule,scheduing req len: 1 0.0009334087371826172
+have waiting requests can schedule,scheduing req len: 1 0.001191854476928711
+have waiting requests can schedule,scheduing req len: 1 0.0012760162353515625
+have waiting requests can schedule,scheduing req len: 3 0.0008237361907958984
+have waiting requests can schedule,scheduing req len: 14 0.0030829906463623047
+have waiting requests can schedule,scheduing req len: 4 0.0008976459503173828
+have waiting requests can schedule,scheduing req len: 6 0.0017192363739013672
+have waiting requests can schedule,scheduing req len: 5 0.0018742084503173828
+have waiting requests can schedule,scheduing req len: 5 0.0022542476654052734
+have waiting requests can schedule,scheduing req len: 1 0.0012118816375732422
+have waiting requests can schedule,scheduing req len: 1 0.001422882080078125
+have waiting requests can schedule,scheduing req len: 1 0.0012786388397216797
+have waiting requests can schedule,scheduing req len: 2 0.0007309913635253906
+have waiting requests can schedule,scheduing req len: 15 0.0024738311767578125
+have waiting requests can schedule,scheduing req len: 2 0.0004668235778808594
+have waiting requests can schedule,scheduing req len: 8 0.0008234977722167969
+have waiting requests can schedule,scheduing req len: 1 0.0006515979766845703
+have waiting requests can schedule,scheduing req len: 4 0.0012047290802001953
+have waiting requests can schedule,scheduing req len: 5 0.002094745635986328
+have waiting requests can schedule,scheduing req len: 1 0.00042319297790527344
+have waiting requests can schedule,scheduing req len: 1 0.0004439353942871094
+have waiting requests can schedule,scheduing req len: 1 0.001180410385131836
+INFO:model_rpc:req.need_cache: True
 You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Shutting down
-model /hy-tmp/ loaded.
-have waiting requests can schedule,scheduing req len: 1 0.0007302761077880859
-have waiting requests can schedule,scheduing req len: 1 0.0005621910095214844
+have waiting requests can schedule,scheduing req len: 1 0.0011873245239257812
+have waiting requests can schedule,scheduing req len: 1 0.0012695789337158203
 You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [8557]
-Server is on port 30000 on host 0.0.0.0 on pid 8722
+INFO:     Finished server process [8537]
+Server is on port 30000 on host 0.0.0.0 on pid 8716
 You pressed Ctrl+C! Shutting down all remote servers...
 Loading runtimes at ['http://0.0.0.0:30000/generate']
-You pressed Ctrl+C! Shutting down all remote servers...
 You pressed Ctrl+C! Shutting down all remote servers...
