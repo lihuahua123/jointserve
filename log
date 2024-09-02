@@ -11,84 +11,28 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,371187
-INFO:infer_adapter:load 2 adapters, 2 in total
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,383233
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=12478, max_total_num_token=12606
-KV cache pool leak detected!
-  warnings.warn(
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=12518, max_total_num_token=12606
-KV cache pool leak detected!
-  warnings.warn(
-INFO:     Started server process [1324]
+INFO:     Started server process [8557]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3216 -> 0.3716
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3676 -> 0.4176
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4126 -> 0.4626
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4536 -> 0.5036
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4859 -> 0.5359
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:723: UserWarning: Warning: available_size=755, max_total_num_token=12606
+/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=12607, max_total_num_token=12606
 KV cache pool leak detected!
   warnings.warn(
 You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Shutting down
+model /hy-tmp/ loaded.
+have waiting requests can schedule,scheduing req len: 1 0.0007302761077880859
+have waiting requests can schedule,scheduing req len: 1 0.0005621910095214844
+You pressed Ctrl+C! Shutting down all remote servers...
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [1324]
+INFO:     Finished server process [8557]
+Server is on port 30000 on host 0.0.0.0 on pid 8722
+You pressed Ctrl+C! Shutting down all remote servers...
 Loading runtimes at ['http://0.0.0.0:30000/generate']
 You pressed Ctrl+C! Shutting down all remote servers...
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/psutil/__init__.py", line 1236, in _send_signal
-    os.kill(self.pid, sig)
-ProcessLookupError: [Errno 3] No such process
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/root/jointserve/playground/example.py", line 2, in <module>
-    start_server_and_load_models(
-  File "/root/jointserve/preble/server/server.py", line 300, in start_server_and_load_models
-    start_server(runtime_selection_policy="custom", runtime_urls=",".join(runtimes), model=model_name, host=host, port=port)
-  File "/root/jointserve/preble/server/server.py", line 256, in start_server
-    loop.run_until_complete(main())
-  File "uvloop/loop.pyx", line 1517, in uvloop.loop.Loop.run_until_complete
-  File "/root/jointserve/preble/server/server.py", line 253, in main
-    await server.serve()
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 68, in serve
-    with self.capture_signals():
-  File "/usr/lib/python3.11/contextlib.py", line 144, in __exit__
-    next(self.gen)
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/server.py", line 328, in capture_signals
-    signal.raise_signal(captured_signal)
-  File "/root/jointserve/preble/multi_node_loader.py", line 35, in runtime_cleanup_handler
-    runtime_instance.shutdown()
-  File "/root/jointserve/python/sglang/srt/server.py", line 495, in shutdown
-    child.kill()
-  File "/usr/local/lib/python3.11/dist-packages/psutil/__init__.py", line 1301, in kill
-    self._send_signal(signal.SIGKILL)
-  File "/usr/local/lib/python3.11/dist-packages/psutil/__init__.py", line 1244, in _send_signal
-    raise NoSuchProcess(self.pid, self._name)
-psutil.NoSuchProcess: process no longer exists (pid=1578)
-Server is on port 30000 on host 0.0.0.0 on pid 1512
-You pressed Ctrl+C! Shutting down all remote servers...
-Exception ignored in atexit callback: <function _exit_function at 0x15384ed0f420>
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/multiprocessing/util.py", line 360, in _exit_function
-    p.join()
-  File "/usr/lib/python3.11/multiprocessing/process.py", line 149, in join
-    res = self._popen.wait(timeout)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/multiprocessing/popen_fork.py", line 43, in wait
-    return self.poll(os.WNOHANG if timeout == 0.0 else 0)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/multiprocessing/popen_fork.py", line 27, in poll
-    pid, sts = os.waitpid(self.pid, flag)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/root/jointserve/preble/multi_node_loader.py", line 36, in runtime_cleanup_handler
-    sys.exit(0)
-SystemExit: 0
 You pressed Ctrl+C! Shutting down all remote servers...

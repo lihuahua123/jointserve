@@ -667,11 +667,12 @@ class ModelRpcServer:
         forward_times = []
         if new_batch is not None:
             # Run new fill batch
-            cur_loras = []
-            for req in new_batch.reqs:
-                if req.lora_uid is not None and req.lora_uid not in self.model_runner.lora_manager.infer_adapter.adapter_uids:
-                    cur_loras.append(req.lora_uid)
-            self.model_runner.lora_manager.load_loras_from_path(cur_loras)
+            if self.model_runner.lora_paths:
+                cur_loras = []
+                for req in new_batch.reqs:
+                    if req.lora_uid is not None and req.lora_uid not in self.model_runner.lora_manager.infer_adapter.adapter_uids:
+                        cur_loras.append(req.lora_uid)
+                self.model_runner.lora_manager.load_loras_from_path(cur_loras)
             forward_times.append(self.forward_fill_batch(new_batch, forward_simulation))
             self.cache_filled_batch(new_batch)
 
@@ -1572,8 +1573,9 @@ class ModelRpcServer:
             if unfinished_indices:
                 batch.filter_batch(unfinished_indices)
             else:
-                batch.reqs = []           
-            self.model_runner.lora_manager.infer_adapter.offload_adapters(remain_loras)
+                batch.reqs = []
+            if self.model_runner.lora_paths:           
+                self.model_runner.lora_manager.infer_adapter.offload_adapters(remain_loras)
 
 
 class ModelRpcService(rpyc.Service):

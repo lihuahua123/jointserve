@@ -279,7 +279,7 @@ def start_server_and_load_models(model_name="/hy-tmp/", devices=[0], host="127.0
         "chunk_prefill_budget": 0,
         'report_hit_ratio': True ,
         'enable_iterative_eviction': True,
-        'lora_paths':["/root/lora_model/model1","/root/lora_model/model2"],
+        #'lora_paths':["/root/lora_model/model1","/root/lora_model/model2"],
     }
     # GPU Configuration
     gpu_configs = [

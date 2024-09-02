@@ -367,6 +367,7 @@ async def benchmark(
         raise ValueError(f"Unknown backend: {backend}")
 
     print("Starting initial single prompt test run...")
+    
     test_prompt, test_prompt_len, test_output_len,model_id = input_requests[0]
     test_input = RequestFuncInput(
         model=model_id,
