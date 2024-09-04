@@ -85,7 +85,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
     sampling_param = {"temperature":request.temperature,"max_tokens":request.max_tokens}
     request_id = ''.join(random.sample(string.ascii_letters + string.digits, 8))
 
-    clinet_index = scheduler.runtime_selector(request_id,prompt_inputs['prompt_token_ids'],request.model)
+    clinet_index,new_prefix_len = scheduler.runtime_selector(request_id,prompt_inputs['prompt_token_ids'],request.model)
     print(clinet_index,request.model)
     request_dict["prompt"] = prompt
     request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
@@ -102,7 +102,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
         generated_text = ""
         ttft = 0.0
         output = RequestFuncOutput()
-        output.prompt_len = len(request_dict["prompt_token_ids"])
+        output.prompt_len = len(request_dict["prompt_token_ids"]) - new_prefix_len
         send_out_time = time.perf_counter()
         most_recent_timestamp = send_out_time
         async with aiohttp.ClientSession(timeout=AIOHTTP_TIMEOUT) as session:

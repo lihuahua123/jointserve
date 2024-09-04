@@ -84,8 +84,8 @@ class GlobalScheduler:
                 self.node_to_GPU[now].add(runtime_ids[0])
                 now = now.parent
             self.per_gpu_load[runtime_ids[0]] += 1
-            self.per_gpu_load_len[runtime_ids[0]] += len(token_ids)
-        return runtime_ids[0]
+            self.per_gpu_load_len[runtime_ids[0]] += len(token_ids) - new_prefix_len
+        return runtime_ids[0], new_prefix_len
 
     def finish_request(self,req_id,runtime_id,output:RequestFuncOutput = None,now_per_gpu_load_len = 0):
         max_total_num = 12606 # 这个是3090 profill的 FIXME：还要减去lora的
