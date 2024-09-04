@@ -61,6 +61,8 @@ class RequestFuncOutput:
     scheduling_overhead: float = 0.0
     runtime_selected :int = 0
     max_new_tokens: int = 0
+    total_latency_in_engine: float = 0.0
+    waiting_latency: float = 0.0
 
     def update_metrics(
         self,

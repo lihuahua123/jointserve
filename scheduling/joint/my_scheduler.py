@@ -2,7 +2,7 @@ from .radix_cache import RadixCache,TreeNode
 import numpy as np
 from collections import defaultdict
 import threading
-
+from .utils import RequestFuncOutput
 class GlobalScheduler:
     def __init__(self,num_gpus):
         self.num_gpus = num_gpus
@@ -14,9 +14,13 @@ class GlobalScheduler:
         self.node_to_GPU[self.tree_cache.root_node]={i for i in range(num_gpus)}
         model_ids = ["lora1","lora2","/hy-tmp/"]
         self.locks = {model_id:threading.Lock() for model_id in model_ids}
+        self.total_locks = threading.Lock()
         self.lora_to_GPU = { model_ids[i]:{i%self.num_gpus} for i in range(len(model_ids))}
         # root model
         self.lora_to_GPU["/hy-tmp/"] = {i for i in range(num_gpus)}
+        self.per_gpu_load_len = [0 for i in range(num_gpus)]
+        self.history = []
+    
     
     def waiting_time(self,runtime_id,prefill_len,decode_len):
         pass
@@ -26,8 +30,8 @@ class GlobalScheduler:
         pass
     def prefill_time(self,runtime_id,prefix_len,prefill_len):
         pass
-    def decode_time(self,runtime_id,decode_len):
-        pass
+    # def decode_time(self,runtime_id,decode_len):
+    #     pass
     
     def find_best_runtime(self,runtime_ids,req_id,token_ids,model_id,cliend_id,decode_len=None,prefix_len=None):
         run_times=[]
@@ -36,7 +40,6 @@ class GlobalScheduler:
             + self.load_kv_time(runtime_id,prefix_len)
             + self.load_lora_time(runtime_id,model_id)
             + self.prefill_time(runtime_id,prefix_len,len(token_ids))
-            + self.decode_time(runtime_id,decode_len)
             run_times.append(run_time)
         return [int(np.argmin(run_times))]
         
@@ -66,25 +69,35 @@ class GlobalScheduler:
                     print("find:",now,self.node_to_GPU[now],self.per_gpu_load)
                     runtime_ids = [int(np.argmin([self.per_gpu_load[gpu] for gpu in self.node_to_GPU[now]]))]
                     # update_gpu_allocation_for_parent
-                    
-        if runtime_ids is None:
-            runtime_ids = [int(np.argmin([self.per_gpu_load[gpu] for gpu in self.lora_to_GPU[model_id]]))]
-                # runtime_id = int(np.argmin(self.per_gpu_load))
-        if runtime_ids is None or len(runtime_ids) != 1:
-            if runtime_ids is None or len(runtime_ids) == 0:
-                runtime_ids = [i for i in range(self.num_gpus)]
-            runtime_ids = self.find_best_runtime(runtime_ids,req_id,token_ids,model_id,cliend_id)
         
-        now = new_node
-        while now is not None:
-            self.node_to_GPU[now].add(runtime_ids[0])
-            now = now.parent
-        self.per_gpu_load[runtime_ids[0]] += 1
+        with self.total_locks:           
+            if runtime_ids is None:
+                runtime_ids = [int(np.argmin([self.per_gpu_load[gpu] for gpu in self.lora_to_GPU[model_id]]))]
+                    # runtime_id = int(np.argmin(self.per_gpu_load))
+            if runtime_ids is None or len(runtime_ids) != 1:
+                if runtime_ids is None or len(runtime_ids) == 0:
+                    runtime_ids = [i for i in range(self.num_gpus)]
+                runtime_ids = self.find_best_runtime(runtime_ids,req_id,token_ids,model_id,cliend_id)
+            
+            now = new_node
+            while now is not None:
+                self.node_to_GPU[now].add(runtime_ids[0])
+                now = now.parent
+            self.per_gpu_load[runtime_ids[0]] += 1
+            self.per_gpu_load_len[runtime_ids[0]] += len(token_ids)
         return runtime_ids[0]
 
-    def finish_request(self,req_id,runtime_id):
+    def finish_request(self,req_id,runtime_id,output:RequestFuncOutput = None):
+        max_total_num = 12606 # 这个是3090 profill的 FIXME：还要减去lora的
+        x1 = max_total_num - self.per_gpu_load_len[runtime_id]
+        x2 = output.prompt_len
+        y = output.waiting_latency
+        self.history.append((x1,x2,y))
         with self.lock:
             self.tree_cache.dec_lock_ref(self.req_to_node[req_id])
             self.per_gpu_load[runtime_id] -= 1
+            self.per_gpu_load_len[runtime_id] -= output.prompt_len
+        if len(self.history) > 10:
+            print(self.history)
         # 现在默认不驱逐
         
