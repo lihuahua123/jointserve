@@ -24,10 +24,11 @@ class TreeNode:
         self.last_access_time = time.time()
 
     def __lt__(self, other: "TreeNode"):
-        delta = self.last_access_time-other.last_access_time
-        if abs(delta) < 1:
-            return len(self.value) > len(other.value)
-        return delta < 0
+        # delta = self.last_access_time-other.last_access_time
+        # if delta == 0:
+        #     return len(self.value) > len(other.value)
+        # return delta < 0
+        return self.last_access_time < other.last_access_time
 
 
 def _key_match(key0, key1):

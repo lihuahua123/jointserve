@@ -70,7 +70,6 @@ class DetokenizerManager:
                     output_strs[i] = (
                         recv_obj.output_and_jump_forward_strs[i] + output_strs[i]
                     )
-
                 self.send_to_tokenizer.send_pyobj(
                     BatchStrOut(
                         recv_obj.rids,

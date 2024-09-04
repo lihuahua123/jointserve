@@ -28,6 +28,8 @@ class RequestFuncOutput:
         default_factory=list)  # List of inter-token latencies
     prompt_len: int = 0
     error: str = ""
+    total_latency_in_engine: float = 0.0
+    waiting_latency: float = 0.0
 def remove_prefix(text: str, prefix: str) -> str:
     if text.startswith(prefix):
         return text[len(prefix):]
@@ -76,7 +78,6 @@ async def async_request_openai_chat_completions(
             "Content-Type": "application/json",
             "Authorization": f"Bearer {os.environ.get('OPENAI_API_KEY')}",
         }
-
         output = RequestFuncOutput()
         output.prompt_len = len(request_func_input.prompt)
 
@@ -115,9 +116,9 @@ async def async_request_openai_chat_completions(
                                                         most_recent_timestamp)
 
                                 generated_text += delta["content"]
-
                             most_recent_timestamp = timestamp
-
+                    output.total_latency_in_engine = data["arrival_time"]
+                    output.waiting_latency = data["arrival_time"] - data["begin_to_run_time"]
                     output.generated_text = generated_text
                     output.success = True
                     output.latency = latency
@@ -139,12 +140,13 @@ async def client(message_hostory_data):
     for index, message in enumerate(message_hostory_data):
         if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 1900:
             break
-        if index < 5:
-            request_func_input.need_cache = True
-        elif index == 5:
-            request_func_input.need_cache = False
-        else:
-            request_func_input.need_cache = True
+        request_func_input.need_cache = True
+        # if index < 5:
+        #     request_func_input.need_cache = True
+        # elif index == 5:
+        #     request_func_input.need_cache = False
+        # else:
+        #     request_func_input.need_cache = True
         request_func_input.prompt.append({
             "role": "user",
             "content": message,
@@ -154,7 +156,9 @@ async def client(message_hostory_data):
             "role": "assistant",
             "content": result.generated_text
         })
-    print("conversation turns:", index)
+        # print(f"itl:{result.itl},latency:{result.latency},prompt_len:{result.prompt_len},ttft:{result.ttft},total_latency_in_engine:{result.total_latency_in_engine},waiting_latency:{result.waiting_latency}")
+        print(f"waiting_latency:{result.waiting_latency}")
+    #print("conversation turns:", index)
 async def test():
     dataset_path = "/root/jointserve/benchmark/sharegpt_gpt4.jsonl"
     dataset = []
@@ -171,7 +175,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for message_hostory_data in message_hostory_dataset[:50]:
+    for message_hostory_data in message_hostory_dataset[:100]:
         client_tasks.append(asyncio.create_task(client(message_hostory_data)))
     for task in client_tasks:
         await task

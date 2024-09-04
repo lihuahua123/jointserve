@@ -11,91 +11,38 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,383439
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,361390
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-INFO:     Started server process [13421]
+INFO:     Started server process [7171]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 INFO:model_rpc:Cache flushed successfully!
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
-Token indices sequence length is longer than the specified maximum sequence length for this model (2085 > 2048). Running this sequence through the model will result in indexing errors
-ERROR:    Exception in ASGI application
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 265, in __call__
-    await wrap(partial(self.listen_for_disconnect, receive))
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    await func()
-  File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 238, in listen_for_disconnect
-    message = await receive()
-              ^^^^^^^^^^^^^^^
-  File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 553, in receive
-    await self.message_event.wait()
-  File "/usr/lib/python3.11/asyncio/locks.py", line 213, in wait
-    await fut
-asyncio.exceptions.CancelledError: Cancelled by cancel scope 14e70db1f9d0
-
-During handling of the above exception, another exception occurred:
-
-  + Exception Group Traceback (most recent call last):
-  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
-  |     result = await app(  # type: ignore[func-returns-value]
-  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  |   File "/usr/local/lib/python3.11/dist-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
-  |     return await self.app(scope, receive, send)
-  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  |   File "/usr/local/lib/python3.11/dist-packages/fastapi/applications.py", line 1054, in __call__
-  |     await super().__call__(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/applications.py", line 123, in __call__
-  |     await self.middleware_stack(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 186, in __call__
-  |     raise exc
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/errors.py", line 164, in __call__
-  |     await self.app(scope, receive, _send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/middleware/exceptions.py", line 65, in __call__
-  |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-  |     raise exc
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-  |     await app(scope, receive, sender)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 756, in __call__
-  |     await self.middleware_stack(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 776, in app
-  |     await route.handle(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 297, in handle
-  |     await self.app(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 77, in app
-  |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 64, in wrapped_app
-  |     raise exc
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/_exception_handler.py", line 53, in wrapped_app
-  |     await app(scope, receive, sender)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/routing.py", line 75, in app
-  |     await response(scope, receive, send)
-  |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 258, in __call__
-  |     async with anyio.create_task_group() as task_group:
-  |   File "/usr/local/lib/python3.11/dist-packages/anyio/_backends/_asyncio.py", line 678, in __aexit__
-  |     raise BaseExceptionGroup(
-  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
-  +-+---------------- 1 ----------------
-    | Traceback (most recent call last):
-    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 261, in wrap
-    |     await func()
-    |   File "/usr/local/lib/python3.11/dist-packages/starlette/responses.py", line 250, in stream_response
-    |     async for chunk in self.body_iterator:
-    |   File "/root/jointserve/python/sglang/srt/openai_api_adapter.py", line 270, in generate_stream_resp
-    |     async for content in tokenizer_manager.generate_request(adapted_request):
-    |   File "/root/jointserve/python/sglang/srt/managers/tokenizer_manager.py", line 271, in generate_request
-    |     raise ValueError(
-    | ValueError: The input (2085 tokens) is longer than the model's context length (2048 tokens)
-    +------------------------------------
 INFO:model_rpc:Cache flushed successfully!
 INFO:model_rpc:Cache flushed successfully!
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=15799, max_total_num_token=12606
-KV cache pool leak detected!
-  warnings.warn(
 INFO:model_rpc:Cache flushed successfully!
-/root/jointserve/python/sglang/srt/managers/router/model_rpc.py:724: UserWarning: Warning: available_size=15903, max_total_num_token=12606
-KV cache pool leak detected!
-  warnings.warn(
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.2000 -> 0.2500
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.2498 -> 0.2998
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.2997 -> 0.3497
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.3492 -> 0.3992
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3990 -> 0.4490
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.4489 -> 0.4989
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.4987 -> 0.5487
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.5485 -> 0.5985
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5984 -> 0.6484
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.6480 -> 0.6980
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6977 -> 0.7477
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7477 -> 0.7977
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7975 -> 0.8475
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8468 -> 0.8968
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8967 -> 0.9467
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9466 -> 0.9966
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9964 -> 1.0000
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9997 -> 1.0000
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000

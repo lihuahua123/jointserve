@@ -43,6 +43,7 @@ class Req:
         self.output_ids = []
         self.arrival_time = arrival_time
         self.append_to_queue_time = append_to_queue_time
+        self.begin_run_time = None
         self.lora_uid = lora_uid
 
         # Since jump forward may retokenize the prompt with partial outputs,

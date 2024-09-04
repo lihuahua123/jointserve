@@ -667,13 +667,6 @@ class ModelRpcServer:
         forward_times = []
         if new_batch is not None:
             # Run new fill batch
-            # FIXME：检查lora是否能放进去
-            if self.model_runner.lora_paths:
-                cur_loras = []
-                for req in new_batch.reqs:
-                    if req.lora_uid is not None and req.lora_uid not in self.model_runner.lora_manager.infer_adapter.adapter_uids:
-                        cur_loras.append(req.lora_uid)
-                self.model_runner.lora_manager.load_loras_from_path(cur_loras)
             forward_times.append(self.forward_fill_batch(new_batch, forward_simulation))
             self.cache_filled_batch(new_batch)
 
@@ -862,6 +855,7 @@ class ModelRpcServer:
                 ]
             )
             available_size -= reservation
+
         req: Req
         for req in target_waiting_queue:
             if budget and budget.get_remaining_token_budget() <= 0:
@@ -886,10 +880,14 @@ class ModelRpcServer:
                 num_new_tokens = min(budget.get_remaining_token_budget(), req.extend_input_len)
             else:
                 num_new_tokens = req.extend_input_len
+            adapter_size = 0
+            if self.model_runner.lora_paths and req.lora_uid is not None and req.lora_uid not in self.model_runner.lora_manager.infer_adapter.adapter_uids:
+                adapter = self.loras[self.lora_id[req.lora_uid]]   
+                adapter_size = adapter.r * len(adapter.paged_modules) 
             if (
-                req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens
+                req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens + adapter_size
                 < available_size
-                and req.extend_input_len + new_batch_input_tokens
+                and req.extend_input_len + new_batch_input_tokens + adapter_size
                 < self.max_prefill_num_token
             ):
                 # delta 是个复数，表示可以驱逐的减少量
@@ -898,7 +896,7 @@ class ModelRpcServer:
                     available_size += delta
 
                 if not (
-                    req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens
+                    req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens + adapter_size
                     < available_size
                 ):
                     # Undo locking
@@ -913,6 +911,10 @@ class ModelRpcServer:
                         budget.schedule_new_tokens(num_new_tokens)
                     # Add this request to the running batch
                     can_run_list.append(req)
+                    if req.begin_run_time is None:
+                        req.begin_run_time = time.time()
+                    if adapter_size > 0:
+                        self.model_runner.lora_manager.load_loras_from_path([req.lora_uid])
                     new_batch_total_tokens += (
                         req.extend_input_len + req.max_new_tokens()
                     )
@@ -1020,7 +1022,7 @@ class ModelRpcServer:
         return new_batch
         
 
-    def get_new_fill_batch(self):
+    def get_new_fill_batch_org(self):
         if (
             (self.running_batch is not None
             and len(self.running_batch.reqs) > self.max_num_running_seq)
@@ -1047,7 +1049,7 @@ class ModelRpcServer:
         print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),time.time() - schedule_waiting_start)
         return new_batch
     
-    def get_new_fill_batch_lora_aware(self):
+    def get_new_fill_batch(self):
         if (
             (self.running_batch is not None
             and len(self.running_batch.reqs) > self.max_num_running_seq)
@@ -1514,8 +1516,9 @@ class ModelRpcServer:
                     + len(req.output_ids)
                     - req.prompt_tokens,
                     "completion_tokens_wo_jump_forward": req.completion_tokens_wo_jump_forward,
-                    "arrival_time": req.arrival_time,
-                    "append_to_queue_time": req.append_to_queue_time,
+                    "arrival_time": time.time() - req.arrival_time,
+                    "append_to_queue_time": time.time() - req.append_to_queue_time,
+                    "begin_to_run_time": time.time() - req.begin_run_time,
                     "finish_reason": FinishReason.to_str(req.finish_reason),
                     "hit_stop_str": req.hit_stop_str,
                 }

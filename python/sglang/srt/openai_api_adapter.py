@@ -280,6 +280,8 @@ async def v1_chat_completions(tokenizer_manager, raw_request: Request):
                         id=content["meta_info"]["id"],
                         choices=[choice_data],
                         model=request.model,
+                        arrival_time=content["meta_info"]["arrival_time"],
+                        begin_to_run_time=content["meta_info"]["begin_to_run_time"],
                     )
                     yield f"data: {jsonify_pydantic_model(chunk)}\n\n"
 
@@ -289,10 +291,26 @@ async def v1_chat_completions(tokenizer_manager, raw_request: Request):
                 choice_data = ChatCompletionResponseStreamChoice(
                     index=0, delta=DeltaMessage(content=delta), finish_reason=None
                 )
+                """
+                meta_info = {
+                    "prompt_tokens": len(req.input_ids),
+                    "completion_tokens": len(req.input_ids)
+                    + len(req.output_ids)
+                    - req.prompt_tokens,
+                    "completion_tokens_wo_jump_forward": req.completion_tokens_wo_jump_forward,
+                    "arrival_time": req.arrival_time,
+                    "append_to_queue_time": req.append_to_queue_time,
+                    "begin_to_run_time": req.begin_run_time,
+                    "finish_reason": FinishReason.to_str(req.finish_reason),
+                    "hit_stop_str": req.hit_stop_str,
+                }
+                """
                 chunk = ChatCompletionStreamResponse(
                     id=content["meta_info"]["id"],
                     choices=[choice_data],
                     model=request.model,
+                    arrival_time=content["meta_info"]["arrival_time"],
+                    begin_to_run_time=content["meta_info"]["begin_to_run_time"],
                 )
                 yield f"data: {jsonify_pydantic_model(chunk)}\n\n"
             yield "data: [DONE]\n\n"

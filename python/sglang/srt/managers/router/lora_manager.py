@@ -63,7 +63,7 @@ class LoRAManager:
 
         # load all weights to cpu
         self.loras = []
-        self.lora_id = {}
+        self.lora_id = {} # id:path eg. 1:/root/lora1,2:/root/lora2
         for path in self.lora_paths:
             self.lora_id[path] = len(self.loras)
             self.loras.append(LoRAAdapter(path, self.configs[path].config, self.base_config))
