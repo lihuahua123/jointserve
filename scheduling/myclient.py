@@ -89,13 +89,13 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
     print(clinet_index,request.model)
     request_dict["prompt"] = prompt
     request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
-
+    now_per_gpu_load_len = scheduler.per_gpu_load_len[clinet_index]
 
     headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {os.environ.get('OPENAI_API_KEY')}",
     }
-    api_url = "http://localhost:8000/v1/chat/completions"
+    api_url = "http://localhost:30000/v1/chat/completions"
     
     async def get_requests():
         chunks = []
@@ -149,7 +149,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
                     output.success = False
         
 
-        scheduler.finish_request(request_id,clinet_index,output) # 到时候可以改成异步
+        scheduler.finish_request(request_id,clinet_index,output,now_per_gpu_load_len) # 到时候可以改成异步
     
     return StreamingResponse(get_requests(),media_type="text/event-stream")
 

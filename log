@@ -11,38 +11,15 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,361390
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 12606,385441
 INFO:model_rpc:Rank 0: max_total_num_token=12606, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-INFO:     Started server process [7171]
+INFO:     Started server process [1443]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:Cache flushed successfully!
 No chat template is set for this tokenizer, falling back to a default class-level template. This is very error-prone, because models are often trained with templates different from the class default! Default chat templates are a legacy feature and will be removed in Transformers v4.43, at which point any code depending on them will stop working. We recommend setting a valid chat template before then to ensure that this model continues working without issues.
 INFO:model_rpc:Cache flushed successfully!
 INFO:model_rpc:Cache flushed successfully!
-INFO:model_rpc:Cache flushed successfully!
-INFO:model_rpc:Cache flushed successfully!
-INFO:model_rpc:Cache flushed successfully!
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.2000 -> 0.2500
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.2498 -> 0.2998
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.2997 -> 0.3497
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.3492 -> 0.3992
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3990 -> 0.4490
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.4489 -> 0.4989
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.4987 -> 0.5487
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.5485 -> 0.5985
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5984 -> 0.6484
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.6480 -> 0.6980
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6977 -> 0.7477
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7477 -> 0.7977
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7975 -> 0.8475
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8468 -> 0.8968
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8967 -> 0.9467
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9466 -> 0.9966
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9964 -> 1.0000
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9997 -> 1.0000
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000

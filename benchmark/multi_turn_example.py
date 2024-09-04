@@ -48,7 +48,7 @@ user_messages = [
     "How old was the director when this was released?",
 ]
 
-api_url = "http://localhost:30000/v1/chat/completions"
+api_url = "http://localhost:9999/v1/chat/completions"
 assert api_url.endswith(
     "chat/completions"
 ), "OpenAI Chat Completions API URL must end with 'chat/completions'."
@@ -72,7 +72,7 @@ async def async_request_openai_chat_completions(
             "temperature": 0,
             "max_tokens": request_func_input.output_len,
             "stream": True,
-            "need_cache": request_func_input.need_cache,
+            #"need_cache": request_func_input.need_cache,
         }
         headers = {
             "Content-Type": "application/json",
@@ -175,7 +175,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for message_hostory_data in message_hostory_dataset[:100]:
+    for message_hostory_data in message_hostory_dataset[:50]:
         client_tasks.append(asyncio.create_task(client(message_hostory_data)))
     for task in client_tasks:
         await task

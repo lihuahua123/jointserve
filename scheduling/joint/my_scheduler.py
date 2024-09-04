@@ -87,13 +87,13 @@ class GlobalScheduler:
             self.per_gpu_load_len[runtime_ids[0]] += len(token_ids)
         return runtime_ids[0]
 
-    def finish_request(self,req_id,runtime_id,output:RequestFuncOutput = None):
+    def finish_request(self,req_id,runtime_id,output:RequestFuncOutput = None,now_per_gpu_load_len = 0):
         max_total_num = 12606 # 这个是3090 profill的 FIXME：还要减去lora的
-        x1 = max_total_num - self.per_gpu_load_len[runtime_id]
+        x1 = max_total_num - now_per_gpu_load_len
         x2 = output.prompt_len
         y = output.waiting_latency
         self.history.append((x1,x2,y))
-        with self.lock:
+        with self.total_locks:
             self.tree_cache.dec_lock_ref(self.req_to_node[req_id])
             self.per_gpu_load[runtime_id] -= 1
             self.per_gpu_load_len[runtime_id] -= output.prompt_len
