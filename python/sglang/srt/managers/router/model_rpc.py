@@ -667,6 +667,7 @@ class ModelRpcServer:
         forward_times = []
         if new_batch is not None:
             # Run new fill batch
+            # FIXME：检查lora是否能放进去
             if self.model_runner.lora_paths:
                 cur_loras = []
                 for req in new_batch.reqs:
