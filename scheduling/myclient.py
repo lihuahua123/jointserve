@@ -89,7 +89,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
     print(clinet_index,request.model)
     request_dict["prompt"] = prompt
     request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
-    now_per_gpu_load_len = scheduler.per_gpu_load_len[clinet_index]
+    now_per_gpu_load_len = scheduler.per_gpu_load[clinet_index]
 
     headers = {
             "Content-Type": "application/json",

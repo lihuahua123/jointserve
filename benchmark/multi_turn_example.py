@@ -138,7 +138,7 @@ async def client(message_hostory_data):
     request_func_input.output_len = 100
     request_func_input.prompt = []
     for index, message in enumerate(message_hostory_data):
-        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 1900:
+        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 1800:
             break
         request_func_input.need_cache = True
         # if index < 5:
@@ -158,7 +158,7 @@ async def client(message_hostory_data):
         })
         # print(f"itl:{result.itl},latency:{result.latency},prompt_len:{result.prompt_len},ttft:{result.ttft},total_latency_in_engine:{result.total_latency_in_engine},waiting_latency:{result.waiting_latency}")
         print(f"waiting_latency:{result.waiting_latency}")
-    #print("conversation turns:", index)
+    print("conversation turns:", index)
 async def test():
     dataset_path = "/root/jointserve/benchmark/sharegpt_gpt4.jsonl"
     dataset = []
