@@ -257,7 +257,8 @@ async def v1_chat_completions(tokenizer_manager, raw_request: Request):
             "regex": request.regex,
         },
         stream=request.stream,
-        need_cache=request.need_cache
+        need_cache=request.need_cache,
+        input_ids=request.input_ids
     )
     adapted_request.post_init()
 

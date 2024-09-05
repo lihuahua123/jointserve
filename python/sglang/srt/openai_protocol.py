@@ -140,6 +140,7 @@ class ChatCompletionRequest(BaseModel):
     # Extra parameters for SRT backend only and will be ignored by OpenAI models.
     regex: Optional[str] = None
     need_cache: Optional[bool] = False
+    input_ids: Optional[Union[List[List[int]], List[int]]] = None
 
 
 class ChatMessage(BaseModel):

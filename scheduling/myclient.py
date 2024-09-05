@@ -88,7 +88,10 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
     clinet_index,new_prefix_len = scheduler.runtime_selector(request_id,prompt_inputs['prompt_token_ids'],request.model)
     print(clinet_index,request.model)
     request_dict["prompt"] = prompt
-    request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
+    # for sglang
+    request_dict["input_ids"] = prompt_inputs['prompt_token_ids']
+    # for vllm
+    # request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
     now_per_gpu_load_len = scheduler.per_gpu_load_len[clinet_index]
 
     headers = {
