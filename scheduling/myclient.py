@@ -49,7 +49,7 @@ user_messages2 = [
 clients = [OpenAI(api_key="api_key", base_url="http://localhost:8000/v1"),OpenAI(api_key="api_key", base_url="http://localhost:8000/v1")]
 # models = client.models.list() # 第一个是llm，后面是lora模型
 model = "lora1" #models.data[0].id
-chat_template = "{% for message in messages %}{% if message['role'] == 'user' %}{{ message['content']+' [/user][assistant]'}}{% else %}{{   message['content'] +' [/assistant]'  }}{% endif %}{% endfor %}"
+chat_template = None #"{% for message in messages %}{% if message['role'] == 'user' %}{{ message['content']+' [/user][assistant]'}}{% else %}{{   message['content'] +' [/assistant]'  }}{% endif %}{% endfor %}"
 times=[]
 messages_record = []
 clinet_index = 0

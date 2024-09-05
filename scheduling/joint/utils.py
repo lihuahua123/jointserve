@@ -163,6 +163,7 @@ class ChatCompletionRequest(OpenAIBaseModel):
     spaces_between_special_tokens: bool = True
     prompt_token_ids: Optional[List[int]] = Field(default_factory=list)
     prompt: Optional[str] = None
+    need_cache: Optional[bool] = False
     # truncate_prompt_tokens: Optional[Annotated[int, Field(ge=1)]] = None
     # doc: end-chat-completion-sampling-params
 

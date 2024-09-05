@@ -72,7 +72,7 @@ async def async_request_openai_chat_completions(
             "temperature": 0,
             "max_tokens": request_func_input.output_len,
             "stream": True,
-            #"need_cache": request_func_input.need_cache,
+            "need_cache": request_func_input.need_cache,
         }
         headers = {
             "Content-Type": "application/json",
@@ -131,14 +131,14 @@ async def async_request_openai_chat_completions(
     return output
 
 
-async def client(message_hostory_data):
+async def client(message_hostory_data,sleep_time=0):
     request_func_input = RequestFuncOutput()
     request_func_input.use_beam_search = False
     request_func_input.model="/hy-tmp/"
     request_func_input.output_len = 100
     request_func_input.prompt = []
     for index, message in enumerate(message_hostory_data):
-        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 1800:
+        if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 4000:
             break
         request_func_input.need_cache = True
         # if index < 5:
@@ -152,20 +152,24 @@ async def client(message_hostory_data):
             "content": message,
         })
         result = await async_request_openai_chat_completions(request_func_input=request_func_input)
+        await asyncio.sleep(sleep_time)
         request_func_input.prompt.append({
             "role": "assistant",
             "content": result.generated_text
         })
         # print(f"itl:{result.itl},latency:{result.latency},prompt_len:{result.prompt_len},ttft:{result.ttft},total_latency_in_engine:{result.total_latency_in_engine},waiting_latency:{result.waiting_latency}")
-        print(f"waiting_latency:{result.waiting_latency}")
-    print("conversation turns:", index)
+        # print(f"waiting_latency:{result.waiting_latency}")
+    # print("conversation turns:", index,"request_func_input.prompt",request_func_input.prompt)
+    print("conversation turns:", index, "request_func_input.prompt",request_func_input.prompt)
 async def test():
-    dataset_path = "/root/jointserve/benchmark/sharegpt_gpt4.jsonl"
+    dataset_path = "/root/jointserve/benchmark/sharegpt.json"
     dataset = []
     message_hostory_dataset = []
-    with open(dataset_path, "r+", encoding="utf8") as f:
-        for item in jsonlines.Reader(f):
-            dataset.append(item)
+    # with open(dataset_path, "r+", encoding="utf8") as f:
+    #     for item in jsonlines.Reader(f):
+    #         dataset.append(item)
+    with open(dataset_path) as f:
+        dataset = json.load(f)
     for data in dataset:
         conversation_len = len(data["conversations"])
         message_history = []
@@ -175,8 +179,12 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for message_hostory_data in message_hostory_dataset[:3]:
-        client_tasks.append(asyncio.create_task(client(message_hostory_data)))
+    for idx, message_hostory_data in enumerate(message_hostory_dataset[:10]):
+        if idx % 2 == 0:
+            sleep = 0
+        else:
+            sleep = 0
+        client_tasks.append(asyncio.create_task(client(message_hostory_data,sleep)))
     for task in client_tasks:
         await task
     

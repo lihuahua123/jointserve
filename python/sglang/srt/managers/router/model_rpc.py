@@ -262,9 +262,7 @@ class ModelRpcServer:
         """
         start_time = time.time()
         # FIXME: including the lora_id, CPU,GPU 如何concat，move_kv=True很重的
-        prefix_indices_list, last_node = self.tree_cache.match_prefix(recv_req.input_ids)
-        self.move_value_to_cuda(prefix_indices_list,move_kv=True)
-        prefix_indices = torch.concat(prefix_indices_list)
+        prefix_indices, last_node = self.tree_cache.match_prefix(recv_req.input_ids)
         # max_prefix_match = max(len(prefix_indices), self.waiting_queue_prefix_hit(recv_req))
         max_prefix_match = len(prefix_indices)
         match_overhead = time.time() - start_time
@@ -798,21 +796,16 @@ class ModelRpcServer:
                 if req.lora_uid is not None:
                     token_id = req.input_ids[0]
                     req.input_ids[0] = (req.lora_uid, token_id)
-                    prefix_indices_list, last_node = self.tree_cache.match_prefix(req.input_ids)
+                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
                     req.input_ids[0] = token_id
                 else:
-                    prefix_indices_list, last_node = self.tree_cache.match_prefix(req.input_ids)
-                # FIXME：要不要搬kv cache？之所以没把kv cache也搬走，是因为这里的kv cache没意义，到后面才store kv cache
-                value_index = self.tree_cache.move_value_to_cuda(prefix_indices_list)
-                if value_index>0:
-                    prefix_indices = torch.concat(prefix_indices_list[:value_index])
-                else:
-                    prefix_indices = torch.tensor([], dtype=torch.int64)
+                    prefix_indices, last_node = self.tree_cache.match_prefix(req.input_ids)
                 if req.return_logprob:
                     prefix_indices = prefix_indices[: req.logprob_start_len]
                 req.extend_input_len = len(req.input_ids) - len(prefix_indices)
                 req.prefix_indices = prefix_indices
                 req.last_node = last_node
+                # logger.info(f"req.prefix_indices len: {len(req.prefix_indices)}")
         else:
             for req in queue:
                 req.extend_input_len = len(req.input_ids)
