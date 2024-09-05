@@ -31,7 +31,7 @@ import random
 import string
 from dataclasses import dataclass, field
 from typing import List, Optional, Union
-
+import copy
 user_messages = [
     "Write a SQL query to answer the question based on the table schema.\n\n context: CREATE TABLE table_name_11 (nationality VARCHAR, elector VARCHAR)\n\n question: When Anchero Pantaleone was the elector what is under nationality?", # noqa: E501
     "Write a SQL query to answer the question based on the table schema.\n\n context: CREATE TABLE table_name_74 (icao VARCHAR, airport VARCHAR)\n\n question: Name the ICAO for lilongwe international airport"
@@ -87,9 +87,15 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
 
     clinet_index,new_prefix_len = scheduler.runtime_selector(request_id,prompt_inputs['prompt_token_ids'],request.model)
     print(clinet_index,request.model)
-    request_dict["prompt"] = prompt
+    # 下面这句话会把treecache的key值也改了,所以需要deepcopy
+    # prompt_inputs['prompt_token_ids'][0] = prompt_inputs['prompt_token_ids'][0][1]
+    # for sglang no need for request_dict["prompt"] if request_dict["input_ids"] is provided
+    # request_dict["prompt"] = prompt
+    request_dict["prompt"] = None
+    prompt_len = len(prompt_inputs['prompt_token_ids'])
     # for sglang
-    request_dict["input_ids"] = prompt_inputs['prompt_token_ids']
+    request_dict["input_ids"] = copy.deepcopy(prompt_inputs['prompt_token_ids'])
+    request_dict["input_ids"][0] = request_dict["input_ids"][0][1]
     # for vllm
     # request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
     now_per_gpu_load_len = scheduler.per_gpu_load_len[clinet_index]
@@ -105,7 +111,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
         generated_text = ""
         ttft = 0.0
         output = RequestFuncOutput()
-        output.prompt_len = len(request_dict["prompt_token_ids"]) - new_prefix_len
+        output.prompt_len = prompt_len - new_prefix_len
         send_out_time = time.perf_counter()
         most_recent_timestamp = send_out_time
         async with aiohttp.ClientSession(timeout=AIOHTTP_TIMEOUT) as session:

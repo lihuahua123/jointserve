@@ -1016,7 +1016,7 @@ class ModelRpcServer:
         
         self.multi_priority_queue[schedule_group_idx] = [x for x in target_waiting_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
-            self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
+            self.prefix_hit_trace.append({x.rid: [x.input_ids[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
         return new_batch
@@ -1043,7 +1043,7 @@ class ModelRpcServer:
             return None
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
-            self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
+            self.prefix_hit_trace.append({x.rid: [x.input_ids[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
         print("have waiting requests can schedule,scheduing req len:",len(new_batch.reqs),time.time() - schedule_waiting_start)
@@ -1081,7 +1081,7 @@ class ModelRpcServer:
         # self.forward_queue = new_forward_queue
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
-            self.prefix_hit_trace.append({x.rid: [x.input_text[:20], len(x.prefix_indices)] for x in new_batch.reqs})
+            self.prefix_hit_trace.append({x.rid: [x.input_ids[:20], len(x.prefix_indices)] for x in new_batch.reqs})
         self.schedule_waiting_overhead += time.time() - schedule_waiting_start
         self.total_scheduling_overhead += time.time() - schedule_waiting_start
         return new_batch

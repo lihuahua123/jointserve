@@ -81,6 +81,8 @@ class RadixCache:
 
         if value is None:
             value = [x for x in key]
+            # FIXME:这代码只是暂时的，多了loraid
+            value[0] = value[0][1]
         return self._insert_helper(self.root_node, key, value)
 
     def pretty_print(self):
@@ -173,11 +175,10 @@ class RadixCache:
         node.last_access_time = time.time()
         if len(key) == 0:
             return 0,node
-
         if key[0] in node.children.keys():
             child = node.children[key[0]]
             prefix_len = _key_match(child.key, key)
-
+            assert prefix_len != 0 
             if prefix_len == len(child.key):
                 if prefix_len == len(key):
                     return prefix_len,child

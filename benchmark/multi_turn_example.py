@@ -175,7 +175,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for message_hostory_data in message_hostory_dataset[:50]:
+    for message_hostory_data in message_hostory_dataset[:3]:
         client_tasks.append(asyncio.create_task(client(message_hostory_data)))
     for task in client_tasks:
         await task
