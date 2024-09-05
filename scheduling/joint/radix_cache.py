@@ -38,7 +38,6 @@ class TreeNode:
     def __lt__(self, other: "TreeNode"):
         return self.last_access_time < other.last_access_time
 
-
 def _key_match(key0, key1):
     i = 0
     for k0, k1 in zip(key0, key1):
