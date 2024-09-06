@@ -843,6 +843,7 @@ class ModelRpcServer:
         available_size = (
             self.token_to_kv_pool.available_size() + self.tree_cache.evictable_size()
         )
+        #logger.info(f"tree.evictable_size():{self.tree_cache.evictable_size()}")
         if self.running_batch:
             reservation = sum(
                 [
@@ -851,7 +852,7 @@ class ModelRpcServer:
                 ]
             )
             available_size -= reservation
-
+        # logger.info(f"available_size:{available_size}")
         req: Req
         for req in target_waiting_queue:
             if budget and budget.get_remaining_token_budget() <= 0:

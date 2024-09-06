@@ -144,7 +144,12 @@ class RadixCache:
     def pretty_print(self):
         self._print_helper(self.root_node, 0)
         print(f"#tokens: {self.total_size()}")
-
+    
+    def _total_size_helper(self, node):
+        x = len(node.value)
+        for child in node.children.values():
+            x += self._total_size_helper(child)
+        return x
     def total_size(self):
         return self._total_size_helper(self.root_node)
     # 正是这里和vllm有时间上的区别，vllm的链表只需要去除最旧的几个就行，这里还需要dfs 遍历+堆排序
@@ -324,12 +329,7 @@ class RadixCache:
             node.parent.children[node.key[0]] = node
         self.evictable_size_ -= num_evict_token
 
-    def _total_size_helper(self, node):
-        x = len(node.value)
-        for child in node.children.values():
-            x += self._total_size_helper(child)
-        return x
-
+    
     def _collect_leaves(self):
         ret_list = []
 
@@ -356,6 +356,15 @@ class RadixCacheMix(RadixCache):
         self.cur_cpu_tokens = 0
         super().reset()
         
+    # def _total_evictable_helper(self, node):
+    #     x = 0
+    #     if node.lock_ref == 0 and node.value.device.type != "cpu":
+    #         x = 1
+    #     for child in node.children.values():
+    #         x += self._total_evictable_helper(child)
+    #     return x
+    # def evictable_size(self):
+    #     return self._total_evictable_helper(self.root_node)    
     
     def _match_prefix_helper(self, node, key, value, last_node):
         node.last_access_time = time.time()
@@ -414,11 +423,11 @@ class RadixCacheMix(RadixCache):
 
     def move_node_to_cpu(self,x,leaves):
         need_cpu_space = len(x.value)
-        self.evictable_size_ -= need_cpu_space
         logger.info(f'GPU move to cpu')
         new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
         if new_cpu_indices is None:
             return False
+        self.evictable_size_ -= need_cpu_space
         # 释放GPU显存
         self.token_to_kv_pool.dec_refs(x.value)
         # 前面已经驱逐了need_to_evicted_cpu，按理来说应该能alloc的
@@ -496,6 +505,7 @@ class RadixCacheMix(RadixCache):
                 num_gpu_evicted += len(x.value)
 
         end = time.time()
+        # assert self.evictable_size_ == self.evictable_size()
         logger.info(f'evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens},evict time {end-begin}')
 
 if __name__ == "__main__":
