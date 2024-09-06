@@ -8,7 +8,7 @@ import logging
 import torch
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.CRITICAL + 1)
+# logger.setLevel(logging.CRITICAL + 1)
 @dataclass
 class EvictionData():
     input_ids: list
@@ -316,7 +316,7 @@ class RadixCache:
 
     def _print_helper(self, node: TreeNode, indent):
         for _, child in node.children.items():
-            print(" " * indent, len(child.key), child.key[:10], f"r={child.lock_ref}")
+            print(" " * indent, len(child.key), child.key[:10], f"r={child.lock_ref},device={child.value.device.type}")
             self._print_helper(child, indent=indent + 2)
 
     #NOTE: tree node should not be deleted if partial eviction
@@ -356,15 +356,15 @@ class RadixCacheMix(RadixCache):
         self.cur_cpu_tokens = 0
         super().reset()
         
-    # def _total_evictable_helper(self, node):
-    #     x = 0
-    #     if node.lock_ref == 0 and node.value.device.type != "cpu":
-    #         x = 1
-    #     for child in node.children.values():
-    #         x += self._total_evictable_helper(child)
-    #     return x
-    # def evictable_size(self):
-    #     return self._total_evictable_helper(self.root_node)    
+    def _total_evictable_helper(self, node):
+        x = 0
+        if node.lock_ref == 0 and node.value.device.type != "cpu":
+            x = len(node.value)
+        for child in node.children.values():
+            x += self._total_evictable_helper(child)
+        return x
+    def evictable_size2(self):
+        return self._total_evictable_helper(self.root_node)    
     
     def _match_prefix_helper(self, node, key, value, last_node):
         node.last_access_time = time.time()
@@ -423,7 +423,7 @@ class RadixCacheMix(RadixCache):
 
     def move_node_to_cpu(self,x,leaves):
         need_cpu_space = len(x.value)
-        logger.info(f'GPU move to cpu')
+        #logger.info(f'GPU move to cpu')
         new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
         if new_cpu_indices is None:
             return False
@@ -440,9 +440,9 @@ class RadixCacheMix(RadixCache):
         self.token_to_kv_pool.add_refs(x.value)
         self.cur_cpu_tokens += need_cpu_space
         x.parent.cpu_node += 1
-        logger.info(f"x.parent.cpu_node {x.parent.cpu_node}, parent {x.parent}")
+        #logger.info(f"x.parent.cpu_node {x.parent.cpu_node}, parent {x.parent}")
         if x.parent.cpu_node == len(x.parent.children):
-            logger.info(f'parent in')
+            #logger.info(f'parent in')
             heapq.heappush(leaves, x.parent)
         return True
         
@@ -492,10 +492,10 @@ class RadixCacheMix(RadixCache):
                 self.cur_cpu_tokens -= evicted_cpu_token
                 if len(x.parent.children) == 0:
                     heapq.heappush(leaves, x.parent)
-                logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu_token}')
+                #logger.info(f'evicted_cpu_token: {evicted_cpu_token}, left {need_to_evicted_cpu_token}')
                 continue
             if x.value.device.type == "cpu":
-                logger.info(f'pass the evicted cpu for need_to_evicted_cpu == 0')
+                #logger.info(f'pass the evicted cpu for need_to_evicted_cpu == 0')
                 left_cpu_nodes.append(x)
                 continue
             
@@ -505,7 +505,7 @@ class RadixCacheMix(RadixCache):
                 num_gpu_evicted += len(x.value)
 
         end = time.time()
-        # assert self.evictable_size_ == self.evictable_size()
+        #assert self.evictable_size_ == self.evictable_size()
         logger.info(f'evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens},evict time {end-begin}')
 
 if __name__ == "__main__":
