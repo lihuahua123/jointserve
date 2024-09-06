@@ -356,6 +356,7 @@ class RadixCacheMix(RadixCache):
         self.cur_cpu_tokens = 0
         super().reset()
         
+    
     def _match_prefix_helper(self, node, key, value, last_node):
         node.last_access_time = time.time()
         if len(key) == 0:
@@ -363,6 +364,7 @@ class RadixCacheMix(RadixCache):
 
         if key[0] in node.children.keys():
             child = node.children[key[0]]
+            child.last_access_time = time.time()
             if child.value.device.type == "cpu":
                 if self.move_node_to_cuda(child):
                     node.cpu_node -= 1
@@ -396,7 +398,7 @@ class RadixCacheMix(RadixCache):
             self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
         # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
         self.token_to_kv_pool.add_refs(new_index)
-        node.v = new_index
+        node.value = new_index
         return True
             
     #NOTE: tree node should not be deleted if partial eviction
@@ -488,6 +490,7 @@ class RadixCacheMix(RadixCache):
             self.token_to_kv_pool.add_refs(x.value)
             self.cur_cpu_tokens += len(x.value)
             x.parent.cpu_node += 1
+            logger.info(f"x.parent.cpu_node {x.parent.cpu_node}, parent {x.parent}")
             if x.parent.cpu_node == len(x.parent.children):
                 logger.info(f'parent in')
                 heapq.heappush(leaves, x.parent)           

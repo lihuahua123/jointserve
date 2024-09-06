@@ -162,7 +162,7 @@ async def client(message_hostory_data,sleep_time=0):
     # print("conversation turns:", index,"request_func_input.prompt",request_func_input.prompt)
     print("conversation turns:", index, "request_func_input.prompt",request_func_input.prompt)
 async def test():
-    dataset_path = "/root/jointserve/benchmark/sharegpt.json"
+    dataset_path = "/hy-tmp/sharegpt.json"
     dataset = []
     message_hostory_dataset = []
     # with open(dataset_path, "r+", encoding="utf8") as f:
@@ -179,7 +179,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for idx, message_hostory_data in enumerate(message_hostory_dataset[:10]):
+    for idx, message_hostory_data in enumerate(message_hostory_dataset[:100]):
         if idx % 2 == 0:
             sleep = 0
         else:

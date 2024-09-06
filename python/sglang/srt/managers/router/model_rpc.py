@@ -140,7 +140,7 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCache(
+        self.tree_cache = RadixCacheMix(
             max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
@@ -882,6 +882,7 @@ class ModelRpcServer:
                 < available_size
                 and req.extend_input_len + new_batch_input_tokens + adapter_size
                 < self.max_prefill_num_token
+                and len(can_run_list) < self.req_to_token_pool.can_use_mem_size
             ):
                 # delta 是个复数，表示可以驱逐的减少量
                 if req.need_cache:
@@ -1060,18 +1061,6 @@ class ModelRpcServer:
             self.total_scheduling_overhead += time.time() - schedule_waiting_start
             self.schedule_waiting_overhead += time.time() - schedule_waiting_start
             return None
-        # 这是遗留下来的
-        # index = 0 
-        # new_forward_queue = []
-        # for x in self.forward_queue:
-        #     if x not in new_batch.reqs:
-        #         if x.lora_uid is not None:
-        #             self.lora_req_idxs[x.lora_uid] = index
-        #         new_forward_queue.append(x)
-        #         index += 1
-        #     elif x.lora_uid is not None:
-        #         self.lora_req_idxs[x.lora_uid] = -1
-        # self.forward_queue = new_forward_queue
         self.forward_queue = [x for x in self.forward_queue if x not in new_batch.reqs]
         if self.log_prefix_hit:
             self.prefix_hit_trace.append({x.rid: [x.input_ids[:20], len(x.prefix_indices)] for x in new_batch.reqs})
