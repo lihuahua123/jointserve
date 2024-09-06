@@ -22,8 +22,9 @@ class TreeNode:
         self.value = None
         self.lock_ref = 0
         self.last_access_time = time.time()
-        self.in_heap = False
         self.cpu_node = 0
+        self.is_match = 0
+        
 
     def __lt__(self, other: "TreeNode"):
         # delta = self.last_access_time-other.last_access_time
@@ -398,8 +399,8 @@ class RadixCacheMix(RadixCache):
         # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
         self.token_to_kv_pool.add_refs(new_index)
         node.value = new_index
-        if node.lock_ref == 0:
-            self.evictable_size_ += len(v)
+        node.is_match += 1
+        
         return True
             
     #NOTE: tree node should not be deleted if partial eviction
