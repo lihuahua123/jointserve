@@ -219,23 +219,22 @@ class RadixCache:
         """
         delta = 0
         while node != self.root_node:
-            if node.lock_ref == 0:
+            if node.lock_ref == 0 and node.value.device.type != "cpu":
                 self.evictable_size_ -= len(node.value)
                 delta -= len(node.value)
             node.lock_ref += 1
             node = node.parent
         return delta
 
-    def dec_lock_ref(self, node: TreeNode, is_cpu=False):
+    def dec_lock_ref(self, node: TreeNode):
         """
         每减少一个请求引用，则减少node的lock_ref，这个node一般是GPU
         """
         delta = 0
         while node != self.root_node:
-            if node.lock_ref == 1:
-                if not is_cpu:
-                    self.evictable_size_ += len(node.value)
-                    delta += len(node.value)
+            if node.lock_ref == 1 and node.value.device.type != "cpu":
+                self.evictable_size_ += len(node.value)
+                delta += len(node.value)
             node.lock_ref -= 1
             node = node.parent
         return delta
