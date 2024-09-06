@@ -8,7 +8,7 @@ import logging
 import torch
 
 logger = logging.getLogger(__name__)
-
+logger.setLevel(logging.CRITICAL + 1)
 @dataclass
 class EvictionData():
     input_ids: list
@@ -398,6 +398,8 @@ class RadixCacheMix(RadixCache):
         # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
         self.token_to_kv_pool.add_refs(new_index)
         node.value = new_index
+        if node.lock_ref == 0:
+            self.evictable_size_ += len(v)
         return True
             
     #NOTE: tree node should not be deleted if partial eviction
@@ -464,7 +466,7 @@ class RadixCacheMix(RadixCache):
             if len(leaves) == 0 and len(left_cpu_nodes) > 0:
                 for cpu_node in left_cpu_nodes:
                     heapq.heappush(leaves, cpu_node)
-                    need_to_evicted_cpu += len(cpu_node.value)
+                    need_to_evicted_cpu_token += len(cpu_node.value)
                 left_cpu_nodes = []
             elif len(leaves) == 0:
                 break

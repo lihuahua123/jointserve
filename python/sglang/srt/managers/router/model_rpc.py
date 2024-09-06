@@ -664,9 +664,12 @@ class ModelRpcServer:
 
         forward_times = []
         if new_batch is not None:
+            #logger.info(f"new_batch coming!{len(new_batch.reqs)}")
             # Run new fill batch
             forward_times.append(self.forward_fill_batch(new_batch, forward_simulation))
+            #logger.info(f"new_batch forward end!,{len(new_batch.reqs)}")
             self.cache_filled_batch(new_batch)
+            #logger.info(f"cache end!,{len(new_batch.reqs)}")
 
             if not new_batch.is_empty():
                 if self.running_batch is None:
