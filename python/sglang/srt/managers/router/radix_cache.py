@@ -223,7 +223,6 @@ class RadixCache:
         delta = 0
         while node != self.root_node:
             if node.lock_ref == 0 and node.value.device.type != "cpu":
-                #logger.info(f"delete {len(node.value)}")
                 self.evictable_size_ -= len(node.value)
                 delta -= len(node.value)
             node.lock_ref += 1
@@ -407,6 +406,27 @@ class RadixCacheMix(RadixCache):
             ] = cached_indices[last_uncached_pos:]
             
             return cached_indices, new_last_node
+    
+    def inc_lock_ref_(self, node: TreeNode):
+        """
+        每增加一个请求引用，则增加node的lock_ref,这个node一般是GPU
+        """
+        delta = 0
+        while node != self.root_node:
+            node.lock_ref += 1
+            node = node.parent
+        return delta
+
+    def dec_lock_ref_(self, node: TreeNode):
+        """
+        每减少一个请求引用，则减少node的lock_ref，这个node一般是GPU
+        """
+        delta = 0
+        while node != self.root_node:
+            node.lock_ref -= 1
+            assert node.lock_ref >=0 
+            node = node.parent
+        return delta
     def match_prefix(self, key):
         if self.disable:
             return [], self.root_node
@@ -416,7 +436,7 @@ class RadixCacheMix(RadixCache):
         self._match_prefix_helper(self.root_node, key, value_list, last_node,all_nodes)
         value_list = []
         change_node = []
-        self.inc_lock_ref(last_node[0])
+        self.inc_lock_ref_(last_node[0])
         for node in all_nodes:
             if node.value.device.type == "cpu":
                 # 这个节点是一个游离节点，本来就已经被删除了
@@ -427,8 +447,11 @@ class RadixCacheMix(RadixCache):
                     break
             else:
                 value_list.append(node.value)
-        # self.dec_lock_ref(last_node[0])
-
+        self.dec_lock_ref_(last_node[0])
+        for node in change_node:
+            if node.lock_ref == 0 and node.value.device.type == "cuda":
+                logger.info(f"add {node},{len(node.value)}")
+                self.evictable_size_ += len(node.value)
         if len(value_list) >0:
             value = torch.concat(value_list)
         else:
