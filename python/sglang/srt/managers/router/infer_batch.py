@@ -400,7 +400,6 @@ class Batch:
         bs = len(self.reqs)
         if self.token_to_kv_pool.available_size() >= bs:
             return True
-        
         self.tree_cache.evict(bs, self.token_to_kv_pool.dec_refs, enable_iterative_eviction)
 
         if self.token_to_kv_pool.available_size() >= bs:
@@ -434,7 +433,7 @@ class Batch:
             token_indices = self.req_to_token_pool.req_to_token[
                 req_pool_indices_cpu[idx]
             ][last_uncached_pos : seq_lens_cpu[idx]]
-            self.token_to_kv_pool.dec_refs(token_indices)
+            free_space = self.token_to_kv_pool.dec_refs(token_indices)
             if req.need_cache:
                 self.tree_cache.dec_lock_ref(req.last_node)
             req.reset_state()
@@ -749,7 +748,7 @@ class Batch:
                 out_cache_loc = self.token_to_kv_pool.alloc(extend_num_tokens)
 
             if out_cache_loc is None:
-                print("Prefill out of memory. This should nerver happen.",self.tree_cache.evictable_size2())
+                print("Prefill out of memory. This should nerver happen.",self.tree_cache.evictable_size2(),extend_num_tokens)
                 self.tree_cache.pretty_print()
                 exit()
 
