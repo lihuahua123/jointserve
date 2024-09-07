@@ -299,7 +299,8 @@ class ModelRpcServer:
     def exposed_step(self, recv_reqs):
         if self.tp_size != 1:
             recv_reqs = obtain(recv_reqs)
-
+            # if len(recv_reqs) == 0:
+            #     return None
         try:
             # Recv requests
             for recv_req in recv_reqs:
@@ -711,6 +712,7 @@ class ModelRpcServer:
                             )
             else:
                 # check the available size
+                
                 available_size = (
                     self.token_to_kv_pool.available_size() # 未来可以插入的值，GPU的
                     + self.tree_cache.evictable_size() # 已经插入的值，GPU的
@@ -852,7 +854,7 @@ class ModelRpcServer:
                 ]
             )
             available_size -= reservation
-        # logger.info(f"available_size:{available_size}")
+        logger.info(f"available_size:{available_size},len(target_waiting_queue):{len(target_waiting_queue)},self.token_to_kv_pool.available_size():{self.token_to_kv_pool.available_size()},self.tree_cache.evictable_size():{self.tree_cache.evictable_size()}")
         req: Req
         for req in target_waiting_queue:
             if budget and budget.get_remaining_token_budget() <= 0:
