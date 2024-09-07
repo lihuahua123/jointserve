@@ -223,6 +223,7 @@ class RadixCache:
         delta = 0
         while node != self.root_node:
             if node.lock_ref == 0 and node.value.device.type != "cpu":
+                #logger.info(f"delete {len(node.value)}")
                 self.evictable_size_ -= len(node.value)
                 delta -= len(node.value)
             node.lock_ref += 1
@@ -236,6 +237,7 @@ class RadixCache:
         delta = 0
         while node != self.root_node:
             if node.lock_ref == 1 and node.value.device.type != "cpu":
+                #logger.info(f"dec_lock_ref add {len(node.value)}")
                 self.evictable_size_ += len(node.value)
                 delta += len(node.value)
             node.lock_ref -= 1
@@ -312,6 +314,7 @@ class RadixCache:
             new_node.value = value
             node.children[key[0]] = new_node
             if value.device.type != "cpu":
+                # logger.info(f"insert add {len(value)}")
                 self.evictable_size_ += len(value)
         return 0
 
@@ -377,6 +380,7 @@ class RadixCacheMix(RadixCache):
         for node in change_node:
             node.lock_ref -= 1
             if node.lock_ref == 0:
+                # logger.info(f"evictable_size_ add {len(node.value)},{node}")
                 self.evictable_size_ += len(node.value)
         if len(value_list) >0:
             value = torch.concat(value_list)
@@ -474,7 +478,10 @@ class RadixCacheMix(RadixCache):
     def _collect_leaves(self):
         cpu_list = []
         gpu_list = []
+        self.new_evictable_size = 0
         def dfs_(cur_node:TreeNode):
+            if cur_node.lock_ref == 0 and cur_node.value.device.type == "cuda":
+                self.new_evictable_size += len(cur_node.value)
             have_gpu_child = False
             if len(cur_node.children) == 0 and cur_node.lock_ref == 0 :
                 if cur_node.value.device.type == "cpu":
@@ -490,6 +497,7 @@ class RadixCacheMix(RadixCache):
             return have_gpu_child
 
         dfs_(self.root_node)
+        assert self.new_evictable_size == self.evictable_size(), f"{self.new_evictable_size},{self.evictable_size()}"
         return cpu_list,gpu_list
 
     def push_heap(self,x,gpu_list,cpu_list):
@@ -513,8 +521,6 @@ class RadixCacheMix(RadixCache):
         只驱逐GPU到CPU
         """
         curr_evict = self.evictable_size()
-        curr_evict2 = self.evictable_size2()
-        assert curr_evict == curr_evict2
         # start = time.perf_counter()
         if self.disable:
             return
