@@ -476,7 +476,7 @@ class RadixCacheMix(RadixCache):
         gpu_list = []
         def dfs_(cur_node:TreeNode):
             have_gpu_child = False
-            if len(cur_node.children) == 0 :
+            if len(cur_node.children) == 0 and cur_node.lock_ref == 0 :
                 if cur_node.value.device.type == "cpu":
                     cpu_list.append(cur_node)
                 else:
@@ -485,8 +485,8 @@ class RadixCacheMix(RadixCache):
             for x in cur_node.children.values():
                 if dfs_(x):
                     have_gpu_child = True
-            # if not have_gpu_child and cur_node.value.device.type != "cpu":
-            #     gpu_list.append(cur_node)
+            if len(cur_node.children) > 0 and not have_gpu_child and cur_node.value.device.type != "cpu" and cur_node.lock_ref == 0:
+                gpu_list.append(cur_node)
             return have_gpu_child
 
         dfs_(self.root_node)
@@ -513,7 +513,8 @@ class RadixCacheMix(RadixCache):
         只驱逐GPU到CPU
         """
         curr_evict = self.evictable_size()
-
+        curr_evict2 = self.evictable_size2()
+        assert curr_evict == curr_evict2
         # start = time.perf_counter()
         if self.disable:
             return
