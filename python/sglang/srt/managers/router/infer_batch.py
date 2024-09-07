@@ -424,7 +424,7 @@ class Batch:
         retracted_reqs = []
         seq_lens_cpu = self.seq_lens.cpu().numpy()
         req_pool_indices_cpu = self.req_pool_indices.cpu().numpy()
-        while self.token_to_kv_pool.available_size() < len(self.reqs):
+        while self.token_to_kv_pool.available_size() < len(sorted_indices):
             idx = sorted_indices.pop()
             req = self.reqs[idx]
             retracted_reqs.append(req)
