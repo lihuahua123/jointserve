@@ -891,9 +891,9 @@ class ModelRpcServer:
                 and len(can_run_list) < self.req_to_token_pool.can_use_mem_size
             ):
                 # delta 是个复数，表示可以驱逐的减少量
-                if req.need_cache:
-                    delta = self.tree_cache.inc_lock_ref(req.last_node)
-                    available_size += delta
+                # if req.need_cache:
+                #     delta = self.tree_cache.inc_lock_ref(req.last_node)
+                #     available_size += delta
 
                 if not (
                     req.extend_input_len + req.max_new_tokens() + new_batch_total_tokens + adapter_size

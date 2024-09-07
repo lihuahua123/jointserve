@@ -427,7 +427,8 @@ class RadixCacheMix(RadixCache):
                     break
             else:
                 value_list.append(node.value)
-        self.dec_lock_ref(last_node[0])
+        # self.dec_lock_ref(last_node[0])
+
         if len(value_list) >0:
             value = torch.concat(value_list)
         else:
