@@ -400,7 +400,7 @@ class Batch:
         bs = len(self.reqs)
         if self.token_to_kv_pool.available_size() >= bs:
             return True
-
+        
         self.tree_cache.evict(bs, self.token_to_kv_pool.dec_refs, enable_iterative_eviction)
 
         if self.token_to_kv_pool.available_size() >= bs:

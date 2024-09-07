@@ -11,23 +11,201 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 7806,321730
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 7806,317839
 INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
 INFO:sglang.srt.managers.router.radix_cache:using RadixCacheMix
 INFO:sglang.srt.managers.router.radix_cache:using RadixCache
-INFO:     Started server process [20035]
+INFO:model_rpc:Cache flushed successfully!
+INFO:     Started server process [26644]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
-INFO:model_rpc:Cache flushed successfully!
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:33, num_gpu_evicted:81,num_tokens_need_alloc:51,evict time 0.1968705654144287
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:0, num_gpu_evicted:33,num_tokens_need_alloc:51,evict time 0.10319209098815918
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3942 -> 0.4442
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:0, num_gpu_evicted:8,num_tokens_need_alloc:50,evict time 0.013245105743408203
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4442 -> 0.4942
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:0, num_gpu_evicted:12,num_tokens_need_alloc:49,evict time 0.009712696075439453
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4942 -> 0.5442
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:0, num_gpu_evicted:28,num_tokens_need_alloc:48,evict time 0.013056516647338867
-INFO:sglang.srt.managers.router.radix_cache:evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:48,evict time 0.0010285377502441406
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5441 -> 0.5941
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 85, after evictable_size_:27, num_gpu_evicted:58,num_tokens_need_alloc:53,evict time 0.19324326515197754
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 27, after evictable_size_:0, num_gpu_evicted:27,num_tokens_need_alloc:53,evict time 0.019617795944213867
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:53,evict time 0.0010411739349365234
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3940 -> 0.4440
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 8, after evictable_size_:0, num_gpu_evicted:8,num_tokens_need_alloc:52,evict time 0.00867605209350586
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4440 -> 0.4940
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 142, after evictable_size_:2, num_gpu_evicted:140,num_tokens_need_alloc:51,evict time 0.06891059875488281
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 10, after evictable_size_:0, num_gpu_evicted:10,num_tokens_need_alloc:140,evict time 0.012047290802001953
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:51,evict time 0.0005710124969482422
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4938 -> 0.5438
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 25, after evictable_size_:0, num_gpu_evicted:25,num_tokens_need_alloc:50,evict time 0.018220186233520508
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:50,evict time 0.001196146011352539
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5437 -> 0.5937
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 18, after evictable_size_:0, num_gpu_evicted:18,num_tokens_need_alloc:49,evict time 0.04877281188964844
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5937 -> 0.6437
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 11, after evictable_size_:1, num_gpu_evicted:10,num_tokens_need_alloc:48,evict time 0.01514434814453125
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1, after evictable_size_:0, num_gpu_evicted:1,num_tokens_need_alloc:48,evict time 0.006201028823852539
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6436 -> 0.6936
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 6, after evictable_size_:0, num_gpu_evicted:6,num_tokens_need_alloc:47,evict time 0.007201671600341797
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6936 -> 0.7436
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 10, after evictable_size_:0, num_gpu_evicted:10,num_tokens_need_alloc:46,evict time 0.008817434310913086
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7436 -> 0.7936
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 113, after evictable_size_:56, num_gpu_evicted:57,num_tokens_need_alloc:44,evict time 0.05418252944946289
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 56, after evictable_size_:12, num_gpu_evicted:44,num_tokens_need_alloc:44,evict time 0.024077177047729492
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7934 -> 0.8434
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 57, after evictable_size_:12, num_gpu_evicted:45,num_tokens_need_alloc:43,evict time 0.017637968063354492
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 12, after evictable_size_:0, num_gpu_evicted:12,num_tokens_need_alloc:43,evict time 0.05083751678466797
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8432 -> 0.8932
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 23, after evictable_size_:0, num_gpu_evicted:23,num_tokens_need_alloc:42,evict time 0.01614522933959961
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8931 -> 0.9431
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 37, after evictable_size_:0, num_gpu_evicted:37,num_tokens_need_alloc:41,evict time 0.018994808197021484
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:41,evict time 0.0010213851928710938
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9430 -> 0.9930
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 28, after evictable_size_:2, num_gpu_evicted:26,num_tokens_need_alloc:40,evict time 0.01356649398803711
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2, after evictable_size_:0, num_gpu_evicted:2,num_tokens_need_alloc:40,evict time 0.005887508392333984
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9929 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 182, after evictable_size_:113, num_gpu_evicted:69,num_tokens_need_alloc:38,evict time 0.02226543426513672
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 113, after evictable_size_:29, num_gpu_evicted:84,num_tokens_need_alloc:38,evict time 0.04037594795227051
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 31, after evictable_size_:1, num_gpu_evicted:30,num_tokens_need_alloc:82,evict time 0.01694202423095703
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 29, after evictable_size_:1, num_gpu_evicted:28,num_tokens_need_alloc:38,evict time 0.018535137176513672
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9995 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 12, after evictable_size_:2, num_gpu_evicted:10,num_tokens_need_alloc:37,evict time 0.013858795166015625
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 26, after evictable_size_:0, num_gpu_evicted:26,num_tokens_need_alloc:36,evict time 0.12756037712097168
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:36,evict time 0.0011527538299560547
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9998 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 84, after evictable_size_:0, num_gpu_evicted:84,num_tokens_need_alloc:35,evict time 0.047812461853027344
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 0, after evictable_size_:0, num_gpu_evicted:0,num_tokens_need_alloc:35,evict time 0.0008196830749511719
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9997 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 866, after evictable_size_:780, num_gpu_evicted:86,num_tokens_need_alloc:32,evict time 0.025977134704589844
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 780, after evictable_size_:694, num_gpu_evicted:86,num_tokens_need_alloc:32,evict time 0.04771900177001953
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 694, after evictable_size_:196, num_gpu_evicted:498,num_tokens_need_alloc:32,evict time 0.14936423301696777
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 196, after evictable_size_:0, num_gpu_evicted:196,num_tokens_need_alloc:498,evict time 0.16714787483215332
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:159,evict time 0.002166271209716797
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:32,evict time 0.0007266998291015625
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9987 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 7647, after evictable_size_:3485, num_gpu_evicted:4162,num_tokens_need_alloc:4092,evict time 4.27434515953064
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3485, after evictable_size_:3272, num_gpu_evicted:213,num_tokens_need_alloc:150,evict time 0.22800397872924805
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3422, after evictable_size_:2737, num_gpu_evicted:685,num_tokens_need_alloc:445,evict time 0.5067586898803711
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3492, after evictable_size_:3146, num_gpu_evicted:346,num_tokens_need_alloc:289,evict time 0.4756500720977783
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3508, after evictable_size_:2756, num_gpu_evicted:752,num_tokens_need_alloc:369,evict time 0.621293306350708
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3522, after evictable_size_:2995, num_gpu_evicted:527,num_tokens_need_alloc:467,evict time 0.49089908599853516
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3545, after evictable_size_:3093, num_gpu_evicted:452,num_tokens_need_alloc:371,evict time 0.28742337226867676
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 3093, after evictable_size_:2679, num_gpu_evicted:414,num_tokens_need_alloc:369,evict time 0.3898806571960449
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2679, after evictable_size_:2037, num_gpu_evicted:642,num_tokens_need_alloc:330,evict time 0.5138933658599854
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2037, after evictable_size_:1485, num_gpu_evicted:552,num_tokens_need_alloc:467,evict time 0.5886759757995605
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1488, after evictable_size_:1042, num_gpu_evicted:446,num_tokens_need_alloc:371,evict time 0.22793054580688477
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1042, after evictable_size_:669, num_gpu_evicted:373,num_tokens_need_alloc:150,evict time 0.2837841510772705
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 819, after evictable_size_:498, num_gpu_evicted:321,num_tokens_need_alloc:373,evict time 0.6859402656555176
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 666, after evictable_size_:595, num_gpu_evicted:71,num_tokens_need_alloc:32,evict time 0.11919903755187988
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9988 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 611, after evictable_size_:568, num_gpu_evicted:43,num_tokens_need_alloc:31,evict time 0.15735960006713867
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 1.0000 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 576, after evictable_size_:534, num_gpu_evicted:42,num_tokens_need_alloc:30,evict time 0.072906494140625
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 1.0000 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 596, after evictable_size_:535, num_gpu_evicted:61,num_tokens_need_alloc:2,evict time 0.10445642471313477
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 537, after evictable_size_:498, num_gpu_evicted:39,num_tokens_need_alloc:150,evict time 0.20278239250183105
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 534, after evictable_size_:498, num_gpu_evicted:36,num_tokens_need_alloc:29,evict time 0.1027839183807373
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 1.0000 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 518, after evictable_size_:498, num_gpu_evicted:20,num_tokens_need_alloc:28,evict time 0.057636260986328125
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:28,evict time 0.0009701251983642578
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.9999 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 562, after evictable_size_:522, num_gpu_evicted:40,num_tokens_need_alloc:26,evict time 0.016401052474975586
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 522, after evictable_size_:498, num_gpu_evicted:24,num_tokens_need_alloc:26,evict time 0.016982078552246094
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:26,evict time 0.0010771751403808594
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9998 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 511, after evictable_size_:499, num_gpu_evicted:12,num_tokens_need_alloc:25,evict time 0.022485971450805664
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 499, after evictable_size_:498, num_gpu_evicted:1,num_tokens_need_alloc:25,evict time 0.020118236541748047
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 2, #new_token_ratio: 0.9999 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 782, after evictable_size_:521, num_gpu_evicted:261,num_tokens_need_alloc:23,evict time 0.13037395477294922
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 522, after evictable_size_:498, num_gpu_evicted:24,num_tokens_need_alloc:260,evict time 0.07262945175170898
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 521, after evictable_size_:498, num_gpu_evicted:23,num_tokens_need_alloc:23,evict time 0.017046213150024414
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9988 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 527, after evictable_size_:498, num_gpu_evicted:29,num_tokens_need_alloc:22,evict time 0.012888193130493164
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:22,evict time 0.0010204315185546875
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9999 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 517, after evictable_size_:498, num_gpu_evicted:19,num_tokens_need_alloc:21,evict time 0.01092982292175293
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 498, after evictable_size_:498, num_gpu_evicted:0,num_tokens_need_alloc:21,evict time 0.0007932186126708984
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9998 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1802, after evictable_size_:508, num_gpu_evicted:1294,num_tokens_need_alloc:20,evict time 0.45926690101623535
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 508, after evictable_size_:498, num_gpu_evicted:10,num_tokens_need_alloc:1294,evict time 0.009848833084106445
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 4689, after evictable_size_:2139, num_gpu_evicted:2550,num_tokens_need_alloc:2468,evict time 2.0921506881713867
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2307, after evictable_size_:1742, num_gpu_evicted:565,num_tokens_need_alloc:521,evict time 0.7027120590209961
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2296, after evictable_size_:2197, num_gpu_evicted:99,num_tokens_need_alloc:21,evict time 0.03235030174255371
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2197, after evictable_size_:2098, num_gpu_evicted:99,num_tokens_need_alloc:21,evict time 0.032301902770996094
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2098, after evictable_size_:1999, num_gpu_evicted:99,num_tokens_need_alloc:21,evict time 0.026613473892211914
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1999, after evictable_size_:1900, num_gpu_evicted:99,num_tokens_need_alloc:21,evict time 0.0851433277130127
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1900, after evictable_size_:1801, num_gpu_evicted:99,num_tokens_need_alloc:21,evict time 0.09818911552429199
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1801, after evictable_size_:1270, num_gpu_evicted:531,num_tokens_need_alloc:21,evict time 0.29567766189575195
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.9914 -> 1.0000
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1419, after evictable_size_:1270, num_gpu_evicted:149,num_tokens_need_alloc:20,evict time 0.07258415222167969
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 2153, after evictable_size_:1282, num_gpu_evicted:871,num_tokens_need_alloc:521,evict time 0.3348984718322754
+INFO:sglang.srt.managers.router.radix_cache:before evictable_size_: 1952, after evictable_size_:1226, num_gpu_evicted:726,num_tokens_need_alloc:724,evict time 0.5075428485870361
+model /hy-tmp/ loaded.
+Prefill out of memory. This should nerver happen. 728
+ 5 (1, 1, 29961, 25580, 29962) r=21,device=cuda
+   1 (306,) r=4,device=cuda
+     1 (864,) r=0,device=cpu
+     1 (505,) r=2,device=cuda
+       2 (278, 1494) r=1,device=cuda
+         344 (315, 1817, 740, 29901, 29871, 13, 5405, 788, 20122, 9106) r=0,device=cpu
+           99 (29871, 450, 421, 29881, 11770, 29952, 2286, 338, 1641, 1304) r=0,device=cpu
+         140 (775, 29901, 13, 13, 28956, 13, 1509, 13971, 14885, 1149) r=1,device=cuda
+       34 (385, 15593, 1048, 3234, 961, 617, 292, 411, 278, 5001) r=1,device=cuda
+     85 (626, 6826, 292, 385, 382, 1372, 29891, 18296, 411, 263) r=1,device=cuda
+   1 (1128,) r=2,device=cuda
+     1 (304,) r=1,device=cuda
+       23 (679, 263, 4982, 408, 263, 365, 29924, 7818, 29220, 481) r=1,device=cuda
+   1 (1724,) r=0,device=cuda
+     23 (526, 278, 12651, 1546, 278, 18776, 1004, 2948, 304, 4086) r=0,device=cuda
+       99 (29871, 450, 18776, 1004, 2948, 322, 278, 19566, 936, 2948) r=0,device=cpu
+   1 (825,) r=0,device=cuda
+     15 (437, 366, 1348, 1048, 445, 363, 263, 1369, 701, 2969) r=0,device=cuda
+       99 (29871, 306, 29915, 29885, 9796, 304, 1371, 366, 4105, 2611) r=0,device=cpu
+   1 (508,) r=1,device=cuda
+     1 (366,) r=0,device=cuda
+       56 (2874, 263, 2737, 1705, 1788, 2788, 373, 920, 5768, 1884) r=0,device=cuda
+         99 (29871, 18585, 29892, 306, 508, 3867, 366, 411, 263, 1880) r=0,device=cpu
+     18 (474, 671, 6709, 2106, 4933, 322, 27321, 4208, 322, 338) r=1,device=cuda
+   10 (2563, 2740, 2582, 29901, 13, 13, 29961, 29896, 29962, 376) r=0,device=cpu
+   521 (1334, 674, 367, 3907, 263, 10483, 393, 4477, 278, 1494) r=0,device=cpu
+   401 (2266, 338, 590, 5132, 775, 29901, 13, 2754, 20122, 2271) r=0,device=cpu
+     99 (29871, 450, 1059, 2643, 366, 29915, 276, 8790, 338, 1363) r=0,device=cpu
+   45 (6991, 3034, 675, 278, 1667, 7014, 310, 12208, 19512, 29915) r=0,device=cpu
+   123 (4737, 481, 2015, 936, 4086, 338, 884, 1304, 304, 8453) r=0,device=cuda
+     99 (29871, 9070, 29892, 278, 11994, 29991, 334, 328, 5143, 29879) r=0,device=cpu
+   66 (512, 3355, 29892, 306, 864, 304, 5191, 1347, 763, 376) r=0,device=cpu
+     99 (29871, 512, 3355, 29892, 366, 508, 671, 278, 421, 1231) r=0,device=cpu
+   1 (920,) r=2,device=cuda
+     19 (437, 306, 788, 2999, 716, 4341, 297, 286, 363, 3081) r=0,device=cuda
+       99 (29871, 512, 9206, 13641, 470, 9206, 350, 29902, 29892, 366) r=0,device=cpu
+     22 (1033, 474, 2334, 263, 29086, 705, 11356, 5687, 393, 3667) r=0,device=cuda
+       99 (29871, 1954, 2037, 292, 263, 341, 1475, 705, 11356, 5687) r=0,device=cpu
+     25 (508, 590, 7047, 5001, 671, 7783, 12524, 29911, 4717, 304) r=1,device=cuda
+     10 (3863, 1409, 607, 338, 297, 1203, 518, 29914, 25580, 29962) r=1,device=cuda
+   21 (18585, 29892, 306, 508, 437, 393, 29889, 1724, 716, 15483) r=0,device=cuda
+     99 (29871, 7027, 29991, 1670, 526, 1784, 5566, 11407, 716, 5722) r=0,device=cpu
+   12 (21755, 382, 721, 382, 721, 476, 300, 650, 518, 29914) r=0,device=cuda
+     99 (29871, 21755, 1979, 29871, 1979, 413, 300, 650, 313, 4162) r=0,device=cpu
+   14 (3355, 788, 304, 278, 1409, 1761, 310, 263, 770, 1134) r=0,device=cuda
+     99 (29871, 512, 3355, 29892, 366, 508, 788, 385, 1543, 304) r=0,device=cpu
+   12 (445, 338, 451, 3109, 775, 445, 338, 2115, 518, 29914) r=0,device=cuda
+     99 (29871, 1619, 3095, 11763, 29991, 2266, 338, 278, 7126, 3355) r=0,device=cpu
+   7 (3902, 1662, 901, 518, 29914, 25580, 29962) r=0,device=cuda
+     99 (29871, 315, 13946, 368, 29991, 2266, 526, 777, 5684, 4902) r=0,device=cpu
+   399 (396, 16032, 278, 5181, 9741, 13, 3166, 330, 566, 2918) r=0,device=cuda
+     99 (29871, 739, 3430, 763, 366, 505, 263, 1781, 1369, 373) r=0,device=cpu
+   2 (6324, 29892) r=0,device=cuda
+     839 (474, 674, 2367, 366, 2211, 12785, 310, 1426, 29892, 769) r=0,device=cpu
+       32 (29871, 3869, 29892, 306, 29915, 29885, 7960, 363, 1426, 29871) r=0,device=cpu
+   8 (5399, 596, 3017, 1873, 518, 29914, 25580, 29962) r=1,device=cuda
+   2 (12027, 7420) r=2,device=cuda
+     6 (316, 3283, 518, 29914, 25580, 29962) r=1,device=cuda
+     9 (12101, 20602, 297, 2560, 4958, 518, 29914, 25580, 29962) r=1,device=cuda
+   10 (564, 28955, 6888, 594, 284, 801, 518, 29914, 25580, 29962) r=1,device=cuda
+   45 (8147, 278, 4328, 297, 4066, 29872, 12530, 297, 263, 2560) r=1,device=cuda
+   1 (14350,) r=1,device=cuda
+     1 (263,) r=1,device=cuda
+       23 (3017, 1824, 607, 3544, 263, 1899, 1196, 1828, 408, 1139) r=1,device=cuda
+   2 (1815, 366) r=2,device=cuda
+     14 (5649, 278, 11582, 9927, 304, 263, 1473, 867, 1664, 29973) r=1,device=cuda
+     26 (4368, 777, 1781, 321, 29899, 29887, 6170, 749, 14511, 5056) r=1,device=cuda
+   82 (707, 12602, 427, 29871, 29953, 517, 3031, 15679, 316, 592) r=1,device=cuda
+   139 (15043, 5121, 29889, 1619, 3414, 363, 9826, 338, 304, 3033) r=1,device=cuda
+   498 (3645, 1286, 373, 871, 1653, 25691, 2669, 1051, 886, 411) r=1,device=cuda
+   273 (10842, 7075, 29892, 1058, 731, 714, 373, 263, 270, 4362) r=1,device=cuda
+   149 (887, 526, 385, 17924, 9999, 292, 8799, 424, 322, 3509) r=0,device=cpu
+#tokens: 6108

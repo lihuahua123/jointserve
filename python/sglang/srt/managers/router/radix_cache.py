@@ -367,7 +367,24 @@ class RadixCacheMix(RadixCache):
     def evictable_size2(self):
         return self._total_evictable_helper(self.root_node)    
     
-    def _match_prefix_helper(self, node, key, value, last_node):
+    def match_prefix(self, key):
+        if self.disable:
+            return [], self.root_node
+        value_list = []
+        last_node = [self.root_node]
+        change_node = []
+        self._match_prefix_helper(self.root_node, key, value_list, last_node,change_node)
+        for node in change_node:
+            node.lock_ref -= 1
+            if node.lock_ref == 0:
+                self.evictable_size_ += len(node.value)
+        if len(value_list) >0:
+            value = torch.concat(value_list)
+        else:
+            value = torch.tensor([], dtype=torch.int64)
+        return value, last_node[0]
+    
+    def _match_prefix_helper(self, node, key, value, last_node, change_node:List=None):
         node.last_access_time = time.time()
         if len(key) == 0:
             return
@@ -379,6 +396,7 @@ class RadixCacheMix(RadixCache):
                 new_node.last_access_time = time.time()
                 if new_node.value.device.type == "cpu":
                     if self.move_node_to_cuda(new_node):
+                        change_node.append(new_node)
                         node.cpu_node -= 1
                         assert node.cpu_node >= 0
                     else: # 没有位置给你放GPU上了
@@ -389,13 +407,14 @@ class RadixCacheMix(RadixCache):
                 child.last_access_time = time.time()
                 if child.value.device.type == "cpu":
                     if self.move_node_to_cuda(child):
+                        change_node.append(child)
                         node.cpu_node -= 1
                         assert node.cpu_node >= 0
                     else: # 没有位置给你放GPU上了
                         return
                 value.append(child.value)
                 last_node[0] = child
-                self._match_prefix_helper(child, key[prefix_len:], value, last_node)
+                self._match_prefix_helper(child, key[prefix_len:], value, last_node,change_node)
                 
     
     def move_node_to_cuda(self,node):
@@ -417,8 +436,7 @@ class RadixCacheMix(RadixCache):
         # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
         self.token_to_kv_pool.add_refs(new_index)
         node.value = new_index
-        if node.lock_ref == 0:
-            self.evictable_size_ += len(v)
+        node.lock_ref += 1
         return True
             
     #NOTE: tree node should not be deleted if partial eviction
@@ -494,7 +512,8 @@ class RadixCacheMix(RadixCache):
         """
         只驱逐GPU到CPU
         """
-        # curr_evict = self.evictable_size()
+        curr_evict = self.evictable_size()
+
         # start = time.perf_counter()
         if self.disable:
             return
@@ -541,7 +560,7 @@ class RadixCacheMix(RadixCache):
 
         end = time.time()
         #assert self.evictable_size_ == self.evictable_size()
-        logger.info(f'evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens},evict time {end-begin}')
+        logger.info(f'before evictable_size_: {curr_evict}, after evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens},evict time {end-begin}')
 
 if __name__ == "__main__":
     tree = RadixCache(None, None, False)
