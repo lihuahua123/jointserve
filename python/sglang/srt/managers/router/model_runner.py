@@ -345,7 +345,8 @@ class ModelRunner:
             self.max_total_num_token = self.profile_max_num_token(total_gpu_memory,available_gpu_memory)
             # TODO: 要根据CPU来制定profile
             self.max_cpu_num_token = self.profile_max_num_token(total_cpu_memory,available_cpu_memory)
-            logger.info(f"self.max_total_num_token,self.max_cpu_num_token {self.max_total_num_token},{self.max_cpu_num_token}")
+            total_cpu_memory_GB = total_cpu_memory / (1 << 30)
+            logger.info(f"total_cpu_memory_GB : {total_cpu_memory_GB }, max_total_num_token : {self.max_total_num_token}, max_cpu_num_token : {self.max_cpu_num_token}")
         else:
             self.max_total_num_token = self.profile_simulated_num_token(gpu_config)
         self.init_memory_pool()

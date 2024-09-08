@@ -11,28 +11,24 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 7806,310895
+INFO:model_runner:total_cpu_memory_GB : 214.55452728271484, max_total_num_token : 7806, max_cpu_num_token : 313029
 INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
 INFO:sglang.srt.managers.router.radix_cache:using RadixCacheMix
 INFO:sglang.srt.managers.router.radix_cache:using RadixCache
-INFO:     Started server process [10158]
+INFO:     Started server process [12415]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
-INFO:model_rpc:Cache flushed successfully!
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3913 -> 0.4413
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4389 -> 0.4889
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4836 -> 0.5336
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5305 -> 0.5805
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5797 -> 0.6297
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6205 -> 0.6705
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6622 -> 0.7122
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7017 -> 0.7517
-INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 6
-INFO:sglang.srt.managers.router.radix_cache:match_prefix cost time: 27.38397765159607 s
-INFO:sglang.srt.managers.router.radix_cache:remove_cpu_node cost time: 0.16303467750549316 s
-INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cpu cost time: 42.53626251220703 s
-INFO:sglang.srt.managers.router.radix_cache:move_node_to_cpu cost time: 43.434051513671875 s
-INFO:sglang.srt.managers.router.radix_cache:evict cost time: 44.08263850212097 s
-INFO:sglang.srt.managers.router.radix_cache:move_node_to_cuda cost time: 27.30471134185791 s
+You pressed Ctrl+C! Shutting down all remote servers...
+INFO:     Shutting down
+model /hy-tmp/ loaded.
+You pressed Ctrl+C! Shutting down all remote servers...
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12415]
+Server is on port 30000 on host 0.0.0.0 on pid 12572
+You pressed Ctrl+C! Shutting down all remote servers...
+Loading runtimes at ['http://0.0.0.0:30000/generate']
+You pressed Ctrl+C! Shutting down all remote servers...
+You pressed Ctrl+C! Shutting down all remote servers...

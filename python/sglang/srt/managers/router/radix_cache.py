@@ -467,8 +467,9 @@ class RadixCacheMix(RadixCache):
                     return False
             
             # if move_kv:
-            for i in range(self.token_to_kv_pool.layer_num):
-                self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
+            with self.timing('copy_node_to_cuda'):
+                for i in range(self.token_to_kv_pool.layer_num):
+                    self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
             # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
             self.token_to_kv_pool.dec_refs(v)
             self.cur_cpu_tokens -= len(v)
@@ -522,10 +523,9 @@ class RadixCacheMix(RadixCache):
             for x in cur_node.children.values():
                 if dfs_(x):
                     have_gpu_child = True
-            if len(cur_node.children) > 0 and (not have_gpu_child) and cur_node.lock_ref == 0 and is_gpu:
+            if is_gpu and  len(cur_node.children) > 0  and (not have_gpu_child) and cur_node.lock_ref == 0:
                 gpu_list.append(cur_node)
             return is_gpu
-
         dfs_(self.root_node)
         return cpu_list,gpu_list
 
