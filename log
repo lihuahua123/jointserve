@@ -11,24 +11,29 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:total_cpu_memory_GB : 214.55452728271484, max_total_num_token : 7806, max_cpu_num_token : 313029
+INFO:model_runner:total_cpu_memory_GB : 442.685245513916, max_total_num_token : 7806, max_cpu_num_token : 633795
 INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
 INFO:sglang.srt.managers.router.radix_cache:using RadixCacheMix
 INFO:sglang.srt.managers.router.radix_cache:using RadixCache
-INFO:     Started server process [12415]
+INFO:     Started server process [6453]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
-You pressed Ctrl+C! Shutting down all remote servers...
-INFO:     Shutting down
-model /hy-tmp/ loaded.
-You pressed Ctrl+C! Shutting down all remote servers...
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [12415]
-Server is on port 30000 on host 0.0.0.0 on pid 12572
-You pressed Ctrl+C! Shutting down all remote servers...
-Loading runtimes at ['http://0.0.0.0:30000/generate']
-You pressed Ctrl+C! Shutting down all remote servers...
-You pressed Ctrl+C! Shutting down all remote servers...
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3913 -> 0.4413
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4411 -> 0.4911
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4906 -> 0.5406
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5391 -> 0.5891
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5828 -> 0.6328
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6320 -> 0.6820
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6718 -> 0.7218
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7137 -> 0.7637
+INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 7
+INFO:sglang.srt.managers.router.radix_cache:match_prefix cost time: 32.54196906089783 s
+INFO:sglang.srt.managers.router.radix_cache:remove_cpu_node cost time: 0.009883880615234375 s
+INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cpu cost time: 11.12809705734253 s
+INFO:sglang.srt.managers.router.radix_cache:move_node_to_cpu cost time: 13.016079902648926 s
+INFO:sglang.srt.managers.router.radix_cache:evict cost time: 13.600470781326294 s
+INFO:sglang.srt.managers.router.radix_cache:move_node_to_cuda cost time: 32.47456884384155 s
+INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cuda cost time: 23.921258449554443 s

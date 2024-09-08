@@ -426,6 +426,7 @@ class RadixCacheMix(RadixCache):
                         break
                 else:
                     value_list.append(node.value)
+            torch.cuda.synchronize()
             self.dec_lock_ref_(last_node[0])
             for node in change_node:
                 if node.lock_ref == 0 and node.value.device.type == "cuda":
@@ -455,28 +456,25 @@ class RadixCacheMix(RadixCache):
                 
     
     def move_node_to_cuda(self,node):
-        with self.timing('move_node_to_cuda'):
-            v = node.value
+        v = node.value
+        new_index = self.token_to_kv_pool.alloc(len(v),"cuda")
+        if new_index is None:
+            # 驱逐掉没人引用的,但是不会驱逐那些已经匹配上的match的，因为已经加锁
+            self.evict(len(v),self.token_to_kv_pool.dec_refs,check=False)
             new_index = self.token_to_kv_pool.alloc(len(v),"cuda")
             if new_index is None:
-                # 驱逐掉没人引用的,但是不会驱逐那些已经匹配上的match的，因为已经加锁
-                self.evict(len(v),self.token_to_kv_pool.dec_refs,check=False)
-                new_index = self.token_to_kv_pool.alloc(len(v),"cuda")
-                if new_index is None:
-                    # 没有位置给你放GPU了，那你只能适配这前面的部分了
-                    return False
-            
-            # if move_kv:
-            with self.timing('copy_node_to_cuda'):
-                for i in range(self.token_to_kv_pool.layer_num):
-                    self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
-            # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
-            self.token_to_kv_pool.dec_refs(v)
-            self.cur_cpu_tokens -= len(v)
-            node.parent.cpu_children -= 1
-            node.value = new_index
-            
-            return True
+                # 没有位置给你放GPU了，那你只能适配这前面的部分了
+                return False
+        # if move_kv:
+        with self.timing('copy_node_to_cuda'):
+            for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', non_blocking=True, copy=True)
+        # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
+        self.token_to_kv_pool.dec_refs(v)
+        self.cur_cpu_tokens -= len(v)
+        node.parent.cpu_children -= 1
+        node.value = new_index
+        return True
             
     #NOTE: tree node should not be deleted if partial eviction
     def _delete_leaf_cpu(self, node, num_evict_token):
@@ -488,21 +486,20 @@ class RadixCacheMix(RadixCache):
             node.parent.children[node.key[0]] = node
 
     def move_node_to_cpu(self,x):
-        with self.timing('move_node_to_cpu'):
-            need_cpu_space = len(x.value)
-            new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
-            if new_cpu_indices is None:
-                return False
-            # 释放GPU显存
-            free_gpu = self.token_to_kv_pool.dec_refs(x.value).item()
-            assert free_gpu >= len(x.value)
-            with self.timing('copy_node_to_cpu'):
-                for i in range(self.token_to_kv_pool.layer_num):
-                    self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
-            
-            x.value =  new_cpu_indices 
-            self.cur_cpu_tokens += need_cpu_space
-            x.parent.cpu_children += 1
+        need_cpu_space = len(x.value)
+        new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
+        if new_cpu_indices is None:
+            return False
+        # 释放GPU显存
+        free_gpu = self.token_to_kv_pool.dec_refs(x.value).item()
+        assert free_gpu >= len(x.value)
+        with self.timing('copy_node_to_cpu'):
+            for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', non_blocking=True, copy=True)
+        
+        x.value =  new_cpu_indices 
+        self.cur_cpu_tokens += need_cpu_space
+        x.parent.cpu_children += 1
         return True
         
 
@@ -598,7 +595,8 @@ class RadixCacheMix(RadixCache):
         # logger.info(f'before evictable_size_: {cur_evict}, after evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens}')
         if check:
             assert self.evictable_size2() == self.evictable_size_
-
+        torch.cuda.synchronize()
+        
 if __name__ == "__main__":
     tree = RadixCache(None, None, False)
 
