@@ -1,0 +1,38 @@
+/usr/local/lib/python3.11/dist-packages/paramiko/pkey.py:100: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from this module in 48.0.0.
+  "cipher": algorithms.TripleDES,
+/usr/local/lib/python3.11/dist-packages/paramiko/transport.py:259: CryptographyDeprecationWarning: TripleDES has been moved to cryptography.hazmat.decrepit.ciphers.algorithms.TripleDES and will be removed from this module in 48.0.0.
+  "class": algorithms.TripleDES,
+You are using the default legacy behaviour of the <class 'transformers.models.llama.tokenization_llama_fast.LlamaTokenizerFast'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565 - if you loaded a llama tokenizer from a GGUF file you can ignore this message.
+INFO:server:Set CUDA_VISIBLE_DEVICES to 0
+INFO:server:http://0.0.0.0:30000, ports: PortArgs(tokenizer_port=10000, router_port=10001, detokenizer_port=10002, nccl_port=10003, migrate_port=10004, model_rpc_ports=[10005, 10006, 10007])
+INFO:model_rpc:Use sleep forwarding: False
+INFO:model_rpc:schedule_heuristic: fcfs-s
+INFO:model_runner:Rank 0: load weight begin.
+INFO:model_runner:Rank 0: load weight end.
+INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
+INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
+INFO:model_runner:self.max_total_num_token,self.max_cpu_num_token 7806,310895
+INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
+INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
+INFO:sglang.srt.managers.router.radix_cache:using RadixCacheMix
+INFO:sglang.srt.managers.router.radix_cache:using RadixCache
+INFO:     Started server process [10158]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3913 -> 0.4413
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4389 -> 0.4889
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4836 -> 0.5336
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5305 -> 0.5805
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5797 -> 0.6297
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6205 -> 0.6705
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6622 -> 0.7122
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7017 -> 0.7517
+INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 6
+INFO:sglang.srt.managers.router.radix_cache:match_prefix cost time: 27.38397765159607 s
+INFO:sglang.srt.managers.router.radix_cache:remove_cpu_node cost time: 0.16303467750549316 s
+INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cpu cost time: 42.53626251220703 s
+INFO:sglang.srt.managers.router.radix_cache:move_node_to_cpu cost time: 43.434051513671875 s
+INFO:sglang.srt.managers.router.radix_cache:evict cost time: 44.08263850212097 s
+INFO:sglang.srt.managers.router.radix_cache:move_node_to_cuda cost time: 27.30471134185791 s

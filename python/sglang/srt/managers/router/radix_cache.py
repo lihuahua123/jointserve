@@ -401,6 +401,11 @@ class RadixCacheMix(RadixCache):
             node = node.parent
         return delta
     
+    def print_from_last_node(self,node:TreeNode):
+        while node != self.root_node:
+            logger.info(f"node {node},{node.value.device.type},{node.lock_ref}")
+            node = node.parent
+            
     def match_prefix(self, key):
         if self.disable:
             return [], self.root_node
@@ -429,12 +434,6 @@ class RadixCacheMix(RadixCache):
                 value = torch.concat(value_list)
             else:
                 value = torch.tensor([], dtype=torch.int64)
-        if self.evictable_size2() != self.evictable_size_:
-            logger.info(f"error!self.evictable_size2() != self.evictable_size_ {self.evictable_size2()}{self.evictable_size_}")
-            for node in change_node:
-                logger.info(f"change node: {node},{node.lock_ref},{node.value.device.type}")
-            self.pretty_print()
-            exit()
         return value, last_node[0]
     
     def _match_prefix_helper(self, node, key,  last_node, all_nodes):
@@ -460,7 +459,7 @@ class RadixCacheMix(RadixCache):
             v = node.value
             new_index = self.token_to_kv_pool.alloc(len(v),"cuda")
             if new_index is None:
-                # 驱逐掉没人引用的
+                # 驱逐掉没人引用的,但是不会驱逐那些已经匹配上的match的，因为已经加锁
                 self.evict(len(v),self.token_to_kv_pool.dec_refs,check=False)
                 new_index = self.token_to_kv_pool.alloc(len(v),"cuda")
                 if new_index is None:
@@ -496,8 +495,10 @@ class RadixCacheMix(RadixCache):
             # 释放GPU显存
             free_gpu = self.token_to_kv_pool.dec_refs(x.value).item()
             assert free_gpu >= len(x.value)
-            for i in range(self.token_to_kv_pool.layer_num):
-                self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+            with self.timing('copy_node_to_cpu'):
+                for i in range(self.token_to_kv_pool.layer_num):
+                    self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+            
             x.value =  new_cpu_indices 
             self.cur_cpu_tokens += need_cpu_space
             x.parent.cpu_children += 1
@@ -521,7 +522,7 @@ class RadixCacheMix(RadixCache):
             for x in cur_node.children.values():
                 if dfs_(x):
                     have_gpu_child = True
-            if len(cur_node.children) > 0 and not have_gpu_child and cur_node.lock_ref == 0 and is_gpu:
+            if len(cur_node.children) > 0 and (not have_gpu_child) and cur_node.lock_ref == 0 and is_gpu:
                 gpu_list.append(cur_node)
             return is_gpu
 
@@ -529,7 +530,7 @@ class RadixCacheMix(RadixCache):
         return cpu_list,gpu_list
 
     def push_heap(self,x,gpu_list,cpu_list):
-        if len(x.parent.children) == 0 or x.parent.cpu_children == len(x.parent.children):
+        if x.parent.lock_ref == 0 and (len(x.parent.children) == 0 or x.parent.cpu_children == len(x.parent.children)):
             if x.parent.value.device.type == "cpu":
                 heapq.heappush(cpu_list, x.parent)
             else:
@@ -555,6 +556,7 @@ class RadixCacheMix(RadixCache):
             assert self.evictable_size2() == self.evictable_size_
         with self.timing('evict'):
             cpu_list, gpu_list = self._collect_leaves()
+                    
             num_gpu_evicted = 0
             heapq.heapify(gpu_list)
             free_cpu_space = self.token_to_kv_pool.available_size("cpu")
