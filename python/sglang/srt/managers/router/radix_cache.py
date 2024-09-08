@@ -4,11 +4,14 @@ from collections import defaultdict
 from dataclasses import dataclass
 from typing import Tuple, List
 import logging
-
 import torch
+import time
+from contextlib import contextmanager
 
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.CRITICAL + 1)
+
+    
 @dataclass
 class EvictionData():
     input_ids: list
@@ -48,6 +51,7 @@ class RadixCache:
         self.disable = disable
         self.reset()
         self.enable_partial_eviction = enable_partial_eviction
+        self.cnt_time = defaultdict(float)
         logger.info("using RadixCache")
 
     ##### Public API #####
@@ -110,6 +114,7 @@ class RadixCache:
         old_last_node=None,
         lora_uid=None,
     ):
+        assert self.evictable_size2() == self.evictable_size_
         # Insert the request into radix cache
         # 这时候indices已经在GPU上了
         indices = self.req_to_token_pool.req_to_token[req_pool_idx, : len(token_ids)]
@@ -127,6 +132,7 @@ class RadixCache:
         # finish 请求的时候del_in_memory_pool为True
         if del_in_memory_pool:
             self.req_to_token_pool.free(req_pool_idx)
+            assert self.evictable_size2() == self.evictable_size_
         else:
             # 因为之前插入了，这时候拿到的就是已经在GPU上的indices了
             cached_indices, new_last_node  = self.match_prefix(token_ids)
@@ -136,6 +142,7 @@ class RadixCache:
             self.req_to_token_pool.req_to_token[
                 req_pool_idx, last_uncached_pos : len(cached_indices)
             ] = cached_indices[last_uncached_pos:]
+            assert self.evictable_size2() == self.evictable_size_
             return cached_indices, new_last_node
 
     def pretty_print(self):
@@ -256,7 +263,17 @@ class RadixCache:
         返回的是GPU的evictable_size，而且lock_ref要为0，不包含CPU
         """
         return self.evictable_size_
-
+    @contextmanager
+    def timing(self,description: str):
+        start_time = time.time()
+        yield
+        elapsed_time = time.time() - start_time
+        self.cnt_time[description] += elapsed_time
+    def print_time(self):
+        print(f"len(self.cnt_time): {len(self.cnt_time)}")
+        logger.info(f"len(self.cnt_time): {len(self.cnt_time)}")
+        for key,value in self.cnt_time.items():
+            logger.info(f"{key} cost time: {value} s")
     ##### Internal Helper Functions #####
 
     def _match_prefix_helper(self, node, key, value, last_node):
@@ -353,13 +370,12 @@ class RadixCache:
 
         dfs_(self.root_node)
         return ret_list
-
-
-
+    
 class RadixCacheMix(RadixCache):
     def __init__(self,max_cpu_tokens,req_to_token_pool, token_to_kv_pool, disable: bool = False, enable_partial_eviction=False):
         self.max_cpu_tokens = max_cpu_tokens
         self.cur_cpu_tokens = 0
+        self.cnt_time = defaultdict(float)
         logger.info("using RadixCacheMix")
         super().__init__(max_cpu_tokens, req_to_token_pool, token_to_kv_pool, disable, enable_partial_eviction)
 
@@ -367,39 +383,7 @@ class RadixCacheMix(RadixCache):
         self.cur_cpu_tokens = 0
         super().reset()
         
-
-    # def cache_req(
-    #     self,
-    #     token_ids,
-    #     last_uncached_pos,
-    #     req_pool_idx,
-    #     del_in_memory_pool=True,
-    #     old_last_node=None,
-    #     lora_uid=None,
-    # ):
-    #     # Insert the request into radix cache
-    #     # 这时候indices已经在GPU上了
-    #     indices = self.req_to_token_pool.req_to_token[req_pool_idx, : len(token_ids)]
-    #     if lora_uid is not None:
-    #         token_ids[0] = (lora_uid,token_ids[0])
-    #     # new_prefix_len 是匹配原有的前缀的token数目
-    #     new_prefix_len = self.insert(token_ids, indices.clone())
-    #     assert indices[last_uncached_pos:new_prefix_len].device.type == "cuda"
-    #     self.token_to_kv_pool.dec_refs(indices[last_uncached_pos:new_prefix_len])
-    #     # finish 请求的时候del_in_memory_pool为True
-    #     if del_in_memory_pool:
-    #         self.req_to_token_pool.free(req_pool_idx)
-    #     else:
-    #         cached_indices, new_last_node  = self.match_prefix(token_ids)
-    #         assert len(cached_indices) == len(token_ids)
-    #         self.dec_lock_ref(old_last_node)
-    #         self.inc_lock_ref(new_last_node)
-    #         self.req_to_token_pool.req_to_token[
-    #             req_pool_idx, last_uncached_pos : len(cached_indices)
-    #         ] = cached_indices[last_uncached_pos:]
             
-    #         return cached_indices, new_last_node
-    
     def inc_lock_ref_(self, node: TreeNode):
         """
         每增加一个请求引用，则增加node的lock_ref,这个node一般是GPU
@@ -423,30 +407,33 @@ class RadixCacheMix(RadixCache):
     def match_prefix(self, key):
         if self.disable:
             return [], self.root_node
-        last_node = [self.root_node]
-        all_nodes = []
-        self._match_prefix_helper(self.root_node, key, last_node,all_nodes)
-        value_list = []
-        change_node = []
-        self.inc_lock_ref_(last_node[0])
-        for node in all_nodes:
-            if node.value.device.type == "cpu":
-                # 这个节点是一个游离节点，本来就已经被删除了
-                if self.move_node_to_cuda(node):
-                    value_list.append(node.value)
-                    change_node.append(node)
+        assert self.evictable_size2() == self.evictable_size_
+        with self.timing('match_prefix'):
+            last_node = [self.root_node]
+            all_nodes = []
+            self._match_prefix_helper(self.root_node, key, last_node,all_nodes)
+            value_list = []
+            change_node = []
+            self.inc_lock_ref_(last_node[0])
+            for node in all_nodes:
+                if node.value.device.type == "cpu":
+                    # 这个节点是一个游离节点，本来就已经被删除了
+                    if self.move_node_to_cuda(node):
+                        value_list.append(node.value)
+                        change_node.append(node)
+                    else:
+                        break
                 else:
-                    break
+                    value_list.append(node.value)
+            self.dec_lock_ref_(last_node[0])
+            for node in change_node:
+                if node.lock_ref == 0 and node.value.device.type == "cuda":
+                    self.evictable_size_ += len(node.value)
+            if len(value_list) >0:
+                value = torch.concat(value_list)
             else:
-                value_list.append(node.value)
-        self.dec_lock_ref_(last_node[0])
-        for node in change_node:
-            if node.lock_ref == 0 and node.value.device.type == "cuda":
-                self.evictable_size_ += len(node.value)
-        if len(value_list) >0:
-            value = torch.concat(value_list)
-        else:
-            value = torch.tensor([], dtype=torch.int64)
+                value = torch.tensor([], dtype=torch.int64)
+        assert self.evictable_size2() == self.evictable_size_
         return value, last_node[0]
     
     def _match_prefix_helper(self, node, key,  last_node, all_nodes):
@@ -468,23 +455,24 @@ class RadixCacheMix(RadixCache):
                 
     
     def move_node_to_cuda(self,node):
-        v = node.value
-        new_index = self.token_to_kv_pool.alloc(len(v))
-        if new_index is None:
-            # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用
-            self.evict(len(v),self.token_to_kv_pool.dec_refs,check=False)
-            new_index = self.token_to_kv_pool.alloc(len(v))  
+        with self.timing('move_node_to_cuda'):
+            v = node.value
+            new_index = self.token_to_kv_pool.alloc(len(v))
             if new_index is None:
-                # 没有位置给你放GPU了，那你只能适配这前面的部分了
-                return False
-        self.token_to_kv_pool.dec_refs(v)
-        self.cur_cpu_tokens -= len(v)
-        # if move_kv:
-        for i in range(self.token_to_kv_pool.layer_num):
-            self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
-        # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
-        node.value = new_index
-        return True
+                # 驱逐掉没人引用的，但有没有可能有些虽然没人引用，但是刚好和我match上了，只是我还来不及引用
+                self.evict(len(v),self.token_to_kv_pool.dec_refs,check=False)
+                new_index = self.token_to_kv_pool.alloc(len(v))
+                if new_index is None:
+                    # 没有位置给你放GPU了，那你只能适配这前面的部分了
+                    return False
+            self.token_to_kv_pool.dec_refs(v)
+            self.cur_cpu_tokens -= len(v)
+            # if move_kv:
+            for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', copy=True)
+            # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
+            node.value = new_index
+            return True
             
     #NOTE: tree node should not be deleted if partial eviction
     def _delete_leaf_cpu(self, node, num_evict_token):
@@ -496,21 +484,19 @@ class RadixCacheMix(RadixCache):
             node.parent.children[node.key[0]] = node
 
     def move_node_to_cpu(self,x):
-        need_cpu_space = len(x.value)
-        new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
-        if new_cpu_indices is None:
-            return False
-        # 释放GPU显存
-        self.token_to_kv_pool.dec_refs(x.value).item()
-        # 前面已经驱逐了need_to_evicted_cpu，按理来说应该能alloc的
-        # 到这里的都是没人引用kv cache的x.lock_ref = 0，这里cuda 上的kv_data是否还有意义？token_to_kv_pool的ref>0 肯定有意义
-        # 就在刚刚token_to_kv_pool.dec_refs减到0了，所以正好把他挪走
-        # 走到这里来，都是free_num == len(x.value) 即x.value的ref全部为0的
-        for i in range(self.token_to_kv_pool.layer_num):
-            self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
-        x.value =  new_cpu_indices 
-        self.cur_cpu_tokens += need_cpu_space
-        x.parent.cpu_node += 1
+        with self.timing('move_node_to_cpu'):
+            need_cpu_space = len(x.value)
+            new_cpu_indices = self.token_to_kv_pool.alloc(need_cpu_space,"cpu")
+            if new_cpu_indices is None:
+                return False
+            # 释放GPU显存
+            free_gpu = self.token_to_kv_pool.dec_refs(x.value).item()
+            assert free_gpu >= len(x.value)
+            for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', copy=True)
+            x.value =  new_cpu_indices 
+            self.cur_cpu_tokens += need_cpu_space
+            x.parent.cpu_node += 1
         return True
         
 
@@ -551,51 +537,59 @@ class RadixCacheMix(RadixCache):
             return True
         return False
 
-    def evict(self, num_tokens, evict_callback, collect_evicted_node=False):
+    def evict(self, num_tokens, evict_callback, collect_evicted_node=False,check=True):
         """
         只驱逐GPU到CPU
         """
         if self.disable:
             return
-        begin = time.time()
-        cpu_list, gpu_list = self._collect_leaves()
-        num_gpu_evicted = 0
-        heapq.heapify(gpu_list)
-        free_cpu_space = self.token_to_kv_pool.available_size("cpu")
-        if free_cpu_space < num_tokens:
-            heapq.heapify(cpu_list)
-        x: TreeNode
-        while num_gpu_evicted < num_tokens:
-            while len(gpu_list) == 0 and len(cpu_list) > 0:
-                cpu_node = heapq.heappop(cpu_list)
-                if self.remove_cpu_node(cpu_node):
-                    self.push_heap(cpu_node,gpu_list,cpu_list)
-            
-            if len(gpu_list) == 0:
-                break
-            
-            x = heapq.heappop(gpu_list)
-            if x == self.root_node:
-                break
-            if x.lock_ref > 0 or x.value.device.type == "cpu": # 只有没人引用的才会被驱逐，这是可以驱逐的块
-                continue
-            if not self.move_node_to_cpu(x): # 没有充足的cpu位置放
-                need_to_evicted_cpu_token = len(x.value)
-                while need_to_evicted_cpu_token > 0:
-                    if len(cpu_list) == 0:
-                        logger.info(f"you need cpu space {need_to_evicted_cpu_token} but do not have enough to evicted")
+        cur_evict = self.evictable_size2()
+        if check:
+            assert self.evictable_size2() == self.evictable_size_
+        with self.timing('evict'):
+            begin = time.time()
+            cpu_list, gpu_list = self._collect_leaves()
+            num_gpu_evicted = 0
+            heapq.heapify(gpu_list)
+            free_cpu_space = self.token_to_kv_pool.available_size("cpu")
+            if free_cpu_space < num_tokens:
+                heapq.heapify(cpu_list)
+            x: TreeNode
+            while num_gpu_evicted < num_tokens:
+                with self.timing('remove_cpu_node'):
+                    while len(gpu_list) == 0 and len(cpu_list) > 0:
+                        cpu_node = heapq.heappop(cpu_list)
+                        if self.remove_cpu_node(cpu_node):
+                            self.push_heap(cpu_node,gpu_list,cpu_list)
+                
+                if len(gpu_list) == 0:
+                    break
+                
+                x = heapq.heappop(gpu_list)
+                if x == self.root_node:
+                    break
+                if x.lock_ref > 0 or x.value.device.type == "cpu": # 只有没人引用的才会被驱逐，这是可以驱逐的块
+                    continue
+                if not self.move_node_to_cpu(x): # 没有充足的cpu位置放
+                    need_to_evicted_cpu_token = len(x.value)
+                    with self.timing('remove_cpu_node'):
+                        while need_to_evicted_cpu_token > 0:
+                            if len(cpu_list) == 0:
+                                logger.info(f"you need cpu space {need_to_evicted_cpu_token} but do not have enough to evicted")
+                                exit()
+                            cpu_node = heapq.heappop(cpu_list)
+                            if self.remove_cpu_node(cpu_node):
+                                self.push_heap(cpu_node,gpu_list,cpu_list)
+                                need_to_evicted_cpu_token -= len(cpu_node.value)
+                    if not self.move_node_to_cpu(x):
+                        logger.info(f"no cpu enough")
                         exit()
-                    cpu_node = heapq.heappop(cpu_list)
-                    if self.remove_cpu_node(cpu_node):
-                        self.push_heap(cpu_node,gpu_list,cpu_list)
-                        need_to_evicted_cpu_token -= len(cpu_node.value)
-                if not self.move_node_to_cpu(x):
-                    logger.info(f"no cpu enough")
-                    exit()
-            self.push_heap(x,gpu_list,cpu_list)
-            num_gpu_evicted += len(x.value)
-            self.evictable_size_ -= len(x.value)
-
+                self.push_heap(x,gpu_list,cpu_list)
+                num_gpu_evicted += len(x.value)
+                self.evictable_size_ -= len(x.value)
+        logger.info(f'before evictable_size_: {cur_evict}, after evictable_size_:{self.evictable_size_}, num_gpu_evicted:{num_gpu_evicted},num_tokens_need_alloc:{num_tokens}')
+        if check:
+            assert self.evictable_size2() == self.evictable_size_
         end = time.time()
 
 if __name__ == "__main__":

@@ -135,7 +135,9 @@ class SchedulingMetricsOut:
     matching_overhead: float
     manager_dispatch_time: float
     manager_recv_time: float
-
+@dataclass
+class CacheMetricsReqInput:
+    pass
 @dataclass
 class BatchTokenIDOut:
     rids: List[str]

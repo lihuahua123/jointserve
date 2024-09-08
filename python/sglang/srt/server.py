@@ -84,7 +84,6 @@ async def flush_cache():
         status_code=200,
     )
 
-
 @app.post("/generate")
 async def generate_request(obj: GenerateReqInput):
     obj.post_init()
@@ -152,6 +151,15 @@ async def scheduling_metrics(raw_request: Request):
     ret["return_time"] = time.time() - ret["return_time"]
     ret["total_internal_request_time"] = time.time() - start_time
     return ret
+
+
+@app.get("/cache_metrics")
+async def cache_metrics():
+    await tokenizer_manager.cache_metrics()
+    return Response(
+        content="ok",
+        status_code=200,
+    )
 
 @app.post("/dump_prefix_hit_trace")
 async def dump_prefix_hit_trace(fpath: str):

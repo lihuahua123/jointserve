@@ -27,7 +27,8 @@ from sglang.srt.managers.io_struct import (
     FlushCacheReq,
     TokenizedGenerateReqInput,
     SchedulingMetricsReqInput, 
-    SchedulingMetricsOut
+    SchedulingMetricsOut,
+    CacheMetricsReqInput,
 )
 from sglang.srt.managers.router.infer_batch import Batch, ForwardMode, Req, SchedulingBudget, FinishReason
 from sglang.srt.managers.router.model_runner import ModelRunner
@@ -140,7 +141,7 @@ class ModelRpcServer:
             logger.info(f"server_args: {server_args.print_mode_args()}")
 
         # Init cache
-        self.tree_cache = RadixCache(
+        self.tree_cache = RadixCacheMix(
             max_cpu_tokens=self.model_runner.max_cpu_num_token,
             req_to_token_pool=self.model_runner.req_to_token_pool,
             token_to_kv_pool=self.model_runner.token_to_kv_pool,
@@ -308,6 +309,8 @@ class ModelRpcServer:
                     self.handle_generate_request(recv_req)
                 elif isinstance(recv_req, FlushCacheReq):
                     self.flush_cache()
+                elif isinstance(recv_req, CacheMetricsReqInput):
+                    self.tree_cache.print_time()
                 else:
                     raise ValueError(f"Invalid request: {recv_req}")
 
@@ -712,7 +715,6 @@ class ModelRpcServer:
                             )
             else:
                 # check the available size
-                
                 available_size = (
                     self.token_to_kv_pool.available_size() # 未来可以插入的值，GPU的
                     + self.tree_cache.evictable_size() # 已经插入的值，GPU的
@@ -854,7 +856,7 @@ class ModelRpcServer:
                 ]
             )
             available_size -= reservation
-        logger.info(f"available_size:{available_size},len(target_waiting_queue):{len(target_waiting_queue)},self.token_to_kv_pool.available_size():{self.token_to_kv_pool.available_size()},self.tree_cache.evictable_size():{self.tree_cache.evictable_size()}")
+        # logger.info(f"available_size:{available_size},len(target_waiting_queue):{len(target_waiting_queue)},self.token_to_kv_pool.available_size():{self.token_to_kv_pool.available_size()},self.tree_cache.evictable_size():{self.tree_cache.evictable_size()}")
         req: Req
         for req in target_waiting_queue:
             if budget and budget.get_remaining_token_budget() <= 0:

@@ -61,6 +61,15 @@ async def send_cache_flush_request():
         except Exception as e:
             print(e)
             
+async def send_cache_metric_request():
+    async with aiohttp.ClientSession(timeout=AIOHTTP_TIMEOUT) as session:
+        try:
+            flush_url = "http://localhost:30000/cache_metrics"
+            async with session.get(url=flush_url) as response:
+                assert response.status == 200
+        except Exception as e:
+            print(e)    
+                  
 async def async_request_openai_chat_completions(
     request_func_input: RequestFuncInput
 ) -> RequestFuncOutput:
@@ -179,7 +188,7 @@ async def test():
             message_history.append(data["conversations"][i]["value"])
         message_hostory_dataset.append(message_history)
     client_tasks = []
-    for idx, message_hostory_data in enumerate(message_hostory_dataset[:100]):
+    for idx, message_hostory_data in enumerate(message_hostory_dataset[:50]):
         if idx % 2 == 0:
             sleep = 0
         else:
@@ -192,5 +201,6 @@ async def test():
 begin = time.time()
 asyncio.run(send_cache_flush_request())       
 asyncio.run(test())
+asyncio.run(send_cache_metric_request())   
 end = time.time()
 print(end - begin)

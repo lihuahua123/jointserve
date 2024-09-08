@@ -28,6 +28,7 @@ from sglang.srt.managers.io_struct import (
     SchedulingMetricsOut,
     DumpTrace,
     PrefixHitInspect,
+    CacheMetricsReqInput,
 )
 from sglang.srt.mm_utils import expand2square, process_anyres_image
 from sglang.srt.sampling_params import SamplingParams
@@ -395,6 +396,14 @@ class TokenizerManager:
             yield output_list
 
     async def flush_cache(self):
+        flush_cache_req = FlushCacheReq()
+        self.send_to_router.send_pyobj(flush_cache_req)
+        
+    async def cache_metrics(self):
+        cache_metrics_obj = CacheMetricsReqInput()
+        self.send_to_router.send_pyobj(cache_metrics_obj)
+        
+    async def check_cache(self):
         flush_cache_req = FlushCacheReq()
         self.send_to_router.send_pyobj(flush_cache_req)
 
