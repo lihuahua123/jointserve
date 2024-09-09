@@ -53,7 +53,7 @@ chat_template = None #"{% for message in messages %}{% if message['role'] == 'us
 times=[]
 messages_record = []
 clinet_index = 0
-scheduler = GlobalScheduler(2) #GlobalSchedulerWithTime(num_nodes=2)
+scheduler = GlobalScheduler(1) #GlobalSchedulerWithTime(num_nodes=2)
 gtokenizer = AutoTokenizer.from_pretrained("/hy-tmp/")
 modelConfig = ModelConfig("/hy-tmp/")
 app = FastAPI()

@@ -140,12 +140,13 @@ async def async_request_openai_chat_completions(
     return output
 
 
-async def client(message_hostory_data,sleep_time=0):
+async def client(idx, message_hostory_data,sleep_time=0):
     request_func_input = RequestFuncOutput()
     request_func_input.use_beam_search = False
     request_func_input.model="/hy-tmp/"
     request_func_input.output_len = 100
     request_func_input.prompt = []
+    ttfts = []
     for index, message in enumerate(message_hostory_data):
         if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 4000:
             break
@@ -168,8 +169,9 @@ async def client(message_hostory_data,sleep_time=0):
         })
         # print(f"itl:{result.itl},latency:{result.latency},prompt_len:{result.prompt_len},ttft:{result.ttft},total_latency_in_engine:{result.total_latency_in_engine},waiting_latency:{result.waiting_latency}")
         # print(f"waiting_latency:{result.waiting_latency}")
+        ttfts.append(result.ttft)
     # print("conversation turns:", index,"request_func_input.prompt",request_func_input.prompt)
-    print("conversation turns:", index, "request_func_input.prompt",request_func_input.prompt)
+    print(idx, "conversation turns:", index)
 async def test():
     dataset_path = "/hy-tmp/sharegpt.json"
     dataset = []
@@ -189,11 +191,9 @@ async def test():
         message_hostory_dataset.append(message_history)
     client_tasks = []
     for idx, message_hostory_data in enumerate(message_hostory_dataset[:50]):
-        if idx % 2 == 0:
-            sleep = 0
-        else:
-            sleep = 0
-        client_tasks.append(asyncio.create_task(client(message_hostory_data,sleep)))
+        # 阅读速度（300～500）字／分钟
+        sleep = 0
+        client_tasks.append(asyncio.create_task(client(idx,message_hostory_data,sleep)))
     for task in client_tasks:
         await task
     

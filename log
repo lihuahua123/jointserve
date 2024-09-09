@@ -11,29 +11,33 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:total_cpu_memory_GB : 442.685245513916, max_total_num_token : 7806, max_cpu_num_token : 633795
+INFO:model_runner:total_cpu_memory_GB : 172.29312896728516, max_total_num_token : 7806, max_cpu_num_token : 246920
 INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
-INFO:sglang.srt.managers.router.radix_cache:using RadixCacheMix
 INFO:sglang.srt.managers.router.radix_cache:using RadixCache
-INFO:     Started server process [6453]
+INFO:     Started server process [5500]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 INFO:model_rpc:Cache flushed successfully!
 INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3913 -> 0.4413
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4411 -> 0.4911
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4906 -> 0.5406
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5391 -> 0.5891
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5828 -> 0.6328
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6320 -> 0.6820
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6718 -> 0.7218
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7137 -> 0.7637
-INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 7
-INFO:sglang.srt.managers.router.radix_cache:match_prefix cost time: 32.54196906089783 s
-INFO:sglang.srt.managers.router.radix_cache:remove_cpu_node cost time: 0.009883880615234375 s
-INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cpu cost time: 11.12809705734253 s
-INFO:sglang.srt.managers.router.radix_cache:move_node_to_cpu cost time: 13.016079902648926 s
-INFO:sglang.srt.managers.router.radix_cache:evict cost time: 13.600470781326294 s
-INFO:sglang.srt.managers.router.radix_cache:move_node_to_cuda cost time: 32.47456884384155 s
-INFO:sglang.srt.managers.router.radix_cache:copy_node_to_cuda cost time: 23.921258449554443 s
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4408 -> 0.4908
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4890 -> 0.5390
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5174 -> 0.5674
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5666 -> 0.6166
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6157 -> 0.6657
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5467 -> 0.5967
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5943 -> 0.6443
+INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 0
+INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5009 -> 0.5509
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5504 -> 0.6004
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6002 -> 0.6502
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6499 -> 0.6999
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6994 -> 0.7494
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7492 -> 0.7992
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7989 -> 0.8489
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8304 -> 0.8804
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.8498 -> 0.8998
+INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 0

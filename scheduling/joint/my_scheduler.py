@@ -107,7 +107,7 @@ class GlobalScheduler:
             self.tree_cache.dec_lock_ref(self.req_to_node[req_id])
             self.per_gpu_load[runtime_id] -= 1
             self.per_gpu_load_len[runtime_id] -= output.prompt_len
-        # if len(self.history) > 10:
-        #     print(self.history)
+        if len(self.history) > 10:
+            print(self.history)
         # 现在默认不驱逐
         
