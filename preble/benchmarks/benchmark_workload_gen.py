@@ -316,6 +316,9 @@ class WorkloadPrefixDataLoader(DataLoader):
             self.num_in_context_examples = math.ceil(self.context_len / 475)
 
     def generate_workload(self, k):
+        """
+        返回json字典的列表
+        """
         num_prefixed_shared = int(
             self.total_num_requests * (1 - self.distribution_of_non_shared)
         )

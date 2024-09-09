@@ -318,26 +318,20 @@ class GlobalSchedulerWithTime:
             leaf_node = self.cache.insert(tuple(input_ids), split_nodes=split_nodes)
             self.handle_split_nodes_gpu_allocations(split_nodes, self.gpu_allocations) # copies split node gpu allocation
             self.handle_split_node_histogram(split_nodes)
-            print("??????????1")
             important_node = self.get_important_node(leaf_node)
-            print("??????????2",leaf_node.num_tokens,leaf_node.context_so_far)
             if leaf_node.num_tokens < leaf_node.context_so_far: # check that gpu allocation exists for important node
                 gpu_selected = self.get_parent_gpu_allocation(leaf_node)
-                print("??????????3")
                 if len(gpu_selected) > 1:
                     runtime_idx = self.calculate_min_load_cost(leaf_node, gpu_selected)
                 else:
                     runtime_idx = list(gpu_selected)[0]
-                print("??????????4")
             elif runtime_id_with_highest_hit_rate is not None:
                 runtime_idx = runtime_id_with_highest_hit_rate
             else:
                 runtime_idx = self.calculate_min_load_cost(leaf_node, selected_gpus=range(self.num_gpus))
-            print("??????????5")
             self.counter += 1
             self.update_gpu_allocation_for_parent(leaf_node, {runtime_idx}) # Updated gpu allocations up till parent
             self.cache.update_allocated_size(leaf_node, runtime_idx) # Update ref counters
-            print("??????????2")
             assert self.is_large_node(important_node)
 
             self.histogram.update(datetime.now(), important_node, leaf_node, runtime_idx, decoding_length=decoding_length)

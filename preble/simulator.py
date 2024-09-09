@@ -27,6 +27,7 @@ from sglang.srt.managers.router.model_rpc import ModelRpcClient, ModelRpcServer
 from sglang.srt.hf_transformers_utils import get_tokenizer
 from sglang.srt.managers.router.model_runner import GPUConfig
 from data_parallel_request_cache import DataParallelRequestRouter, DataParallelRuntimeSelectionPolicy
+from global_scheduler_with_time import GlobalSchedulerWithTime
 from sglang.srt.managers.io_struct import (
     BatchStrOut,
     BatchTokenIDOut,
@@ -540,7 +541,11 @@ if __name__ == "__main__":
         GPUConfig(gpu_id=0, url=None, use_ssh=False, runtime_args=sglang_server_args),
         GPUConfig(gpu_id=1, url=None, use_ssh=False, runtime_args=sglang_server_args)
     ]
-    def forward_simulation(batch: Batch): # 返回sleep的时间
+    def forward_simulation(batch: Batch,num_batched_tokens,
+                    num_attention_tokens=None,
+                    input_id_lengths=None,
+                    unique_kvs=None,
+                    seq_lens=None): # 返回sleep的时间
         return 1
     for config in gpu_configs:
         config.regist_simulator_config([forward_simulation,forward_simulation], 1 << 32,None)
@@ -548,8 +553,10 @@ if __name__ == "__main__":
     model_name = "/hy-tmp/"
     runtimes = [ServerRuntimeSimulator(gpu_config=config, model_path=model_name) for config in gpu_configs]
     vocab_size = runtimes[0].model_rpc.model_config.vocab_size
-    
-    router = DataParallelRequestRouter(DataParallelRuntimeSelectionPolicy.RANDOM, total_nodes=2)
+    num_nodes = len(gpu_configs)
+    global_scheduler = GlobalSchedulerWithTime(num_nodes=num_nodes, enable_eviction=True)
+    router = DataParallelRequestRouter(DataParallelRuntimeSelectionPolicy.CUSTOM, total_nodes=num_nodes)
+    router.custom_selector = global_scheduler
     simulator = Simulation(runtimes, router)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     rps, exp_time = 8, 30
