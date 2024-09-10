@@ -2,7 +2,7 @@
 
 import json
 import os
-
+import time
 from fastapi import HTTPException, Request
 from fastapi.responses import StreamingResponse
 
@@ -271,29 +271,6 @@ async def v1_chat_completions(tokenizer_manager, raw_request: Request):
 
             stream_buffer = ""
             async for content in tokenizer_manager.generate_request(adapted_request):
-                if is_first:
-                    # First chunk with role
-                    is_first = False
-                    choice_data = ChatCompletionResponseStreamChoice(
-                        index=0,
-                        delta=DeltaMessage(role="assistant"),
-                        finish_reason=None,
-                    )
-                    chunk = ChatCompletionStreamResponse(
-                        id=content["meta_info"]["id"],
-                        choices=[choice_data],
-                        model=request.model,
-                        arrival_time=content["meta_info"]["arrival_time"],
-                        begin_to_run_time=content["meta_info"]["begin_to_run_time"],
-                    )
-                    yield f"data: {jsonify_pydantic_model(chunk)}\n\n"
-
-                text = content["text"]
-                delta = text[len(stream_buffer) :]
-                stream_buffer = text
-                choice_data = ChatCompletionResponseStreamChoice(
-                    index=0, delta=DeltaMessage(content=delta), finish_reason=None
-                )
                 """
                 meta_info = {
                     "prompt_tokens": len(req.input_ids),
@@ -308,12 +285,37 @@ async def v1_chat_completions(tokenizer_manager, raw_request: Request):
                     "hit_stop_str": req.hit_stop_str,
                 }
                 """
+                if is_first:
+                    # First chunk with role
+                    is_first = False
+                    choice_data = ChatCompletionResponseStreamChoice(
+                        index=0,
+                        delta=DeltaMessage(role="assistant"),
+                        finish_reason=None,
+                    )
+                    chunk = ChatCompletionStreamResponse(
+                        id=content["meta_info"]["id"],
+                        choices=[choice_data],
+                        model=request.model,
+                        arrival_time=content["meta_info"]["arrival_time"],
+                        begin_to_run_time=content["meta_info"]["begin_to_run_time"],
+                        append_to_queue_time=content["meta_info"]["append_to_queue_time"],
+                    )
+                    yield f"data: {jsonify_pydantic_model(chunk)}\n\n"
+
+                text = content["text"]
+                delta = text[len(stream_buffer) :]
+                stream_buffer = text
+                choice_data = ChatCompletionResponseStreamChoice(
+                    index=0, delta=DeltaMessage(content=delta), finish_reason=None
+                )
                 chunk = ChatCompletionStreamResponse(
                     id=content["meta_info"]["id"],
                     choices=[choice_data],
                     model=request.model,
                     arrival_time=content["meta_info"]["arrival_time"],
                     begin_to_run_time=content["meta_info"]["begin_to_run_time"],
+                    append_to_queue_time=content["meta_info"]["append_to_queue_time"],
                 )
                 yield f"data: {jsonify_pydantic_model(chunk)}\n\n"
             yield "data: [DONE]\n\n"

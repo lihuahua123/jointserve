@@ -184,3 +184,4 @@ class ChatCompletionStreamResponse(BaseModel):
     choices: List[ChatCompletionResponseStreamChoice]
     arrival_time: float
     begin_to_run_time: float
+    append_to_queue_time: float

@@ -98,8 +98,8 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
     request_dict["input_ids"][0] = request_dict["input_ids"][0][1]
     # for vllm
     # request_dict["prompt_token_ids"] = prompt_inputs['prompt_token_ids']
-    now_per_gpu_load_len = scheduler.per_gpu_load_len[clinet_index]
-
+    now_per_gpu_load_len = int(time.time())#scheduler.per_gpu_load_len[clinet_index]
+    # now_per_gpu_load_len = scheduler.per_gpu_load[clinet_index]
     headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {os.environ.get('OPENAI_API_KEY')}",
@@ -150,6 +150,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
                             most_recent_timestamp = timestamp
                     output.total_latency_in_engine = data["arrival_time"]
                     output.waiting_latency = data["arrival_time"] - data["begin_to_run_time"]
+                    output.append_to_queue_time = data["append_to_queue_time"]
                     output.generated_text = generated_text
                     output.success = True
                     output.latency = latency
@@ -158,7 +159,7 @@ async def forward_request(request: ChatCompletionRequest,raw_request: Request):
                     output.success = False
         
 
-        scheduler.finish_request(request_id,clinet_index,output,now_per_gpu_load_len) # 到时候可以改成异步
+        scheduler.finish_request(request_id,clinet_index,output,output.append_to_queue_time) # 到时候可以改成异步
     
     return StreamingResponse(get_requests(),media_type="text/event-stream")
 

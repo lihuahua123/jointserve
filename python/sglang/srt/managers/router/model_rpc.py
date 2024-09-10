@@ -1507,7 +1507,7 @@ class ModelRpcServer:
                     - req.prompt_tokens,
                     "completion_tokens_wo_jump_forward": req.completion_tokens_wo_jump_forward,
                     "arrival_time": time.time() - req.arrival_time,
-                    "append_to_queue_time": time.time() - req.append_to_queue_time,
+                    "append_to_queue_time": req.append_to_queue_time,
                     "begin_to_run_time": time.time() - req.begin_run_time,
                     "finish_reason": FinishReason.to_str(req.finish_reason),
                     "hit_stop_str": req.hit_stop_str,

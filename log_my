@@ -1,75 +1,51 @@
-17 conversation turns: 0 []
-18 conversation turns: 0 []
-19 conversation turns: 0 []
-20 conversation turns: 0 []
-21 conversation turns: 0 []
-23 conversation turns: 0 []
-24 conversation turns: 0 []
-44 conversation turns: 0 []
-45 conversation turns: 0 []
-16 conversation turns: 0 [1.3129010919947177]
-1 conversation turns: 0 [1.3107730590272695]
-25 conversation turns: 0 [0.41838989686220884]
-27 conversation turns: 0 [0.41782257007434964]
-11 conversation turns: 0 [1.3143568048253655]
-22 conversation turns: 0 [1.3131124740466475]
-2 conversation turns: 0 [1.3175930611323565]
-31 conversation turns: 0 [1.3127857181243598]
-41 conversation turns: 0 [1.3106926740147173]
-4 conversation turns: 0 [1.3176862779073417]
-33 conversation turns: 0 [1.3128009201027453]
-47 conversation turns: 0 [1.5517803309485316]
-43 conversation turns: 1 [1.309797985944897, 0.2770756259560585]
-26 conversation turns: 1 [1.306315366178751, 0.389764241874218]
-30 conversation turns: 1 [1.3116391878575087, 1.0114916309248656]
-38 conversation turns: 1 [1.3100884049199522, 1.0081965050194412]
-8 conversation turns: 1 [1.3156710111070424, 1.0089276060461998]
-46 conversation turns: 1 [1.5521821011789143, 1.007117253029719]
-35 conversation turns: 2 [1.310225968947634, 0.38364067883230746]
-48 conversation turns: 1 [1.5514909368939698, 2.5388929271139205]
-12 conversation turns: 2 [1.3151221331208944, 1.0074168250430375, 0.8595753579866141]
-15 conversation turns: 2 [1.3143627289682627, 1.0083211241289973, 0.8604056688491255]
-6 conversation turns: 2 [1.3163076480850577, 1.0092041611205786, 0.8577911800239235]
-32 conversation turns: 2 [0.4169218889437616, 1.0134065540041775, 0.8554821792058647]
-37 conversation turns: 2 [1.3114162778947502, 1.0038688839413226, 0.8579568341374397]
-10 conversation turns: 2 [1.3157384721562266, 1.001599924173206, 0.8644286310300231]
-42 conversation turns: 3 [1.3097279698122293, 0.0755626221653074, 0.2711860570125282, 0.23928568395785987]
-5 conversation turns: 3 [1.31641481583938, 1.0101481301244348, 0.8674953770823777, 0.8074031800497323]
-40 conversation turns: 3 [1.3095920849591494, 0.39107292401604354, 0.8651023870334029, 0.8114825431257486]
-36 conversation turns: 3 [1.3114068298600614, 1.1493945240508765, 1.3784199049696326, 0.15390727506019175]
-29 conversation turns: 4 [1.3115733109880239, 1.0122882828582078, 0.8650834430009127, 0.8079231709707528, 0.3133237489964813]
-49 conversation turns: 4 [1.5511523520108312, 2.966629555914551, 1.3764016719069332, 0.18187668290920556, 0.22987863002344966]
-34 conversation turns: 5 [1.311935201054439, 1.0041034729219973, 0.8624319420196116, 0.805401265155524, 0.1228026170283556, 0.3162416310515255]
-7 conversation turns: 5 [1.3091957829892635, 0.38898739591240883, 0.8569374659564346, 0.808459771098569, 0.3120655561797321, 0.31718269689008594]
-13 conversation turns: 5 [1.3153065850492567, 0.999544225865975, 0.8575394200161099, 0.8097958920989186, 0.3122620799113065, 0.31581384991295636]
-3 conversation turns: 5 [1.3174806230235845, 1.0033216271549463, 0.8620998470578343, 0.8070711719337851, 0.3129686720203608, 0.16292206291109324]
-28 conversation turns: 5 [1.3132786331698298, 1.004497058922425, 0.8567686500027776, 0.8068384290672839, 0.3117192799691111, 0.163928217953071]
-0 conversation turns: 5 [1.311605763854459, 0.3888407808262855, 0.8565742389764637, 0.8091829600743949, 0.31205401616171, 0.314910528017208]
-14 conversation turns: 5 [1.3154137779492885, 1.1419827591162175, 0.236126319039613, 0.34792327298782766, 0.1475187719333917, 0.20790182799100876]
-Traceback (most recent call last):
-  File "/usr/lib/python3.11/asyncio/runners.py", line 118, in run
-    return self._loop.run_until_complete(task)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
-    return future.result()
-           ^^^^^^^^^^^^^^^
-  File "/root/jointserve/benchmark/multi_turn_example.py", line 198, in test
-    await task
-  File "/root/jointserve/benchmark/multi_turn_example.py", line 165, in client
-    await asyncio.sleep(sleep_time)
-  File "/usr/lib/python3.11/asyncio/tasks.py", line 649, in sleep
-    return await future
-           ^^^^^^^^^^^^
-asyncio.exceptions.CancelledError
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/root/jointserve/benchmark/multi_turn_example.py", line 203, in <module>
-    asyncio.run(test())
-  File "/usr/lib/python3.11/asyncio/runners.py", line 190, in run
-    return runner.run(main)
-           ^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3.11/asyncio/runners.py", line 123, in run
-    raise KeyboardInterrupt()
-KeyboardInterrupt
+17 conversation turns: 0
+18 conversation turns: 0
+19 conversation turns: 0
+20 conversation turns: 0
+21 conversation turns: 0
+23 conversation turns: 0
+24 conversation turns: 0
+44 conversation turns: 0
+45 conversation turns: 0
+16 conversation turns: 0
+4 conversation turns: 0
+33 conversation turns: 0
+31 conversation turns: 0
+2 conversation turns: 0
+1 conversation turns: 0
+27 conversation turns: 0
+25 conversation turns: 0
+22 conversation turns: 0
+11 conversation turns: 0
+47 conversation turns: 0
+41 conversation turns: 0
+43 conversation turns: 1
+30 conversation turns: 1
+26 conversation turns: 1
+46 conversation turns: 1
+37 conversation turns: 2
+12 conversation turns: 2
+38 conversation turns: 1
+32 conversation turns: 2
+15 conversation turns: 2
+35 conversation turns: 2
+10 conversation turns: 2
+6 conversation turns: 2
+8 conversation turns: 1
+48 conversation turns: 1
+5 conversation turns: 3
+42 conversation turns: 3
+36 conversation turns: 3
+40 conversation turns: 3
+14 conversation turns: 5
+49 conversation turns: 4
+28 conversation turns: 5
+29 conversation turns: 4
+3 conversation turns: 5
+7 conversation turns: 5
+13 conversation turns: 5
+0 conversation turns: 5
+34 conversation turns: 5
+9 conversation turns: 7
+39 conversation turns: 8
+49.744070529937744
