@@ -11,33 +11,22 @@ INFO:model_runner:Rank 0: load weight begin.
 INFO:model_runner:Rank 0: load weight end.
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
 INFO:model_runner:kv one token size: 32 * 128 * 32 * 2 * 2 = 524288 bytes
-INFO:model_runner:total_cpu_memory_GB : 197.07050323486328, max_total_num_token : 7806, max_cpu_num_token : 283959
+INFO:model_runner:total_cpu_memory_GB : 194.90850448608398, max_total_num_token : 7806, max_cpu_num_token : 278663
 INFO:model_rpc:Rank 0: max_total_num_token=7806, max_prefill_num_token=33768, context_len=33768, 
 INFO:model_rpc:server_args: enable_flashinfer=True, attention_reduce_in_fp32=False, disable_radix_cache=False, disable_regex_jump_forward=False, disable_disk_cache=False, 
 INFO:sglang.srt.managers.router.radix_cache:using RadixCache
-INFO:     Started server process [5172]
+INFO:     Started server process [6083]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 INFO:model_rpc:Cache flushed successfully!
+INFO:model_rpc:Cache flushed successfully!
 INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.3921 -> 0.4421
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4407 -> 0.4907
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4902 -> 0.5402
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5321 -> 0.5821
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4405 -> 0.4905
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.4895 -> 0.5395
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5393 -> 0.5893
 INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.5813 -> 0.6313
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6294 -> 0.6794
-INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6614 -> 0.7114
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6217 -> 0.6717
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.6598 -> 0.7098
+INFO:model_rpc:GPU 0: decode out of memory happened, #retracted_reqs: 1, #new_token_ratio: 0.7012 -> 0.7512
 INFO:sglang.srt.managers.router.radix_cache:len(self.cnt_time): 0
-You pressed Ctrl+C! Shutting down all remote servers...
-INFO:     Shutting down
-model /hy-tmp/ loaded.
-len(self.cnt_time): 0
-You pressed Ctrl+C! Shutting down all remote servers...
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [5172]
-Server is on port 30000 on host 0.0.0.0 on pid 5462
-You pressed Ctrl+C! Shutting down all remote servers...
-Loading runtimes at ['http://0.0.0.0:30000/generate']
-You pressed Ctrl+C! Shutting down all remote servers...
-You pressed Ctrl+C! Shutting down all remote servers...

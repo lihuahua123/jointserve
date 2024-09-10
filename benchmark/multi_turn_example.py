@@ -150,7 +150,7 @@ async def client(idx, message_hostory_data,sleep_time=0):
     for index, message in enumerate(message_hostory_data):
         if sum([len(p["content"]) for p in request_func_input.prompt]) + len(message) + request_func_input.output_len > 4000:
             break
-        request_func_input.need_cache = True
+        request_func_input.need_cache = False
         # if index < 5:
         #     request_func_input.need_cache = True
         # elif index == 5:
@@ -171,7 +171,7 @@ async def client(idx, message_hostory_data,sleep_time=0):
         # print(f"waiting_latency:{result.waiting_latency}")
         ttfts.append(result.ttft)
     # print("conversation turns:", index,"request_func_input.prompt",request_func_input.prompt)
-    print(idx, "conversation turns:", index)
+    print(idx, "conversation turns:", index,"request_func_input.prompt",request_func_input.prompt)
 async def test():
     dataset_path = "/hy-tmp/sharegpt.json"
     dataset = []

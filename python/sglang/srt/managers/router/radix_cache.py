@@ -467,7 +467,9 @@ class RadixCacheMix(RadixCache):
                 return False
         # if move_kv:
         with self.timing('copy_node_to_cuda'):
+            self.cnt_time["copy_node_to_cuda_len"] += len(new_index)
             for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cpu"][i][v] = self.token_to_kv_pool.kv_data["cpu"][i][v].pin_memory()
                 self.token_to_kv_pool.kv_data["cuda"][i][new_index] = self.token_to_kv_pool.kv_data["cpu"][i][v].to('cuda', non_blocking=True, copy=True)
         # 我忽略了一个问题，就是这个index原本放在cuda已经被人用了，你这个时候转换过来的话v.to("cuda") 是错误的
         self.token_to_kv_pool.dec_refs(v)
@@ -494,7 +496,9 @@ class RadixCacheMix(RadixCache):
         free_gpu = self.token_to_kv_pool.dec_refs(x.value).item()
         assert free_gpu >= len(x.value)
         with self.timing('copy_node_to_cpu'):
+            self.cnt_time["copy_node_to_cpu_len"] += len(new_cpu_indices)
             for i in range(self.token_to_kv_pool.layer_num):
+                self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices].pin_memory()
                 self.token_to_kv_pool.kv_data["cpu"][i][new_cpu_indices] = self.token_to_kv_pool.kv_data["cuda"][i][x.value].to('cpu', non_blocking=True, copy=True)
         
         x.value =  new_cpu_indices 
