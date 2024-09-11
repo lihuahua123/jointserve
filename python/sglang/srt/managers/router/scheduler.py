@@ -17,7 +17,12 @@ class Scheduler:
         self.max_total_num_token = max_total_num_token
         self.tree_cache = tree_cache
 
-    def get_priority_queue(self, forward_queue):
+    def get_priority_queue(self, forward_queue, loras_num = 0, num_req_prefix_hit = 0):
+        if loras_num/len(forward_queue) > 0.5:
+            self.schedule_heuristic = "lora"
+        elif num_req_prefix_hit/len(forward_queue) > 0.5:
+            self.schedule_heuristic = "lpm"
+            
         if self.schedule_heuristic == "lpm":
             # longest prefix match
             forward_queue.sort(key=lambda x: -len(x.prefix_indices))
